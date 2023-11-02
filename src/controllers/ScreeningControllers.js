@@ -197,6 +197,7 @@ export async function markInviteToNotHold(
       setReturnedInviteDocument({
         ...returnedInviteDocument,
         toNotHold: true,
+        hasHeld:false
       });
       console.log(`we have updated ${id}`);
     });

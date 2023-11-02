@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "./../../config/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
-
-import ApplicationSummary from "./ApplicationSummary";
+import ApplicationListItem from "./adminListItem/ApplicationListItem";
 
 const SummarizedAppicationPanel = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +71,7 @@ const SummarizedAppicationPanel = () => {
       {isLoading
         ? "loading...."
         : arrayOfApplication?.map((item, index) => (
-            <ApplicationSummary
+            <ApplicationListItem
               index={index}
               application={item}
               key={item.id}

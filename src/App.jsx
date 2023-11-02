@@ -11,6 +11,12 @@ import About from "./pages/mainAppPages/About";
 import ContactUs from "./pages/mainAppPages/ContactUs";
 import Auth from "./pages/adminPages/Auth";
 import Dashboard from "./pages/adminPages/Dashboard";
+import ApplicationsPage from "./pages/adminPages/ApplicationsPage";
+import ApplicationDetail from "./pages/adminPages/ApplicationDetail";
+import PlacementPosting from "./pages/adminPages/PlacementPosting";
+import PlacementUnitView from "./pages/adminPages/PlacementUnitView";
+import ScreeningPage from "./pages/adminPages/ScreeningPage";
+import InvitationDetails from "./pages/adminPages/InvitationDetails";
 
 
 
@@ -59,7 +65,18 @@ function App() {
           }
         >
           <Route path="/admin" element={<Dashboard />} />
-
+          <Route path="/admin/applications" element={<ApplicationsPage />} />
+          <Route
+            path="/admin/applications/:id"
+            element={<ApplicationDetail />}
+          />
+          <Route path="/admin/placement" element={<PlacementPosting />} />
+          <Route
+            path="/admin/placement/:unit"
+            element={<PlacementUnitView />}
+          />
+          <Route path="/admin/screening" element={<ScreeningPage />} />
+          <Route path="/admin/screening/:id" element={<InvitationDetails />} />
         </Route>
       </Routes>
     </Router>

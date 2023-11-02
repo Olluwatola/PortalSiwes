@@ -5,8 +5,8 @@ import {
   collection,
   addDoc,
   //deleteDoc,
-  //updateDoc,
-  //doc,
+  updateDoc,
+  doc,
   serverTimestamp,
 } from "firebase/firestore";
 import { removeSpecialCharacters } from "./../utils/removeSpecialCharacters";
@@ -82,5 +82,164 @@ export async function createApplication(
     setApplicationStatusCreationLoading(false);
   } finally {
     setApplicationStatusCreationLoading(false);
+  }
+}
+
+export async function acceptApplication(
+  id,
+  returnedDocument,
+  setReturnedDocument,
+  setApplicationStatusUpdateLoading,
+  setApplicationStatusUpdateError
+) {
+  const applicationDocumentRef = doc(db, "studentApplication", id);
+
+  setApplicationStatusUpdateLoading(true);
+  try {
+    await updateDoc(applicationDocumentRef, {
+      isAccepted: true,
+      isRejected: false,
+    }).then(() => {
+      setReturnedDocument({
+        ...returnedDocument,
+        isAccepted: true,
+        isRejected: false,
+      });
+    });
+    setApplicationStatusUpdateLoading(false);
+    //.filter((doc) => !doc.isRejected && !doc.isAccepted);
+  } catch (err) {
+    console.error(err);
+    setApplicationStatusUpdateError(err);
+    setApplicationStatusUpdateLoading(false);
+  } finally {
+    setApplicationStatusUpdateLoading(false);
+  }
+}
+
+export async function rejectApplication(
+  id,
+  returnedDocument,
+  setReturnedDocument,
+  setApplicationStatusUpdateLoading,
+  setApplicationStatusUpdateError
+) {
+  const applicationDocumentRef = doc(db, "studentApplication", id);
+
+  setApplicationStatusUpdateLoading(true);
+  try {
+    await updateDoc(applicationDocumentRef, {
+      isAccepted: false,
+      isRejected: true,
+      hasGottenPlacement: false,
+      placedTo: "yetToBePlaced",
+    }).then(() => {
+      setReturnedDocument({
+        ...returnedDocument,
+        isAccepted: false,
+        isRejected: true,
+        hasGottenPlacement: false,
+        placedTo: "yetToBePlaced",
+      });
+    });
+    setApplicationStatusUpdateLoading(false);
+    //.filter((doc) => !doc.isRejected && !doc.isAccepted);
+  } catch (err) {
+    console.error(err);
+    setApplicationStatusUpdateError(err);
+    setApplicationStatusUpdateLoading(false);
+  } finally {
+    setApplicationStatusUpdateLoading(false);
+  }
+}
+
+export async function markApplicationAsUnderReview(
+  id,
+  returnedDocument,
+  setReturnedDocument,
+  setApplicationStatusUpdateLoading,
+  setApplicationStatusUpdateError
+) {
+  const applicationDocumentRef = doc(db, "studentApplication", id);
+
+  setApplicationStatusUpdateLoading(true);
+  try {
+    await updateDoc(applicationDocumentRef, {
+      isReviewed: true,
+    }).then(() => {
+      setReturnedDocument({
+        ...returnedDocument,
+        isReviewed: true,
+      });
+    });
+    setApplicationStatusUpdateLoading(false);
+    //.filter((doc) => !doc.isRejected && !doc.isAccepted);
+  } catch (err) {
+    console.error(err);
+    setApplicationStatusUpdateError(err);
+    setApplicationStatusUpdateLoading(false);
+  } finally {
+    setApplicationStatusUpdateLoading(false);
+  }
+}
+
+export async function unmarkApplicationAsUnderReview(
+  id,
+  returnedDocument,
+  setReturnedDocument,
+  setApplicationStatusUpdateLoading,
+  setApplicationStatusUpdateError
+) {
+  const applicationDocumentRef = doc(db, "studentApplication", id);
+
+  setApplicationStatusUpdateLoading(true);
+  try {
+    await updateDoc(applicationDocumentRef, {
+      isReviewed: false,
+    }).then(() => {
+      setReturnedDocument({
+        ...returnedDocument,
+        isReviewed: false,
+      });
+    });
+    setApplicationStatusUpdateLoading(false);
+    //.filter((doc) => !doc.isRejected && !doc.isAccepted);
+  } catch (err) {
+    console.error(err);
+    setApplicationStatusUpdateError(err);
+    setApplicationStatusUpdateLoading(false);
+  } finally {
+    setApplicationStatusUpdateLoading(false);
+  }
+}
+
+export async function placeApplicant(
+  unit,
+  applicationID,
+  setPlacementError,
+  returnedDocument,
+  setReturnedDocument,
+  setApplicationStatusUpdateLoading
+) {
+  let applicationToBeUpdated = doc(db, "studentApplication", applicationID);
+  setApplicationStatusUpdateLoading(true);
+  try {
+    await updateDoc(applicationToBeUpdated, {
+      hasGottenPlacement: true,
+      placedTo: unit,
+    }).then(() => {
+      console.log("weve placed");
+      setReturnedDocument({
+        ...returnedDocument,
+        hasGottenPlacement: true,
+        placedTo: unit,
+      });
+    });
+  } catch (error) {
+    setApplicationStatusUpdateLoading(true);
+    console.log(error);
+    setPlacementError(error);
+  } finally {
+    setApplicationStatusUpdateLoading(false);
   }
 }
