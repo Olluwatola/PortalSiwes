@@ -67,6 +67,12 @@ const SummarizedAppicationPanel = () => {
 
   return (
     <>
+      <h2>PENDING APPLICATIONS</h2>
+      <small>
+        these are applications that have written the accessment test, but have
+        not been accepted nor been declined
+      </small>
+      <br />
       <button onClick={handleFetchSummarizeApplication}>refresh</button>
       {isLoading
         ? "loading...."

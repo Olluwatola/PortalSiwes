@@ -1,10 +1,12 @@
 import { db, auth, storage } from "./../config/firebase";
 import { ref, uploadBytes } from "firebase/storage";
+import { generateTimestampId } from "./../utils/idGenerator";
 import {
   //getDocs,
   collection,
   addDoc,
   //deleteDoc,
+  setDoc,
   updateDoc,
   doc,
   serverTimestamp,
@@ -33,8 +35,8 @@ function uploadFile(file, directoryString) {
 }
 
 export async function createApplication(
-  setApplicationStatusCreationLoading,
-  setApplicationStatusCreationError,
+  setConditionGood,
+  setStatusBarMessage,
   IDfile,
   siwesFile,
   studentLastName,
@@ -46,12 +48,14 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
-  setApplicationStatusCreationLoading(true);
+  setConditionGood("loading");
+  setStatusBarMessage("submitting your application...");
+  const generatedID = generateTimestampId();
   try {
     uploadFile(IDfile, "id");
     uploadFile(siwesFile, "siwesFile");
 
-    await addDoc(applicationCollectionRef, {
+    await setDoc(doc(db, "studentApplication", generatedID), {
       studentLastName: studentLastName,
       studentOtherNames: studentOtherNames,
       studentEmail: auth?.currentUser?.email,
@@ -74,15 +78,18 @@ export async function createApplication(
       applicationTestScore: 0,
       createdAt: serverTimestamp(),
     }).then((feedback) => {
+      setConditionGood("good");
+      setStatusBarMessage("successfully submitted application");
       console.log(feedback);
     });
   } catch (err) {
     console.error(err);
-    setApplicationStatusCreationError(err);
-    setApplicationStatusCreationLoading(false);
-  } finally {
-    setApplicationStatusCreationLoading(false);
+    setConditionGood("error");
+    setStatusBarMessage("ERROR: couldn't submit your application");
   }
+  //  finally {
+  //   setApplicationStatusCreationLoading(false);
+  // }
 }
 
 export async function acceptApplication(

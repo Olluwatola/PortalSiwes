@@ -197,7 +197,7 @@ export async function markInviteToNotHold(
       setReturnedInviteDocument({
         ...returnedInviteDocument,
         toNotHold: true,
-        hasHeld:false
+        hasHeld: false,
       });
       console.log(`we have updated ${id}`);
     });
@@ -272,4 +272,33 @@ export async function markInviteHasNotHeld(
   } finally {
     setMarkInviteLoading(false);
   }
+}
+
+export async function updateTestResults(
+  arrayOfObj,
+  invitationID,
+  returnedInviteDocument,
+  setReturnedInviteDocument
+) {
+  try {
+    await Promise.all(
+      arrayOfObj?.map(async (obj) => {
+        await updateDoc(doc(db, "studentApplication", obj.id), {
+          hasWrittenApplicationTest: true,
+          applicationTestScore: obj.totalScore,
+        }).then(() => {
+          console.log(`we have updated marked`);
+        });
+      })
+    );
+    //we then update the invitation document to show that the invite's results have been uploaded'
+    await updateDoc(doc(db, "invitations", invitationID), {
+      hasResultUploaded: true,
+    }).then(() => {
+      setReturnedInviteDocument({
+        ...returnedInviteDocument,
+        hasResultUploaded: true,
+      });
+    });
+  } catch (error) {}
 }

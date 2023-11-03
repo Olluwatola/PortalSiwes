@@ -17,6 +17,8 @@ import PlacementPosting from "./pages/adminPages/PlacementPosting";
 import PlacementUnitView from "./pages/adminPages/PlacementUnitView";
 import ScreeningPage from "./pages/adminPages/ScreeningPage";
 import InvitationDetails from "./pages/adminPages/InvitationDetails";
+import PortalSettings from "./pages/adminPages/PortalSettings";
+
 
 
 
@@ -77,6 +79,7 @@ function App() {
           />
           <Route path="/admin/screening" element={<ScreeningPage />} />
           <Route path="/admin/screening/:id" element={<InvitationDetails />} />
+          <Route path="/admin/portal" element={<PortalSettings />} />
         </Route>
       </Routes>
     </Router>

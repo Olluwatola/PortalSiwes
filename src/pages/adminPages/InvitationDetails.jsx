@@ -10,6 +10,7 @@ import {
 } from "./../../controllers/ScreeningControllers";
 import { getOneApplication } from "./../../controllers/fetchApplication";
 import ApplicationListItem from "./../../components/adminComponents/adminListItem/ApplicationListItem";
+import InvitationResultHandler from "./../../components/adminComponents/InvitationResultHandler";
 
 const InvitationDetails = () => {
   const [returnedInviteDocument, setReturnedInviteDocument] = useState(null);
@@ -88,11 +89,16 @@ const InvitationDetails = () => {
       <h1>INVITATION</h1>
       <h2>invitation summary</h2>
       <h3>{returnedInviteDocument?.date}</h3>
-      <b>{returnedInviteDocument?.time}</b><br/>
+      <b>{returnedInviteDocument?.time}</b>
+      <br />
       {returnedInviteDocument?.toNotHold === true
         ? "THIS INVITE HAS BEEN MARKED TO NOT HOLD"
         : null}
-        <br/>
+        
+      {returnedInviteDocument?.hasResultUploaded === true
+        ? "RESULTS HAVE BEEN UPLOADED"
+        : "RESULT NOT UPLOADED "}
+      <br />
       <button
         onClick={() => {
           markInviteHasHeld(
@@ -124,12 +130,12 @@ const InvitationDetails = () => {
             setMarkInviteError
           );
         }}
-        disabled={returnedInviteDocument?.hasHeld===false}
-
+        disabled={returnedInviteDocument?.hasHeld === false}
       >
         mark as not held
-      </button><br/>
-      
+      </button>
+      <br />
+
       <button
         onClick={() => {
           markInviteToNotHold(
@@ -141,7 +147,6 @@ const InvitationDetails = () => {
           );
         }}
         disabled={returnedInviteDocument?.toNotHold}
-
       >
         mark invitation to not hold
       </button>
@@ -155,12 +160,11 @@ const InvitationDetails = () => {
             setMarkInviteError
           );
         }}
-        disabled={returnedInviteDocument?.toNotHold===false}
-
+        disabled={returnedInviteDocument?.toNotHold === false}
       >
         unmark invitation to not hold
       </button>
-      <br/>
+      <br />
       <button onClick={openModal}>
         Create New Invite(with the same invitees)
       </button>
@@ -203,6 +207,12 @@ const InvitationDetails = () => {
           onClose={closeModal}
         />
         {getApplicationsError ? getApplicationsError : null}
+        <InvitationResultHandler
+          participantsIdArray={returnedInviteDocument?.participantsIdArray}
+          invitationId={id}
+          returnedInviteDocument={returnedInviteDocument}
+          setReturnedInviteDocument={setReturnedInviteDocument}
+        />
       </>
     </>
   );

@@ -130,6 +130,7 @@ function CreateInvitation({
         time: selectedTime,
         timestamp,
         venue,
+        hasResultUploaded:false,
         toNotHold: false,
         participantsIdArray: arrayOfIds,
         hasHeld: false,

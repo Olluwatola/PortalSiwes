@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {signUserOut} from "./../../controllers/authControllers"
+import { signUserOut } from "./../../controllers/authControllers";
 
 const divStyle = {
   display: "inline-block",
@@ -21,6 +21,9 @@ const AdminNavbar = () => {
         </li>
         <li style={divStyle}>
           <Link to="/admin/screening">Screening</Link>
+        </li>
+        <li style={divStyle}>
+          <Link to="/admin/portal">Portal Settings</Link>
         </li>
         <li>
           <button onClick={signUserOut}>logout</button>

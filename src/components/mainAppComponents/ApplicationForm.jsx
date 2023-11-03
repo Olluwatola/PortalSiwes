@@ -18,7 +18,7 @@ import //getDocs,
 import { createApplication } from "./../../controllers/applicationControllers";
 
 
-export function ApplicationForm({ studentEmail }) {
+export function ApplicationForm({ studentEmail,setConditionGood,setStatusBarMessage }) {
   const [
     applicationStatusCreationLoading,
     setApplicationStatusCreationLoading,
@@ -50,8 +50,8 @@ export function ApplicationForm({ studentEmail }) {
     try {
       e.preventDefault();
       await createApplication(
-        setApplicationStatusCreationLoading,
-        setApplicationStatusCreationError,
+        setConditionGood,
+        setStatusBarMessage,
         IDfile,
         siwesFile,
         studentLastName,

@@ -26,8 +26,6 @@ const Dashboard = () => {
       <button onClick={handleLogOut}>Log Out</button>
       <StatisticPanel />
       <br />
-      <h2>PENDING APPLICATIONS</h2>
-      <br />
       <SummarizedApplicationPanel />
       <NotCompletedInvitationPanel />
       <div>{errorFeedback ? errorFeedback : null}</div>
