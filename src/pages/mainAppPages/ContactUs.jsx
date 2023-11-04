@@ -20,17 +20,17 @@ function ContactUs() {
       } catch (error) {}
     };
     getContactUsInfo();
-  }, [contactUsInfo, contactUsInfoRef]);
+  }, []);
 
   return (
     <>
-      {contactUsInfo[0]?.contactUsNumber}
-      <br />
+      IF YOU HAVE ANY QUESTIONS? MAIL US ON ...
       {contactUsInfo[0]?.contactUsEmail}
       <br />
+      {contactUsInfo[0]?.contactUsNumber}
+      <br />
       {contactUsInfo[0]?.address}
-
-      <ContactUsForm />
+      {/* <ContactUsForm /> */}
     </>
   );
 }

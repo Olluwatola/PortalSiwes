@@ -2,6 +2,7 @@ import { useState } from "react";
 import UpdateMainUiForm from "./../../components/adminComponents/UpdateMainUiForm";
 import StatusBar from "./../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import UpdateFAQ from "./../../components/adminComponents/UpdateFAQ";
+import ValidateTestimonials from "./../../components/adminComponents/ValidateTestimonials";
 
 const PortalSettings = () => {
   const [conditionGood, setConditionGood] = useState(null);
@@ -19,6 +20,11 @@ const PortalSettings = () => {
       />
       <hr />
       <UpdateFAQ
+        setConditionGood={setConditionGood}
+        setStatusBarMessage={setStatusBarMessage}
+      />
+      <hr />
+      <ValidateTestimonials
         setConditionGood={setConditionGood}
         setStatusBarMessage={setStatusBarMessage}
       />

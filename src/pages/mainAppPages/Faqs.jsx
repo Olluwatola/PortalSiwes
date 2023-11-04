@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import FaqForm from "./../../components/mainAppComponents/FaqForm";
+//import FaqForm from "./../../components/mainAppComponents/FaqForm";
 import Accordion from "./../../components/mainAppComponents/Accordion";
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import { getFaqs } from "../../controllers/fetchMainAppDetails";
@@ -37,7 +37,7 @@ function Faq() {
       {faqArray.map((faq, index) => (
         <Accordion key={index} question={faq.question} answer={faq.answer} />
       ))}
-      <FaqForm />
+      {/* <FaqForm /> */}
     </>
   );
 }
