@@ -67,27 +67,27 @@ const StatisticPanel = () => {
 
       <ElementBox
         valueOfHeader={totalNumberOfApplications}
-        link={"/admin/applications"}
+        link={"/admin/applications/category/all"}
       >
         Total number of applications
       </ElementBox>
 
       <ElementBox
         valueOfHeader={numberOfAcceptedApplications}
-        link={"/admin/applications/"}
+        link={"/admin/applications/category/accepted"}
       >
         Number of applications approved
       </ElementBox>
 
       <ElementBox
         valueOfHeader={numberOfRejectedApplications}
-        link={"/admin/applications/"}
+        link={"/admin/applications/category/rejected"}
       >
         Number of applications declined
       </ElementBox>
       <ElementBox
         valueOfHeader={numberOfPendingApplications}
-        link={"/admin/applications/"}
+        link={"/admin/applications/category/pending"}
       >
         Number of pending applications (written test but not rejected nor
         accepted)

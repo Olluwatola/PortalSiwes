@@ -5,7 +5,10 @@ const PrivateRoutesLayout = ({ isAuthReady, userProfile }) => {
 
   if (!isAuthReady) {
     return "Loading..."; // Display a loading message while waiting for authentication data
-  } else if (userProfile?.role === "admin") {
+  } else if (
+    userProfile?.role === "admin" ||
+    userProfile?.role === "superAdmin"
+  ) {
     return <Outlet />;
   } else {
     return <Navigate to="/admin/auth" state={{ from: location }} replace />;

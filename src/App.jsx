@@ -19,9 +19,6 @@ import ScreeningPage from "./pages/adminPages/ScreeningPage";
 import InvitationDetails from "./pages/adminPages/InvitationDetails";
 import PortalSettings from "./pages/adminPages/PortalSettings";
 
-
-
-
 function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
@@ -67,6 +64,10 @@ function App() {
           }
         >
           <Route path="/admin" element={<Dashboard />} />
+          <Route
+            path="/admin/applications/category/:c"
+            element={<ApplicationsPage />}
+          />
           <Route path="/admin/applications" element={<ApplicationsPage />} />
           <Route
             path="/admin/applications/:id"

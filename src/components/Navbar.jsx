@@ -14,7 +14,7 @@ const Navbar = ({userProfile}) => {
   if (isProtectedRoute && isLoginPage) {
     return null;
   } else if (isProtectedRoute) {
-    if (userProfile?.role === "admin") {
+    if (userProfile?.role === "admin" || userProfile?.role === "superAdmin") {
       console.log(userProfile.role)
       return <AdminNavbar />;
     } else {

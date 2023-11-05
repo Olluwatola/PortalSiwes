@@ -9,6 +9,7 @@ import {
 } from "./../../controllers/fetchApplication";
 
 const ApplicationsPageTabs = ({
+  category,
   setArrayOfApplication,
   setIsLoading,
   returnedApplications,

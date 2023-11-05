@@ -1,22 +1,23 @@
 import { useState } from "react";
-
 import { useNavigate, useLocation } from "react-router-dom";
-import { auth, db } from "../../config/firebase";
+import { auth } from "../../config/firebase"; // Import auth only, not db
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-} from "firebase/auth";
+} from "firebase/auth"; // Import functions directly from firebase/auth
 import {
   handleGetUserProfileAndReturnRole,
   handleCreateAdminProfileDocument,
 } from "./../../controllers/authControllers";
+import ResetPasswordComponent from "./ResetPasswordComponent";
 
-const LoginForm = () => {
+const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
   const [signUpAttempt, setSignUpAttempt] = useState(false);
+  const [resetPasswordToggle, setResetPasswordToggle] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [signUpErrorMessage, setSignUpErrorMessage] = useState(null);
   const [adminProfileCreationLoading, setAdminProfileCreationLoading] =
@@ -27,46 +28,37 @@ const LoginForm = () => {
 
   const from = location.state?.from?.pathname || "/admin";
 
-  
+  const handleToggleResetPassword = () => {
+    setResetPasswordToggle(!resetPasswordToggle); // Toggle the resetPasswordToggle state
+  };
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(auth);
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-        .then(async (userCredential) => {
-          //try to get the user profile to check user role
-          const userRole = await handleGetUserProfileAndReturnRole(
-            userCredential.user.uid
-          );
-          console.log(userRole);
-          if (userRole === "admin") {
-            navigate(from, { replace: true });
-          }
+      console.log(auth)
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      const userRole = await handleGetUserProfileAndReturnRole(
+        userCredential.user.uid
+      );
 
-          if (userRole !== "admin") {
-            setErrorMessage(
-              "you are not an admin, you might have not been approved as an admin"
-            );
-            throw new Error(
-              "you are not an admin, you might have not been approved as an admin"
-            );
-          }
-          setLoginEmail("");
-          setLoginPassword("");
+      if (userRole === "admin" || userRole === "superAdmin") {
+        navigate(from, { replace: true });
+      } else {
+        setErrorMessage(
+          "You are not an admin or have not been approved as an admin."
+        );
+        throw new Error(
+          "You are not an admin or have not been approved as an admin."
+        );
+      }
 
-          console.log(userCredential.user);
-          console.log(auth);
-          return;
-        })
-        .catch((error) => {
-          console.log(` first ${error}`);
-          throw error;
-          // ..
-        });
+      setLoginEmail("");
+      setLoginPassword("");
     } catch (err) {
-      console.log(`second catch ${err}`);
-      // const errorCode = err.code;
-      // const errorMessage = err.message;
       setErrorMessage(err.message);
     }
   };
@@ -74,83 +66,84 @@ const LoginForm = () => {
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
-        .then((userCredential) => {
-          console.log(userCredential);
-          handleCreateAdminProfileDocument(
-            setSignUpErrorMessage,
-            setAdminProfileCreationLoading,
-            userCredential.user.email,
-            userCredential.user.uid
-          );
-          setSignUpEmail("");
-          setSignUpPassword("");
-        })
-        .catch((error) => {
-          console.log(error);
-          throw error;
-        });
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        signUpEmail,
+        signUpPassword
+      );
+      await handleCreateAdminProfileDocument(
+        setSignUpErrorMessage,
+        setAdminProfileCreationLoading,
+        userCredential.user.email,
+        userCredential.user.uid
+      );
+      setSignUpEmail("");
+      setSignUpPassword("");
     } catch (err) {
-      console.log(err);
       setSignUpErrorMessage(err.message);
+      console.log(err);
     }
   };
 
-  function toggleSignUpAttempt() {
-    setSignUpAttempt(!signUpAttempt);
-  }
+  const toggleSignUpAttempt = () => {
+    setSignUpAttempt(!signUpAttempt); // Toggle the signUpAttempt state
+  };
 
-
-  return adminProfileCreationLoading === false ? (
-    signUpAttempt === false ? (
-      <>
-        <h2>Login</h2>
-        <form onSubmit={handleLoginSubmit}>
-          <input
-            value={loginEmail}
-            placeholder="loginEmail.."
-            name="siwesLoginEmail"
-            onChange={(e) => setLoginEmail(e.target.value)}
-          />
-          <input
-            value={loginPassword}
-            placeholder="password.."
-            name="siwesLoginPassword"
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-          {errorMessage && <p>{errorMessage}</p>}
-          <br />
-          <button type="submit">Login</button>
-        </form>
-        <button onClick={toggleSignUpAttempt}>Sign Up</button>
-      </>
-    ) : (
-      <>
-        <h2>SignUp</h2>
-        <p>Approval of your application to be an admin might take a while,</p>
-        <p>
-          You will recieve an approval email as soon as your application is
-          approved
-        </p>
-        <form onSubmit={handleSignUpSubmit}>
-          <input
-            value={signUpEmail}
-            placeholder="signUp Email.."
-            onChange={(e) => setSignUpEmail(e.target.value)}
-          />
-          <input
-            value={signUpPassword}
-            placeholder="sign Up password.."
-            onChange={(e) => setSignUpPassword(e.target.value)}
-          />
-          {signUpErrorMessage && <p>{signUpErrorMessage}</p>}
-          <button type="submit">Apply to be an admin</button>
-        </form>
-        <button onClick={toggleSignUpAttempt}>login</button>
-      </>
-    )
+  return resetPasswordToggle ? (
+    <ResetPasswordComponent
+      setConditionGood={setConditionGood}
+      setStatusBarMessage={setStatusBarMessage}
+      handleToggleResetPassword={handleToggleResetPassword}
+    />
+  ) : signUpAttempt ? (
+    <>
+      <h2>Sign Up</h2>
+      <p>Approval of your application to be an admin might take a while.</p>
+      <p>
+        You will receive an approval email as soon as your application is
+        approved.
+      </p>
+      <form onSubmit={handleSignUpSubmit}>
+        <input
+          value={signUpEmail}
+          placeholder="Sign Up Email.."
+          onChange={(e) => setSignUpEmail(e.target.value)}
+        />
+        <input
+          value={signUpPassword}
+          placeholder="Sign Up Password.."
+          onChange={(e) => setSignUpPassword(e.target.value)}
+        />
+        {signUpErrorMessage && <p>{signUpErrorMessage}</p>}
+        <button type="submit">Apply to be an admin</button>
+      </form>
+      <hr />
+      <button onClick={toggleSignUpAttempt}>Login</button>
+    </>
   ) : (
-    <p>loading....</p>
+    <>
+      <h2>Login</h2>
+      <form onSubmit={handleLoginSubmit}>
+        <input
+          value={loginEmail}
+          placeholder="Login Email.."
+          name="loginEmail"
+          onChange={(e) => setLoginEmail(e.target.value)}
+        />
+        <input
+          value={loginPassword}
+          //type="password" // Make sure password input is of type password
+          placeholder="Password.."
+          name="loginPassword"
+          onChange={(e) => setLoginPassword(e.target.value)}
+        />
+        {errorMessage && <p>{errorMessage}</p>}
+        <button type="submit">Login</button>
+      </form>
+      <button onClick={handleToggleResetPassword}>Reset password</button>
+      <hr />
+      <button onClick={toggleSignUpAttempt}>Sign Up</button>
+    </>
   );
 };
 
