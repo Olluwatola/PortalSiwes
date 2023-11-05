@@ -100,7 +100,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
       <h2>Sign Up</h2>
       <p>Approval of your application to be an admin might take a while.</p>
       <p>
-        You will receive an approval email as soon as your application is
+        You will receive an approval mail as soon as your application is
         approved.
       </p>
       <form onSubmit={handleSignUpSubmit}>
