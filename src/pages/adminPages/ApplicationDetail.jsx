@@ -160,6 +160,16 @@ const ApplicationDetail = () => {
         ? "has not written test"
         : returnedDocument?.applicationTestScore}
       <br />
+      <img
+        src={returnedDocument?.idFileReference}
+        alt="id image"
+        style={{ width: "45vw" }}
+      />
+      <img
+        src={returnedDocument?.siwesFileReference}
+        alt="siwes image"
+        style={{ width: "45vw" }}
+      />
       {applicationStatusUpdateLoading ? "updating application..." : null}
       {applicationStatusUpdateError ? "ERROR UPDATING APPLICATION" : null}
       <button

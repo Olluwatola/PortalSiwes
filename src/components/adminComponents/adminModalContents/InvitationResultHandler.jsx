@@ -1,20 +1,26 @@
 import { useState } from "react";
-import { convertStringToPercentage } from "./../../utils/convertStringToPercentage";
-import { removeQuotes } from "../../utils/removeQuotes";
-import { updateTestResults } from "./../../controllers/ScreeningControllers";
-import { filterObjectsById } from "../../utils/filterObjectsById";
+import { convertStringToPercentage } from "./../../../utils/convertStringToPercentage";
+import { removeQuotes } from "../../../utils/removeQuotes";
+import { updateTestResults } from "./../../../controllers/ScreeningControllers";
+import { filterObjectsById } from "../../../utils/filterObjectsById";
 
 function InvitationResultHandler({
   participantsIdArray,
   invitationId,
+  onRequestClose,
   returnedInviteDocument,
-  setReturnedInviteDocument
+  setReturnedInviteDocument,
 }) {
   const [csvData, setCsvData] = useState();
 
   async function handleUpdateTestResults() {
     const filterdArray = filterObjectsById(participantsIdArray, csvData);
-    updateTestResults(filterdArray, invitationId,returnedInviteDocument,setReturnedInviteDocument);
+    updateTestResults(
+      filterdArray,
+      invitationId,
+      returnedInviteDocument,
+      setReturnedInviteDocument
+    );
   }
 
   const handleFileUpload = (e) => {
@@ -72,6 +78,7 @@ function InvitationResultHandler({
           ))}
         </tbody>
       </table>
+      <button onClick={onRequestClose}>Finished</button>
     </div>
   );
 }

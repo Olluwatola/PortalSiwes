@@ -14,17 +14,20 @@ import //getDocs,
 //serverTimestamp,
 "firebase/firestore";
 
-
 import { createApplication } from "./../../controllers/applicationControllers";
 
-
-export function ApplicationForm({ studentEmail,setConditionGood,setStatusBarMessage }) {
-  const [
-    applicationStatusCreationLoading,
-    setApplicationStatusCreationLoading,
-  ] = useState(false);
-  const [applicationStatusCreationError, setApplicationStatusCreationError] =
-    useState(null);
+export function ApplicationForm({
+  studentEmail,
+  setConditionGood,
+  setStatusBarMessage,
+}) {
+  //  const [
+  //   applicationStatusCreationLoading,
+  //   setApplicationStatusCreationLoading,
+  // ] = useState(false);
+  //const [applicationStatusCreationError, setApplicationStatusCreationError] =
+  //useState(null);
+  const [submitButtonClicked, setsubmitButtonClicked] = useState(false);
   const [studentLastName, setStudentLastName] = useState("");
   const [studentOtherNames, setStudentOtherNames] = useState("");
   const [studentPhoneNumber, setStudentPhoneNumber] = useState("");
@@ -49,44 +52,56 @@ export function ApplicationForm({ studentEmail,setConditionGood,setStatusBarMess
   const onSubmitApplication = async (e) => {
     try {
       e.preventDefault();
-      await createApplication(
-        setConditionGood,
-        setStatusBarMessage,
-        IDfile,
-        siwesFile,
-        studentLastName,
-        studentOtherNames,
-        studentPhoneNumber,
-        studentInstitution,
-        studentLevel,
-        studentCourse,
-        aboutStudent,
-        durationOfInternship
-      );
+      if (studentEmail.length < 1) {
+        setConditionGood("error");
+        setStatusBarMessage("ensure you fill in the email field");
+        return;
+      } else {
+        setsubmitButtonClicked(true);
+        await createApplication(
+          setsubmitButtonClicked,
+          setConditionGood,
+          setStatusBarMessage,
+          IDfile,
+          siwesFile,
+          studentLastName,
+          studentOtherNames,
+          studentPhoneNumber,
+          studentInstitution,
+          studentLevel,
+          studentCourse,
+          aboutStudent,
+          durationOfInternship
+        ).then((res) => {
+          if (res instanceof Error) {
+            return;
+          } else {
+            setStudentLastName("");
+            setStudentOtherNames("");
+            //setStudentEmail("");
+            setStudentPhoneNumber("");
+            setStudentInstitution("");
+            setStudentCourse("");
+            setAboutStudent("");
+            setIDFile(null);
+            setSiwesFile(null);
+            //setDurationOfInternship("")
 
-
-      setStudentLastName("");
-      setStudentOtherNames("");
-      //setStudentEmail("");
-      setStudentPhoneNumber("");
-      setStudentInstitution("");
-      setStudentCourse("");
-      setAboutStudent("");
-      setIDFile(null);
-      setSiwesFile(null);
-      //setDurationOfInternship("")
-
-      console.log(auth?.currentUser);
-      console.log("done");
+            console.log(auth?.currentUser);
+            console.log("done");
+          }
+        });
+      }
     } catch (err) {
       console.error(err);
       console.log("ERRORRRRRR ");
+      setsubmitButtonClicked(false);
     }
   };
 
   return (
     <div>
-      {console.log(auth?.currentUser?.displayName, "hmmmm")}
+      {/* {console.log(auth?.currentUser?.displayName, "hmmmm")} */}
       <form onSubmit={onSubmitApplication}>
         <input
           placeholder="Last Name..."
@@ -144,18 +159,21 @@ export function ApplicationForm({ studentEmail,setConditionGood,setStatusBarMess
         </select>
         <br />
         <hr />
-        <label>Upload pdf file of your school ID</label>
+        <label>Upload image of your school ID (IMAGE ONLY)</label>
         <br />
-        <input type="file" onChange={handleIDFileChange} />
+        <input type="file" onChange={handleIDFileChange} required />
         <br />
         <br />
 
-        <label>Upload Siwes Letter file of your school ID</label>
+        <label>Upload image of your Siwes Letter (IMAGE ONLY)</label>
         <br />
-        <input type="file" onChange={handleSiwesFileChange} />
+        <input type="file" onChange={handleSiwesFileChange} required />
         <br />
         <br />
-        <button type="submit"> Submit Application</button>
+        <button type="submit" disabled={submitButtonClicked}>
+          {" "}
+          Submit Application
+        </button>
       </form>
     </div>
   );

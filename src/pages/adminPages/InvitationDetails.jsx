@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import InvitationModal from "./../../components/adminComponents/adminModals/CreateInvitationModal";
+import InvitationResultHandlerModal from "./../../components/adminComponents/adminModals/InvitationResultHandlerModal";
+
 import {
   fetchOneInvite,
   markInviteHasHeld,
@@ -10,11 +12,11 @@ import {
 } from "./../../controllers/ScreeningControllers";
 import { getOneApplication } from "./../../controllers/fetchApplication";
 import ApplicationListItem from "./../../components/adminComponents/adminListItem/ApplicationListItem";
-import InvitationResultHandler from "./../../components/adminComponents/InvitationResultHandler";
 
 const InvitationDetails = () => {
   const [returnedInviteDocument, setReturnedInviteDocument] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isIRHMModalOpen, setIsIRHMModalOpen] = useState(false);
   const [inviteFetchLoading, setInviteFetchLoading] = useState(false);
   const [fetchInviteError, setFetchInviteError] = useState(null);
   const [markInviteError, setMarkInviteError] = useState(null);
@@ -26,6 +28,14 @@ const InvitationDetails = () => {
     useState(false);
 
   const { id } = useParams();
+
+  const openIRHMModal = () => {
+    setIsIRHMModalOpen(true);
+  };
+  const closeIRHMModal = () => {
+    setIsIRHMModalOpen(false);
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -94,7 +104,6 @@ const InvitationDetails = () => {
       {returnedInviteDocument?.toNotHold === true
         ? "THIS INVITE HAS BEEN MARKED TO NOT HOLD"
         : null}
-        
       {returnedInviteDocument?.hasResultUploaded === true
         ? "RESULTS HAVE BEEN UPLOADED"
         : "RESULT NOT UPLOADED "}
@@ -135,7 +144,6 @@ const InvitationDetails = () => {
         mark as not held
       </button>
       <br />
-
       <button
         onClick={() => {
           markInviteToNotHold(
@@ -167,7 +175,8 @@ const InvitationDetails = () => {
       <br />
       <button onClick={openModal}>
         Create New Invite(with the same invitees)
-      </button>
+      </button>{" "}
+      <button onClick={openIRHMModal}>Upload Invite Result</button>
       <br />
       {returnedInviteDocument?.venue}
       <br />
@@ -207,11 +216,12 @@ const InvitationDetails = () => {
           onClose={closeModal}
         />
         {getApplicationsError ? getApplicationsError : null}
-        <InvitationResultHandler
-          participantsIdArray={returnedInviteDocument?.participantsIdArray}
-          invitationId={id}
-          returnedInviteDocument={returnedInviteDocument}
+        <InvitationResultHandlerModal
           setReturnedInviteDocument={setReturnedInviteDocument}
+          id={id}
+          returnedInviteDocument={returnedInviteDocument}
+          isIRHMOpen={isIRHMModalOpen}
+          onIRHMClose={closeIRHMModal}
         />
       </>
     </>

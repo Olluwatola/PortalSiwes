@@ -1,40 +1,89 @@
 import { db, auth, storage } from "./../config/firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import {
+  //getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { generateTimestampId } from "./../utils/idGenerator";
 import {
   //getDocs,
-  collection,
-  addDoc,
+  //collection,
+  //addDoc,
   //deleteDoc,
   setDoc,
   updateDoc,
   doc,
   serverTimestamp,
 } from "firebase/firestore";
-import { removeSpecialCharacters } from "./../utils/removeSpecialCharacters";
 
 const storageRef = ref(storage);
-const applicationCollectionRef = collection(db, "studentApplication");
+//const applicationCollectionRef = collection(db, "studentApplication");
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
-function uploadFile(file, directoryString) {
-  if (file) {
-    const refName = removeSpecialCharacters(auth?.currentUser?.email);
-    const endRef = ref(storageRef, directoryString + "/" + refName);
+function isImage(file) {
+  return file.type.startsWith("image/");
+}
 
-    uploadBytes(endRef, file)
-      .then((snapshot) => {
-        console.log(`Uploaded ${directoryString} file!`);
-      })
-      .catch((error) => {
-        console.error("Error uploading file:", error);
-      });
-  } else {
-    return;
-  }
+async function uploadFile(file, filetype, generatedID) {
+  return new Promise((resolve, reject) => {
+    if (file) {
+      //const refName = removeSpecialCharacters(auth?.currentUser?.email);
+      const endRef = ref(storageRef, generatedID + "/" + filetype);
+
+      //   uploadBytes(endRef, file)
+      //     .then((snapshot) => {
+      //       console.log(`Uploaded file!`);
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error uploading file:", error);
+      //     });
+
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+
+      const uploadTask = uploadBytesResumable(endRef, file, metadata);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+          reject(error); // Reject the Promise in case of an error
+        },
+        async () => {
+          try {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log("File available at", downloadURL);
+            resolve(downloadURL); // Resolve the Promise with the download URL
+          } catch (error) {
+            console.log("Error getting download URL:", error);
+            reject(error); // Reject the Promise in case of an error
+          }
+        }
+      );
+    } else {
+      console.log(`Can't find the file`);
+      reject("No file found"); // Reject the Promise when there's no file
+    }
+  });
 }
 
 export async function createApplication(
+  setsubmitButtonClicked,
   setConditionGood,
   setStatusBarMessage,
   IDfile,
@@ -48,12 +97,23 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
+  if (isImage(IDfile) !== true && isImage(siwesFile) !== true) {
+    setConditionGood("error");
+    setStatusBarMessage("ERROR 415:ensure your files are image files!");
+    throw Error("ERROR 415:ensure your files are image files!");
+  }
   setConditionGood("loading");
   setStatusBarMessage("submitting your application...");
   const generatedID = generateTimestampId();
   try {
-    uploadFile(IDfile, "id");
-    uploadFile(siwesFile, "siwesFile");
+    const idDownloadLink = await uploadFile(IDfile, "idfile", generatedID);
+    const siwesFileDownloadLink = await uploadFile(
+      siwesFile,
+      "siwesFile",
+      generatedID
+    );
+    console.log("lets seeee", idDownloadLink);
+    console.log("lets see", siwesFileDownloadLink);
 
     await setDoc(doc(db, "studentApplication", generatedID), {
       studentLastName: studentLastName,
@@ -65,8 +125,8 @@ export async function createApplication(
       studentCourse: studentCourse,
       aboutStudent: aboutStudent,
       durationOfInternship: durationOfInternship,
-      idFileReference: "insertStringHere",
-      siwesFileReference: "insertStringHere",
+      idFileReference: idDownloadLink,
+      siwesFileReference: siwesFileDownloadLink,
       isReviewed: false,
       isAccepted: false,
       isRejected: false,
@@ -84,8 +144,10 @@ export async function createApplication(
     });
   } catch (err) {
     console.error(err);
+    setsubmitButtonClicked(false);
     setConditionGood("error");
     setStatusBarMessage("ERROR: couldn't submit your application");
+    return Error(err.message);
   }
   //  finally {
   //   setApplicationStatusCreationLoading(false);

@@ -82,7 +82,7 @@ const ApplicantsNotInvited = () => {
       )}
       <br />
       <InvitationModal
-        userObject={returnedDocument}
+        userObjectArray={[returnedDocument]}
         isOpen={isModalOpen}
         onClose={closeModal}
       />
