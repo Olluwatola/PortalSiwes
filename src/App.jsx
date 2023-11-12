@@ -21,6 +21,7 @@ import PortalSettings from "./pages/adminPages/PortalSettings";
 function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const [applyModal, setapplyModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -45,9 +46,9 @@ function App() {
 
   return (
     <Router>
-      <Navbar userProfile={userProfile} />
+      <Navbar userProfile={userProfile} applyModal={applyModal} setapplyModal={setapplyModal} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home applyModal={applyModal} setapplyModal={setapplyModal} />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
