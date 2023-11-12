@@ -1,59 +1,25 @@
 import { Link } from "react-router-dom";
 
-const divStyle = {
-  display: "inline-block",
-  marginRight: "10px", // Optional: Add some spacing between the divs
-};
-
 const PublicNavbar = () => {
   return (
-    <nav>
-      <ul
-      //   className="navbar"
-      >
-        <li
-          style={divStyle}
-          // className="nav-item"
-        >
-          <Link
-            to="/"
-            //   className="nav-link"
-          >
-            Home
+    <nav className="fixed h-fit inset-0 px-16 pt-8">
+      <ul className="text-white flex items-center w-fit gap-3">
+        <li>
+          <Link to="/" className="text-xl">
+            <span className="font-secondary flex items-center justify-center">
+              IT<div className="font-primary -rotate-45 font-semibold">e</div>Ms
+            </span>
           </Link>
         </li>
-        <li
-          style={divStyle}
-          // className="nav-item"
-        >
-          <Link
-            to="/faqs"
-            //   className="nav-link"
-          >
-            FAQ
-          </Link>
+        <span className="text-2xl font-light">|</span>
+        <li>
+          <Link to="/about">About</Link>
         </li>
-        <li
-          style={divStyle}
-          //  className="nav-item"
-        >
-          <Link
-            to="/contactus"
-            //   className="nav-link"
-          >
-            Contact Us
-          </Link>
+        <li>
+          <Link to="/faqs">FAQs</Link>
         </li>
-        <li
-          style={divStyle}
-          //  className="nav-item"
-        >
-          <Link
-            to="/about"
-            //   className="nav-link"
-          >
-            About
-          </Link>
+        <li>
+          <Link to="/contactus">Contact Us</Link>
         </li>
       </ul>
     </nav>
