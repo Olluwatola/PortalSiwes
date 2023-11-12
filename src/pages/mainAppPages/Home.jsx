@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Auth } from "./../../components/mainAppComponents/Auth";
 import { ApplicationForm } from "./../../components/mainAppComponents/ApplicationForm";
 import { Testimonials } from "./../../components/mainAppComponents/Testimonials";
-import AdminStatusBar from "../../components/adminComponents/adminStatusBar/adminStatusBar";
+import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 
 const Home = () => {
   const [studentEmail, setStudentEmail] = useState("");

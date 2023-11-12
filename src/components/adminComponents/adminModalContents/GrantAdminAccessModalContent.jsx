@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchAllAdminProfiles } from "./../../../controllers/authControllers";
-import StatusBar from "../adminStatusBar/adminStatusBar";
+import StatusBar from "../adminStatusBar/AdminStatusBar";
 import UpdateAdminStatusListItem from "./../adminListItem/UpdateAdminStatusListItem";
 
 const GrantAdminAccessModalContent = () => {
