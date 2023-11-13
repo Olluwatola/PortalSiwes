@@ -18,3 +18,21 @@ body {
   background-position: center;
   height: 100vh;
 }
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 0.7vw;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

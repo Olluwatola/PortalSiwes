@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Auth } from "./../../components/mainAppComponents/Auth";
@@ -114,7 +115,7 @@ const Home = ({ applyModal, setapplyModal }) => {
             </span>
 
             <button
-              className="border border-white text-sm rounded-lg px-10 py-3 w-fit transition-all duration-300 ease-in-out hover:bg-white hover:text-primary"
+              className="border outline-none border-white text-sm rounded-lg px-10 py-3 w-fit transition-all duration-300 ease-in-out hover:bg-white hover:text-primary"
               onClick={() => setapplyModal(true)}
             >
               Apply Now
@@ -124,11 +125,16 @@ const Home = ({ applyModal, setapplyModal }) => {
         </div>
         <div className="w-1/2 flex items-center justify-center">
           <div className="w-[38vw] max-w-[80%]">
-            {applyModal ? (
-              <div>
+            {applyModal && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
                 <img src={slideb} alt="slide2" />
-              </div>
-            ) : (
+              </motion.div>
+            )}
+            {!applyModal && (
               <Carousel
                 showThumbs={false}
                 showStatus={false}
@@ -150,19 +156,29 @@ const Home = ({ applyModal, setapplyModal }) => {
             )}
           </div>
         </div>
-        <div
-          className={`bg-white flex-col absolute top-0 h-screen w-1/2 right-0 ${
-            applyModal ? "flex" : "hidden"
-          }`}
-        >
-          {" "}
-          <Auth studentEmail={studentEmail} setStudentEmail={setStudentEmail} />
-          <ApplicationForm
-            setConditionGood={setConditionGood}
-            setStatusBarMessage={setStatusBarMessage}
-            studentEmail={studentEmail}
-            setStudentEmail={setStudentEmail}
-          />
+        <div className="w-screen fixed top-0 right-0">
+          <AnimatePresence>
+            {applyModal && (
+              <motion.div
+                initial={{ x: "100vw" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100vw" }}
+                transition={{ type: "spring", stiffness: 80, duration: 0.5 }}
+                className="bg-white z-50 overflow-y-scroll overflow-x-hidden flex-col absolute top-0 h-[100vh] w-1/2 right-0 px-10 py-8 items-center"
+              >
+                <Auth
+                  studentEmail={studentEmail}
+                  setStudentEmail={setStudentEmail}
+                />
+                <ApplicationForm
+                  setConditionGood={setConditionGood}
+                  setStatusBarMessage={setStatusBarMessage}
+                  studentEmail={studentEmail}
+                  setStudentEmail={setStudentEmail}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

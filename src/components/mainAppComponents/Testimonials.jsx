@@ -1,5 +1,6 @@
 import { db } from "./../../config/firebase";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   getDocs,
   collection,
@@ -77,7 +78,7 @@ export function Testimonials() {
     <>
       <>
         <div className="flex gap-5">
-          <div className="w-[25vw] border border-white rounded-lg p-2 h-[9vw]">
+          <div className="w-[25vw] border border-white rounded-lg p-2 h-[9vw] hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
                 <>loading...</>
@@ -92,22 +93,30 @@ export function Testimonials() {
                       alt="avatar"
                       className="w-12 h-12 rounded-md"
                     />
-                    <span className="font-medium">
-                      {" "}
-                      {testimonalList[testimonialIndex]?.testifier}
-                    </span>{" "}
+                    <div className="flex flex-col ">
+                      <span className="font-medium">
+                        {testimonalList[testimonialIndex]?.testifier}
+                      </span>
+                      <span className="font-light text-sm italic">
+                        {testimonalList[testimonialIndex]?.testifierRole}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
           </div>
-          <button
+          <motion.button
             onClick={() =>
               handleIncreaseTestimonialIndex(testimonalList.length)
             }
+            whileTap={{
+              x: 10,
+              transition: { duration: 0.1 },
+            }}
           >
             <BsArrowRightCircle className="text-white text-4xl" />
-          </button>
+          </motion.button>
         </div>
         {/* <form onSubmit={handleSubmitTestimonial}>
             <input
