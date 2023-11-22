@@ -14,8 +14,11 @@ import //getDocs,
 "firebase/firestore";
 
 import { createApplication } from "./../../controllers/applicationControllers";
+import { AnimatePresence, motion } from "framer-motion";
+import MoonLoader from "react-spinners/MoonLoader";
 import { FiChevronDown } from "react-icons/fi";
 import { PiUploadSimpleThin } from "react-icons/pi";
+import { CiFileOn } from "react-icons/ci";
 
 export function ApplicationForm({
   studentEmail,
@@ -35,8 +38,17 @@ export function ApplicationForm({
   const [studentInstitution, setStudentInstitution] = useState("");
   const [studentCourse, setStudentCourse] = useState("");
   const [aboutStudent, setAboutStudent] = useState("");
-  const [IDfile, setIDFile] = useState(null);
-  const [siwesFile, setSiwesFile] = useState(null);
+  const [IDFile, setIDFile] = useState({
+    file: null,
+    uploading: false,
+    uploaded: false,
+  });
+
+  const [siwesFile, setSiwesFile] = useState({
+    file: null,
+    uploading: false,
+    uploaded: false,
+  });
 
   // Dropdown State
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -80,14 +92,45 @@ export function ApplicationForm({
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleIDFileChange = (e) => {
+  const handleIDFileChange = async (e) => {
     const selectedFile = e.target.files[0];
-    setIDFile(selectedFile);
+    if (selectedFile) {
+      setIDFile({ file: selectedFile, uploading: true });
+      try {
+        // Perform file upload logic here
+        // For example, using Firebase storage
+        // Replace the timeout with your actual file upload logic
+        setTimeout(() => {
+          // Simulating successful upload after 2 seconds
+          setIDFile({ file: selectedFile, uploading: false, uploaded: true });
+        }, 2000);
+      } catch (error) {
+        console.error("File upload error:", error);
+        setIDFile({ file: selectedFile, uploading: false, uploaded: false });
+      }
+    }
   };
-
-  const handleSiwesFileChange = (e) => {
+  const handleSiwesFileChange = async (e) => {
     const selectedFile = e.target.files[0];
-    setSiwesFile(selectedFile);
+    if (selectedFile) {
+      setSiwesFile({ file: selectedFile, uploading: true });
+      try {
+        // Perform file upload logic here
+        // For example, using Firebase storage
+        // Replace the timeout with your actual file upload logic
+        setTimeout(() => {
+          // Simulating successful upload after 2 seconds
+          setSiwesFile({
+            file: selectedFile,
+            uploading: false,
+            uploaded: true,
+          });
+        }, 2000);
+      } catch (error) {
+        console.error("File upload error:", error);
+        setSiwesFile({ file: selectedFile, uploading: false, uploaded: false });
+      }
+    }
   };
 
   const handleIDFileUploadClick = () => {
@@ -100,16 +143,39 @@ export function ApplicationForm({
     fileInput?.click();
   };
 
+  const MAX_WORD_COUNT = 100; // Set the max number of words for textarea
+
+  const handleAboutStudentChange = (e) => {
+    const text = e.target.value;
+    setAboutStudent(text);
+  };
+
   const onSubmitApplication = async (e) => {
     try {
       e.preventDefault();
+
       if (studentEmail.length < 1) {
         setConditionGood("error");
-        setStatusBarMessage("ensure you fill in the email field");
+        setStatusBarMessage("You must be signed in to apply");
+        return;
+      } else if (
+        studentLastName.length < 1 ||
+        studentOtherNames.length < 1 ||
+        studentPhoneNumber.length < 1 ||
+        studentInstitution.length < 1 ||
+        studentCourse.length < 1 ||
+        aboutStudent.length < 1 ||
+        durationOfInternship.length < 1 ||
+        IDfile === null ||
+        siwesFile === null
+      ) {
+        setConditionGood("error");
+        setStatusBarMessage("Ensure you fill all fields");
         return;
       } else {
         setsubmitButtonClicked(true);
-        await createApplication(
+
+        const res = await createApplication(
           setsubmitButtonClicked,
           setConditionGood,
           setStatusBarMessage,
@@ -123,29 +189,32 @@ export function ApplicationForm({
           studentCourse,
           aboutStudent,
           durationOfInternship
-        ).then((res) => {
-          if (res instanceof Error) {
-            return;
-          } else {
-            setStudentLastName("");
-            setStudentOtherNames("");
-            //setStudentEmail("");
-            setStudentPhoneNumber("");
-            setStudentInstitution("");
-            setStudentCourse("");
-            setAboutStudent("");
-            setIDFile(null);
-            setSiwesFile(null);
-            //setDurationOfInternship("")
+        );
 
-            console.log(auth?.currentUser);
-            console.log("done");
-          }
-        });
+        if (res instanceof Error) {
+          // Handle error scenario
+          setConditionGood("error");
+          setStatusBarMessage("An error occurred. Please try again.");
+        } else {
+          // Clear form fields and do other necessary actions on success
+          setStudentLastName("");
+          setStudentOtherNames("");
+          setStudentPhoneNumber("");
+          setStudentInstitution("");
+          setStudentCourse("");
+          setAboutStudent("");
+          setIDFile(null);
+          setSiwesFile(null);
+
+          console.log(auth?.currentUser);
+          console.log("done");
+        }
       }
     } catch (err) {
-      console.error(err);
-      console.log("ERRORRRRRR ");
+      // Handle unexpected errors
+      setConditionGood("error");
+      setStatusBarMessage("An unexpected error occurred. Please try again.");
+    } finally {
       setsubmitButtonClicked(false);
     }
   };
@@ -163,7 +232,7 @@ export function ApplicationForm({
             className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g John"
             value={studentOtherNames}
-            required
+            // required
             onChange={(e) => setStudentOtherNames(e.target.value)}
           />
         </div>
@@ -173,7 +242,7 @@ export function ApplicationForm({
             className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g Doe"
             value={studentLastName}
-            required
+            // required
             onChange={(e) => setStudentLastName(e.target.value)}
           />
         </div>
@@ -183,7 +252,7 @@ export function ApplicationForm({
             className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g thatemail@mail.com"
             value={studentEmail}
-            required
+            // required
             disabled
           />
         </div>
@@ -192,7 +261,7 @@ export function ApplicationForm({
           <input
             className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g 08012345678"
-            required
+            // required
             value={studentPhoneNumber}
             onChange={(e) => setStudentPhoneNumber(e.target.value)}
           />
@@ -297,74 +366,197 @@ export function ApplicationForm({
             )}
           </div>
         </div>
-
         <div className="col-span-2 flex flex-col gap-1">
           <label className="text-xs text-gray-500">
             Tell us about yourself (in not more than 100 words)
           </label>
           <textarea
-            className="resize-none border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className={`
+            ${
+              aboutStudent.split(/\s+/).length > MAX_WORD_COUNT
+                ? "text-red-500"
+                : ""
+            }
+            resize-none border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary leading-6
+            `}
             placeholder="Impress us!"
             value={aboutStudent}
-            onChange={(e) => setAboutStudent(e.target.value)}
+            onChange={handleAboutStudentChange}
             rows={7}
           />
+          <p
+            className={`
+          ${
+            aboutStudent.split(/\s+/).length > MAX_WORD_COUNT
+              ? "text-red-500"
+              : "text-gray-500"
+          }
+          transition-all duration-300 ease-in-out
+          `}
+          >
+            {aboutStudent.split(/\s+/).length}/{MAX_WORD_COUNT} words
+          </p>
         </div>
 
         <span className="col-span-2">
           Upload your Documents
           <span className="text-xs">(School ID card, SIWES letter)</span>
         </span>
+        {/* ID File upload section */}
         <div className="col-span-1 gap-5 flex flex-col">
           <label>• School ID card</label>
-          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center">
+          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center h-60">
             <input
               type="file"
               id="idFileInput"
               onChange={handleIDFileChange}
-              required
+              // required
               style={{ display: "none" }}
             />
             <button
               type="button"
-              className="bg-gray-200 p-6 rounded-full flex justify-center items-center w-fit outline-none focus:outline-none"
+              className="flex justify-center items-center w-fit outline-none focus:outline-none"
               onClick={handleIDFileUploadClick}
             >
-              <PiUploadSimpleThin className="text-3xl text-black" />
+              {IDFile && IDFile.uploading ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-center gap-3"
+                >
+                  <MoonLoader color="#3B37FF" size={20} />
+                  <span>Uploading...</span>
+                </motion.div>
+              ) : (
+                <AnimatePresence>
+                  {IDFile && IDFile.uploaded ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex flex-col items-center justify-center bg-gray-200 rounded-full w-20 h-20"
+                    >
+                      <CiFileOn className="text-3xl text-black" />
+                    </motion.div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center bg-gray-200 rounded-full w-20 h-20">
+                      <PiUploadSimpleThin className="text-3xl text-black" />
+                    </div>
+                  )}
+                </AnimatePresence>
+              )}
             </button>
             <span className="text-center flex flex-col justify-center items-center gap-4 text-base">
-              Click here to add your file or, Drag and Drop your file
-              <span className="text-gray-500 text-xs">Pdf file Format*</span>
+              <AnimatePresence>
+                {" "}
+                {IDFile && IDFile.uploaded ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center flex flex-col justify-center items-center gap-4 text-base"
+                  >
+                    Made an error? Click to reupload
+                    <span className="text-primary text-xs">
+                      File Uploaded Successfully*
+                    </span>
+                  </motion.div>
+                ) : (
+                  <>
+                    Click here to add your file or, Drag and Drop your file
+                    <span className="text-gray-500 text-xs">
+                      Pdf file Format*
+                    </span>
+                  </>
+                )}
+              </AnimatePresence>
             </span>
           </div>
         </div>
+
+        {/* Siwes File upload section */}
         <div className="col-span-1 gap-5 flex flex-col">
           <label>• Siwes letter</label>
-          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center">
+          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center h-60">
             <input
               type="file"
               id="siwesFileInput"
               onChange={handleSiwesFileChange}
-              required
+              // required
               style={{ display: "none" }}
             />
             <button
               type="button"
-              className="bg-gray-200 p-6 rounded-full flex justify-center items-center w-fit outline-none focus:outline-none"
+              className="flex justify-center items-center w-fit outline-none focus:outline-none"
               onClick={handleSiwesFileUploadClick}
             >
-              <PiUploadSimpleThin className="text-3xl text-black" />
+              {siwesFile && siwesFile.uploading ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-center gap-3"
+                >
+                  <MoonLoader color="#3B37FF" size={20} />
+                  <span>Uploading...</span>
+                </motion.div>
+              ) : (
+                <AnimatePresence>
+                  {siwesFile && siwesFile.uploaded ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex flex-col items-center justify-center bg-gray-200 rounded-full w-20 h-20"
+                    >
+                      <CiFileOn className="text-3xl text-black" />
+                    </motion.div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center bg-gray-200 rounded-full w-20 h-20">
+                      <PiUploadSimpleThin className="text-3xl text-black" />
+                    </div>
+                  )}
+                </AnimatePresence>
+              )}
             </button>
+
             <span className="text-center flex flex-col justify-center items-center gap-4 text-base">
-              Click here to add your file or, Drag and Drop your file
-              <span className="text-gray-500 text-xs">Pdf file Format*</span>
+              <AnimatePresence>
+                {siwesFile && siwesFile.uploaded ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center flex flex-col justify-center items-center gap-4 text-base"
+                  >
+                    Made an error? Click to reupload
+                    <span className="text-primary text-xs">
+                      File Uploaded Successfully*
+                    </span>
+                  </motion.div>
+                ) : (
+                  <>
+                    Click here to add your file or, Drag and Drop your file
+                    <span className="text-gray-500 text-xs">
+                      Pdf file Format*
+                    </span>
+                  </>
+                )}
+              </AnimatePresence>
             </span>
           </div>
         </div>
+
         <div className="col-span-2">
           <button
             type="submit"
-            disabled={submitButtonClicked}
             className="bg-primary w-full py-3 rounded-lg text-white text-sm transition-all duration-300 ease-in-out hover:bg-white hover:text-primary hover:border-primary border border-primary"
           >
             Submit Application

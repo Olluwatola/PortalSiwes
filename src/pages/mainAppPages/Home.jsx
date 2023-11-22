@@ -18,54 +18,26 @@ const Home = ({ applyModal, setapplyModal }) => {
     <div className="py-20 bg-primary h-screen px-16 bg overflow-hidden">
       <AdminStatusBar
         conditionGood={conditionGood}
+        setStatusBarMessage={setStatusBarMessage}
         statusBarMessage={statusBarMessage}
       />
-      <div className="flex w-full justify-between items-center py-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0}}
+        transition={{ duration: 0.5 }}
+        className="flex w-full justify-between items-center py-4"
+      >
         <div className="w-1/2 flex flex-col gap-7 text-white">
-          {applyModal ? (
-            <div className="flex justify-start text-start">
-              <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
-                Discover your path <br /> to success as an
-                <div className="flex items-baseline gap-4">
-                  intern at
-                  <span className="font-secondary text-5xl flex">
-                    IT
-                    <div className="font-primary -rotate-45 font-semibold">
-                      e
-                    </div>
-                    Ms
-                  </span>
-                </div>
-              </span>
-            </div>
-          ) : (
-            <Carousel
-              showThumbs={false}
-              showStatus={false}
-              autoPlay={true}
-              infiniteLoop={true}
-              interval={10000}
-              showArrows={false}
-              swipeable={false}
-              stopOnHover={false}
-              showIndicators={false}
-            >
-              <div className="flex justify-start text-start">
-                <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
-                  Welcome to the <br /> SIWES Application
-                  <div className="flex items-baseline gap-4">
-                    Portal for
-                    <span className="font-secondary text-5xl flex">
-                      IT
-                      <div className="font-primary -rotate-45 font-semibold">
-                        e
-                      </div>
-                      Ms
-                    </span>
-                  </div>
-                </span>
-              </div>
-              <div className="flex justify-start text-start">
+          <AnimatePresence>
+            {applyModal ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0}}
+                transition={{ duration: 0.5 }}
+                className="flex justify-start text-start"
+              >
                 <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
                   Discover your path <br /> to success as an
                   <div className="flex items-baseline gap-4">
@@ -79,39 +51,91 @@ const Home = ({ applyModal, setapplyModal }) => {
                     </span>
                   </div>
                 </span>
-              </div>
-            </Carousel>
-          )}
+              </motion.div>
+            ) : (
+              <Carousel
+                showThumbs={false}
+                showStatus={false}
+                autoPlay={true}
+                infiniteLoop={true}
+                interval={10000}
+                showArrows={false}
+                swipeable={false}
+                stopOnHover={false}
+                showIndicators={false}
+              >
+                <div className="flex justify-start text-start">
+                  <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
+                    Welcome to the <br /> SIWES Application
+                    <div className="flex items-baseline gap-4">
+                      Portal for
+                      <span className="font-secondary text-5xl flex">
+                        IT
+                        <div className="font-primary -rotate-45 font-semibold">
+                          e
+                        </div>
+                        Ms
+                      </span>
+                    </div>
+                  </span>
+                </div>
+                <div className="flex justify-start text-start">
+                  <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
+                    Discover your path <br /> to success as an
+                    <div className="flex items-baseline gap-4">
+                      intern at
+                      <span className="font-secondary text-5xl flex">
+                        IT
+                        <div className="font-primary -rotate-45 font-semibold">
+                          e
+                        </div>
+                        Ms
+                      </span>
+                    </div>
+                  </span>
+                </div>
+              </Carousel>
+            )}
+          </AnimatePresence>
           <div className="flex flex-col gap-4">
             <span className="text-lg font-light w-3/4">
-              {applyModal ? (
-                <div className="flex justify-start text-start">
-                  <span>Unleash your potential, shape your future</span>
-                </div>
-              ) : (
-                <Carousel
-                  showThumbs={false}
-                  showStatus={false}
-                  autoPlay={true}
-                  infiniteLoop={true}
-                  interval={10000}
-                  showArrows={false}
-                  swipeable={false}
-                  stopOnHover={false}
-                  showIndicators={false}
-                >
-                  <div className="flex justify-start text-start">
-                    <span>
-                      <span className="font-semibold">ITeMS -</span> The
-                      Directorate for Information Technology and media services
-                      of the University of Ibadan
-                    </span>
-                  </div>
-                  <div className="flex justify-start text-start">
+              <AnimatePresence>
+                {" "}
+                {applyModal ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0}}
+                    transition={{ duration: 0.5 }}
+                    className="flex justify-start text-start"
+                  >
                     <span>Unleash your potential, shape your future</span>
-                  </div>
-                </Carousel>
-              )}
+                  </motion.div>
+                ) : (
+                  <Carousel
+                    showThumbs={false}
+                    showStatus={false}
+                    autoPlay={true}
+                    infiniteLoop={true}
+                    interval={10000}
+                    showArrows={false}
+                    swipeable={false}
+                    stopOnHover={false}
+                    showIndicators={false}
+                  >
+                    <div className="flex justify-start text-start">
+                      <span>
+                        <span className="font-semibold">ITeMS -</span> The
+                        Directorate for Information Technology and media
+                        services of the University of Ibadan
+                      </span>
+                    </div>
+                    <div className="flex justify-start text-start">
+                      <span>Unleash your potential, shape your future</span>
+                    </div>
+                  </Carousel>
+                )}
+              </AnimatePresence>
             </span>
 
             <button
@@ -180,7 +204,7 @@ const Home = ({ applyModal, setapplyModal }) => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
