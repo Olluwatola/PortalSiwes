@@ -93,6 +93,7 @@ export function ApplicationForm({
   };
 
   const handleIDFileChange = async (e) => {
+    console.log(IDFile.file.type);
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setIDFile({ file: selectedFile, uploading: true });
@@ -166,8 +167,8 @@ export function ApplicationForm({
         studentCourse.length < 1 ||
         aboutStudent.length < 1 ||
         durationOfInternship.length < 1 ||
-        IDfile === null ||
-        siwesFile === null
+        IDFile.file === null ||
+        siwesFile.file === null
       ) {
         setConditionGood("error");
         setStatusBarMessage("Ensure you fill all fields");
@@ -179,7 +180,7 @@ export function ApplicationForm({
           setsubmitButtonClicked,
           setConditionGood,
           setStatusBarMessage,
-          IDfile,
+          IDFile,
           siwesFile,
           studentLastName,
           studentOtherNames,
@@ -212,6 +213,7 @@ export function ApplicationForm({
       }
     } catch (err) {
       // Handle unexpected errors
+      console.error(err);
       setConditionGood("error");
       setStatusBarMessage("An unexpected error occurred. Please try again.");
     } finally {
@@ -469,7 +471,7 @@ export function ApplicationForm({
                   <>
                     Click here to add your file or, Drag and Drop your file
                     <span className="text-gray-500 text-xs">
-                      Pdf file Format*
+                      Image file Format*
                     </span>
                   </>
                 )}
@@ -545,7 +547,7 @@ export function ApplicationForm({
                   <>
                     Click here to add your file or, Drag and Drop your file
                     <span className="text-gray-500 text-xs">
-                      Pdf file Format*
+                      Image file Format*
                     </span>
                   </>
                 )}

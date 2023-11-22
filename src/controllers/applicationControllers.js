@@ -22,7 +22,7 @@ const storageRef = ref(storage);
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
 function isImage(file) {
-  return file.type.startsWith("image/");
+  return file.file.type.startsWith("image/");
 }
 
 async function uploadFile(file, filetype, generatedID) {
@@ -86,7 +86,7 @@ export async function createApplication(
   setsubmitButtonClicked,
   setConditionGood,
   setStatusBarMessage,
-  IDfile,
+  IDFile,
   siwesFile,
   studentLastName,
   studentOtherNames,
@@ -97,16 +97,16 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
-  if (isImage(IDfile) !== true && isImage(siwesFile) !== true) {
+  if (isImage(IDFile) !== true || isImage(siwesFile) !== true) {
     setConditionGood("error");
-    setStatusBarMessage("ERROR 415:ensure your files are image files!");
-    throw Error("ERROR 415:ensure your files are image files!");
+    setStatusBarMessage("Ensure your files are image files!");
+    throw Error("Ensure your files are image files!");
   }
   setConditionGood("loading");
-  setStatusBarMessage("submitting your application...");
+  setStatusBarMessage("Submitting your application...");
   const generatedID = generateTimestampId();
   try {
-    const idDownloadLink = await uploadFile(IDfile, "idfile", generatedID);
+    const idDownloadLink = await uploadFile(IDFile, "IDFile", generatedID);
     const siwesFileDownloadLink = await uploadFile(
       siwesFile,
       "siwesFile",
@@ -125,7 +125,7 @@ export async function createApplication(
       studentCourse: studentCourse,
       aboutStudent: aboutStudent,
       durationOfInternship: durationOfInternship,
-      idFileReference: idDownloadLink,
+      IDFileReference: idDownloadLink,
       siwesFileReference: siwesFileDownloadLink,
       isReviewed: false,
       isAccepted: false,
@@ -139,7 +139,7 @@ export async function createApplication(
       createdAt: serverTimestamp(),
     }).then((feedback) => {
       setConditionGood("good");
-      setStatusBarMessage("successfully submitted application");
+      setStatusBarMessage("Successfully submitted application");
       console.log(feedback);
     });
   } catch (err) {
