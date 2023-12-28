@@ -93,7 +93,6 @@ export function ApplicationForm({
   };
 
   const handleIDFileChange = async (e) => {
-    console.log(IDFile.file.type);
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setIDFile({ file: selectedFile, uploading: true });
@@ -225,7 +224,7 @@ export function ApplicationForm({
     <div>
       {/* {console.log(auth?.currentUser?.displayName, "hmmmm")} */}
       <form
-        className="mt-8 grid grid-cols-2 gap-x-8 gap-y-9 text-sm"
+        className="mt-8 grid grid-cols-2 gap-x-8 gap-y-9 text-sm px-10 pb-8"
         onSubmit={onSubmitApplication}
       >
         <div className="flex flex-col gap-1">
@@ -299,7 +298,7 @@ export function ApplicationForm({
                   ? "text-neutral-400"
                   : "text-black"
               }
-              w-full border border-gray-300 justify-between px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full border border-gray-300 whitespace-nowrap  justify-between px-4 py-3 h-12 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
               `}
               onClick={handleDropdownToggle}
             >
@@ -337,10 +336,10 @@ export function ApplicationForm({
               className={`
               ${
                 durationOfInternship === "Select number of months"
-                  ? "text-neutral-400"
+                  ? "text-neutral-400 whitespace-nowrap"
                   : "text-black"
               }
-              w-full border border-gray-300 justify-between px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full border border-gray-300 justify-between px-4 py-3 h-12 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
               `}
               onClick={handleDurationDropdownToggle}
             >

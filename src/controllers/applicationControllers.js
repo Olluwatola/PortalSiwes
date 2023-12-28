@@ -6,6 +6,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { generateTimestampId } from "./../utils/idGenerator";
+import FormSuccessModal from "./../components/mainAppComponents/FormSuccessModal";
 import {
   //getDocs,
   //collection,
@@ -138,8 +139,8 @@ export async function createApplication(
       applicationTestScore: 0,
       createdAt: serverTimestamp(),
     }).then((feedback) => {
+      setStatusBarMessage(null);
       setConditionGood("good");
-      setStatusBarMessage("Successfully submitted application");
       console.log(feedback);
     });
   } catch (err) {

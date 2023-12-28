@@ -34,7 +34,7 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
   };
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col px-10 pt-8">
       <div className="w-full flex justify-between items-start">
         <div className="flex flex-col gap-2">
           <span className="font-semibold text-3xl">Apply Now!</span>

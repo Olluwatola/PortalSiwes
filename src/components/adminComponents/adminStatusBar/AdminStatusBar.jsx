@@ -20,6 +20,8 @@ const AdminStatusBar = ({
       return () => {
         clearTimeout(timer);
       };
+    } else {
+      setShowStatusBar(false);
     }
   }, [statusBarMessage]);
 

@@ -8,6 +8,7 @@ import { Testimonials } from "./../../components/mainAppComponents/Testimonials"
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import slidea from "../../assets/slide1.svg";
 import slideb from "../../assets/slide2.svg";
+import FormSuccessModal from "../../components/mainAppComponents/FormSuccessModal";
 
 const Home = ({ applyModal, setapplyModal }) => {
   const [studentEmail, setStudentEmail] = useState("");
@@ -24,7 +25,7 @@ const Home = ({ applyModal, setapplyModal }) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0}}
+        exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
         className="flex w-full justify-between items-center py-4"
       >
@@ -34,7 +35,7 @@ const Home = ({ applyModal, setapplyModal }) => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0}}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className="flex justify-start text-start"
               >
@@ -105,7 +106,7 @@ const Home = ({ applyModal, setapplyModal }) => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0}}
+                    exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                     className="flex justify-start text-start"
                   >
@@ -188,18 +189,28 @@ const Home = ({ applyModal, setapplyModal }) => {
                 animate={{ x: 0 }}
                 exit={{ x: "100vw" }}
                 transition={{ type: "spring", stiffness: 80, duration: 0.5 }}
-                className="bg-white z-50 overflow-y-scroll overflow-x-hidden flex-col absolute top-0 h-[100vh] w-1/2 right-0 px-10 py-8 items-center"
+                className="bg-white z-50 overflow-y-scroll overflow-x-hidden flex-col absolute top-0 h-[100vh] w-1/2 right-0 items-center"
               >
-                <Auth
-                  studentEmail={studentEmail}
-                  setStudentEmail={setStudentEmail}
-                />
-                <ApplicationForm
-                  setConditionGood={setConditionGood}
-                  setStatusBarMessage={setStatusBarMessage}
-                  studentEmail={studentEmail}
-                  setStudentEmail={setStudentEmail}
-                />
+                {conditionGood === "good" ? (
+                  <FormSuccessModal
+                    conditionGood={conditionGood}
+                    setApplyModal={setapplyModal}
+                    setConditionGood={setConditionGood}
+                  />
+                ) : (
+                  <>
+                    <Auth
+                      studentEmail={studentEmail}
+                      setStudentEmail={setStudentEmail}
+                    />
+                    <ApplicationForm
+                      setConditionGood={setConditionGood}
+                      setStatusBarMessage={setStatusBarMessage}
+                      studentEmail={studentEmail}
+                      setStudentEmail={setStudentEmail}
+                    />
+                  </>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
