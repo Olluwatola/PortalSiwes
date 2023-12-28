@@ -15,7 +15,7 @@ const AdminStatusBar = ({
       const timer = setTimeout(() => {
         setStatusBarMessage(null);
         setShowStatusBar(false);
-      }, 5000);
+      }, 4000);
 
       return () => {
         clearTimeout(timer);
