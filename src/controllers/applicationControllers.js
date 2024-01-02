@@ -24,9 +24,8 @@ const storageRef = ref(storage);
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
 async function isImage(file) {
-   const resultoo= await validateImage(file); 
-   console.log(resultoo)
-   return(resultoo)
+   const imageValidateResult= await validateImage(file); 
+   return(imageValidateResult)
 }
 
 async function uploadFile(file, filetype, generatedID) {
