@@ -1,3 +1,4 @@
+import { validateImage } from "image-validator";
 import { db, auth, storage } from "./../config/firebase";
 import {
   //getStorage,
@@ -22,11 +23,16 @@ const storageRef = ref(storage);
 //const applicationCollectionRef = collection(db, "studentApplication");
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
-function isImage(file) {
-  return file.file.type.startsWith("image/");
+async function isImage(file) {
+   const resultoo= await validateImage(file); 
+   console.log(resultoo)
+   return(resultoo)
 }
 
 async function uploadFile(file, filetype, generatedID) {
+  console.log(file);
+  console.log("Type: " + file.type);
+  console.log("Size: " + file.size + " bytes");
   return new Promise((resolve, reject) => {
     if (file) {
       //const refName = removeSpecialCharacters(auth?.currentUser?.email);
@@ -98,18 +104,16 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
-  if (isImage(IDFile) !== true || isImage(siwesFile) !== true) {
-    setConditionGood("error");
-    setStatusBarMessage("Ensure your files are image files!");
+  if (await isImage(IDFile.file) !== true || await isImage(siwesFile.file) !== true) {
     throw Error("Ensure your files are image files!");
   }
   setConditionGood("loading");
   setStatusBarMessage("Submitting your application...");
   const generatedID = generateTimestampId();
   try {
-    const idDownloadLink = await uploadFile(IDFile, "IDFile", generatedID);
+    const idDownloadLink = await uploadFile(IDFile.file, "IDFile", generatedID);
     const siwesFileDownloadLink = await uploadFile(
-      siwesFile,
+      siwesFile.file,
       "siwesFile",
       generatedID
     );
@@ -126,7 +130,7 @@ export async function createApplication(
       studentCourse: studentCourse,
       aboutStudent: aboutStudent,
       durationOfInternship: durationOfInternship,
-      IDFileReference: idDownloadLink,
+      idFileReference: idDownloadLink,
       siwesFileReference: siwesFileDownloadLink,
       isReviewed: false,
       isAccepted: false,

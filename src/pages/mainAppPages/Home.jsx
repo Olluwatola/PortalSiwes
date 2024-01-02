@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Auth } from "./../../components/mainAppComponents/Auth";
+import { auth } from "./../../config/firebase";
+import { useEffect } from "react";
 import { ApplicationForm } from "./../../components/mainAppComponents/ApplicationForm";
 import { Testimonials } from "./../../components/mainAppComponents/Testimonials";
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
@@ -14,6 +16,14 @@ const Home = ({ applyModal, setapplyModal }) => {
   const [studentEmail, setStudentEmail] = useState("");
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
+  useEffect(() => {
+    async function loadEmailToEmailState() {
+      if (auth.currentUser.email) {
+        setStudentEmail(auth.currentUser.email);
+      }
+    }
+    loadEmailToEmailState();
+  });
 
   return (
     <div className="py-20 bg-primary h-screen px-16 bg overflow-hidden">

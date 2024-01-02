@@ -6,6 +6,7 @@ import {
   collection,
   doc,
   getDoc,
+  orderBy,
 } from "firebase/firestore";
 
 const applicationCollectionRef = collection(db, "studentApplication");
@@ -22,7 +23,7 @@ export async function getAllNotReviewedApplications(
       applicationCollectionRef,
       where("isRejected", "==", false),
       where("isAccepted", "==", false),
-      where("isReviewed", "==", false)
+      where("isReviewed", "==", false),
     );
     const data = await getDocs(q);
     returnedApplications = data.docs.map((doc) => ({
@@ -208,7 +209,8 @@ export async function getAllApplications(
 ) {
   setIsLoading(true);
   try {
-    const data = await getDocs(applicationCollectionRef);
+    const q = query(applicationCollectionRef, orderBy("createdAt"));
+    const data = await getDocs(q);
     returnedApplications = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,

@@ -214,7 +214,7 @@ export function ApplicationForm({
       // Handle unexpected errors
       console.error(err);
       setConditionGood("error");
-      setStatusBarMessage("An unexpected error occurred. Please try again.");
+      setStatusBarMessage(err.message);
     } finally {
       setsubmitButtonClicked(false);
     }
@@ -558,6 +558,7 @@ export function ApplicationForm({
         <div className="col-span-2">
           <button
             type="submit"
+            disabled={submitButtonClicked}
             className="bg-primary w-full py-3 rounded-lg text-white text-sm transition-all duration-300 ease-in-out hover:bg-white hover:text-primary hover:border-primary border border-primary"
           >
             Submit Application
