@@ -77,8 +77,8 @@ export function Testimonials() {
   return (
     <>
       <>
-        <div className="flex justify-between md:justify-normal gap-5 h-auto md:mt-0 mt-7">
-          <div className="md:w-[25vw] w-[85%] md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
+        <div className="flex justify-between md:justify-normal gap-3 md:gap-5 h-auto md:mt-0 mt-7">
+          <div className="md:w-[25vw] w-full md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
                 <>loading...</>
@@ -115,7 +115,7 @@ export function Testimonials() {
               transition: { duration: 0.1 },
             }}
           >
-            <BsArrowRightCircle className="text-white text-4xl" />
+            <BsArrowRightCircle className="text-white text-2xl md:text-4xl" />
           </motion.button>
         </div>
         {/* <form onSubmit={handleSubmitTestimonial}>
