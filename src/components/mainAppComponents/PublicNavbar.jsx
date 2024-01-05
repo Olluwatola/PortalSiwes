@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const PublicNavbar = ({ applyModal, setapplyModal }) => {
   return (
-    <nav className="fixed h-fit inset-0 md:px-16 px-5 pt-5 md:pt-8">
+    <nav className="fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8">
       <ul className="text-white text-sm md:text-base flex items-center justify-between md:justify-start md:w-fit gap-3">
         <li>
           {applyModal == true ? (

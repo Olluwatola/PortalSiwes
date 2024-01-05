@@ -77,14 +77,14 @@ export function Testimonials() {
   return (
     <>
       <>
-        <div className="flex gap-5 bg-black h-auto md:mt-0 mt-20">
-          <div className="md:w-[25vw] w-3/4 border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
+        <div className="flex justify-between md:justify-normal gap-5 h-auto md:mt-0 mt-7">
+          <div className="md:w-[25vw] w-[85%] md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
                 <>loading...</>
               ) : (
                 <div className="flex flex-col gap-3 justify-center w-full">
-                  <span className="overflow-hidden truncate whitespace-nowrap w-full">
+                  <span className="overflow-hidden md:truncate md:whitespace-nowrap w-full">
                     "{testimonalList[testimonialIndex]?.quote}"
                   </span>
                   <div className="flex items-center gap-2">
