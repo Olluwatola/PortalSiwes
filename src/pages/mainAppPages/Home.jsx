@@ -16,14 +16,15 @@ const Home = ({ applyModal, setapplyModal }) => {
   const [studentEmail, setStudentEmail] = useState("");
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
-  // useEffect(() => {
-  //   async function loadEmailToEmailState() {
-  //     if (auth.currentUser.email) {
-  //       setStudentEmail(auth.currentUser.email);
-  //     }
-  //   }
-  //   loadEmailToEmailState();
-  // });
+  
+  useEffect(() => {
+    async function loadEmailToEmailState() {
+      if (auth.currentUser.email) {
+        setStudentEmail(auth.currentUser.email);
+      }
+    }
+    loadEmailToEmailState();
+  });
 
   return (
     <div className="py-20 bg-primary h-screen md:px-16 px-6 bg overflow-hidden">

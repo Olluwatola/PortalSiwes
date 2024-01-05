@@ -55,9 +55,8 @@ export function ApplicationForm({
   const [studentLevel, setstudentLevel] = useState("Select your level");
 
   const [isDurationDropdownOpen, setIsDurationDropdownOpen] = useState(false);
-  const [durationOfInternship, setdurationOfInternship] = useState(
-    "Select number of months"
-  );
+  const [durationOfInternship, setdurationOfInternship] =
+    useState("Select duration");
 
   const durationOptions = [
     { name: "3 months", value: "3" },
@@ -224,13 +223,13 @@ export function ApplicationForm({
     <div>
       {/* {console.log(auth?.currentUser?.displayName, "hmmmm")} */}
       <form
-        className="mt-8 grid grid-cols-2 gap-x-8 gap-y-9 text-sm px-6 md:px-10 pb-8"
+        className="md:mt-8 mt-5 grid grid-cols-2 md:gap-x-8 gap-x-3 md:gap-y-9 gap-y-5 text-sm px-6 md:px-10 pb-8"
         onSubmit={onSubmitApplication}
       >
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">First Name</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g John"
             value={studentOtherNames}
             // required
@@ -240,7 +239,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Last Name</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g Doe"
             value={studentLastName}
             // required
@@ -250,7 +249,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Email Address</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g thatemail@mail.com"
             value={studentEmail}
             // required
@@ -260,7 +259,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Phone Number</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g 08012345678"
             // required
             value={studentPhoneNumber}
@@ -270,7 +269,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Institution of Study</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="e.g University of Computer"
             value={studentInstitution}
             onChange={(e) => setStudentInstitution(e.target.value)}
@@ -279,16 +278,14 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Course of Study</label>
           <input
-            className="border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             placeholder="Computer Science"
             value={studentCourse}
             onChange={(e) => setStudentCourse(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">
-            Level (The one you just completed)
-          </label>
+          <label className="text-xs text-gray-500">Just completed level </label>
           <div className="relative">
             <button
               type="button"
@@ -298,7 +295,7 @@ export function ApplicationForm({
                   ? "text-neutral-400"
                   : "text-black"
               }
-              w-full border border-gray-300 whitespace-nowrap  justify-between px-4 py-3 h-12 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full md:text-sm text-xs border border-gray-300 whitespace-nowrap  justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
               `}
               onClick={handleDropdownToggle}
             >
@@ -335,11 +332,11 @@ export function ApplicationForm({
               type="button"
               className={`
               ${
-                durationOfInternship === "Select number of months"
+                durationOfInternship === "Select duration"
                   ? "text-neutral-400 whitespace-nowrap"
                   : "text-black"
               }
-              w-full border border-gray-300 justify-between px-4 py-3 h-12 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full md:text-sm text-xs overflow-ellipsis  border border-gray-300 justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
               `}
               onClick={handleDurationDropdownToggle}
             >
@@ -378,7 +375,7 @@ export function ApplicationForm({
                 ? "text-red-500"
                 : ""
             }
-            resize-none border border-gray-300 px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary leading-6
+            resize-none border md:text-sm text-xs border-gray-300 md:px-4 px-2 py-1 md:py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary leading-6
             `}
             placeholder="Impress us!"
             value={aboutStudent}
@@ -400,13 +397,13 @@ export function ApplicationForm({
         </div>
 
         <span className="col-span-2">
-          Upload your Documents
-          <span className="text-xs">(School ID card, SIWES letter)</span>
+          <span className="md:text-sm text-xs"> Upload your Documents</span>{" "}
+          <span className="text-xs font-medium">(School ID card, SIWES letter)</span>
         </span>
         {/* ID File upload section */}
-        <div className="col-span-1 gap-5 flex flex-col">
-          <label>• School ID card</label>
-          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center h-60">
+        <div className="col-span-1 md:gap-5 gap-3 flex flex-col">
+          <label className="md:text-sm text-xs">• School ID card</label>
+          <div className="custom_border md:p-6  flex flex-col md:gap-7 gap-4 justify-center items-center h-60">
             <input
               type="file"
               id="idFileInput"
@@ -461,14 +458,14 @@ export function ApplicationForm({
                     transition={{ duration: 0.5 }}
                     className="text-center flex flex-col justify-center items-center gap-4 text-base"
                   >
-                    Made an error? Click to reupload
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">Made an error? Click to reupload</span>
                     <span className="text-primary text-xs">
                       File Uploaded Successfully*
                     </span>
                   </motion.div>
                 ) : (
                   <>
-                    Click here to add your file or, Drag and Drop your file
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">Click here to add your file or, Drag and Drop your file</span>
                     <span className="text-gray-500 text-xs">
                       Image file Format*
                     </span>
@@ -480,9 +477,9 @@ export function ApplicationForm({
         </div>
 
         {/* Siwes File upload section */}
-        <div className="col-span-1 gap-5 flex flex-col">
-          <label>• Siwes letter</label>
-          <div className="custom_border p-6 flex flex-col gap-7 justify-center items-center h-60">
+        <div className="col-span-1 md:gap-5 gap-3 flex flex-col">
+          <label className="md:text-sm text-xs">• Siwes letter</label>
+          <div className="custom_border md:p-6  flex flex-col md:gap-7 gap-4 justify-center items-center h-60">
             <input
               type="file"
               id="siwesFileInput"
@@ -537,14 +534,14 @@ export function ApplicationForm({
                     transition={{ duration: 0.5 }}
                     className="text-center flex flex-col justify-center items-center gap-4 text-base"
                   >
-                    Made an error? Click to reupload
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">Made an error? Click to reupload</span>
                     <span className="text-primary text-xs">
                       File Uploaded Successfully*
                     </span>
                   </motion.div>
                 ) : (
                   <>
-                    Click here to add your file or, Drag and Drop your file
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">Click here to add your file or, Drag and Drop your file</span>
                     <span className="text-gray-500 text-xs">
                       Image file Format*
                     </span>

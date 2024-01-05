@@ -48,7 +48,7 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
         <div className="flex flex-col gap-2 items-center">
           {studentEmail ? (
             <button
-              className="bg-primary hover:bg-transparent border text-white px-5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300"
+              className="bg-primary hover:bg-transparent border md:text-base text-sm text-white md:px-5 px-4 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300"
               onClick={logout}
             >
               Logout
@@ -75,7 +75,7 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
         </div>
       </div>
       {studentEmail ? (
-        <span className="text-xl mt-3 font-semibold text-primary rounded-lg">
+        <span className="md:text-xl mt-3 font-semibold text-primary rounded-lg">
           {welcomeMessage}
         </span>
       ) : null}
