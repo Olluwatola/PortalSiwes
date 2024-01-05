@@ -34,12 +34,15 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
   };
 
   return (
-    <div className="w-full flex flex-col px-10 pt-8">
-      <div className="w-full flex justify-between items-start">
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold text-3xl">Apply Now!</span>
-          <span className="text-sm text-slate-500">
+    <div className="w-full flex flex-col px-6 md:px-10 pt-8">
+      <div className="w-full flex justify-between items-center md:items-start">
+        <div className="flex flex-col gap-1 md:gap-2">
+          <span className="font-semibold md:text-3xl text-xl">Apply Now!</span>
+          <span className="md:text-sm md:flex hidden text-xs text-slate-500">
             Enter your details below to get started
+          </span>
+          <span className="md:text-sm md:hidden flex text-xs text-slate-500">
+            Enter your details below
           </span>
         </div>
         <div className="flex flex-col gap-2 items-center">
@@ -51,15 +54,20 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
               Logout
             </button>
           ) : (
-            <div className="w-48 flex flex-col gap-2 justify-center items-center">
+            <div className="md:w-48 flex flex-col gap-2 justify-center items-center">
               <button
                 className="border border-gray-300 px-4 py-2 rounded-lg flex items-center gap-3 hover:translate-y-[-2px] transition-all duration-300 ease-in-out hover:shadow-md"
                 onClick={signInWithGoogle}
               >
                 <FcGoogle className="text-base" />
-                <span className="text-xs">Sign In With Google</span>
+                <span className="text-xs md:flex hidden">
+                  Sign In With Google
+                </span>
+                <span className="text-xs md:hidden flex whitespace-nowrap">
+                  Sign In
+                </span>
               </button>
-              <span className="text-xs font-light text-slate-500">
+              <span className="text-xs md:flex hidden font-light text-slate-500">
                 {welcomeMessage}
               </span>
             </div>

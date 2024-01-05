@@ -224,7 +224,7 @@ export function ApplicationForm({
     <div>
       {/* {console.log(auth?.currentUser?.displayName, "hmmmm")} */}
       <form
-        className="mt-8 grid grid-cols-2 gap-x-8 gap-y-9 text-sm px-10 pb-8"
+        className="mt-8 grid grid-cols-2 gap-x-8 gap-y-9 text-sm px-6 md:px-10 pb-8"
         onSubmit={onSubmitApplication}
       >
         <div className="flex flex-col gap-1">
