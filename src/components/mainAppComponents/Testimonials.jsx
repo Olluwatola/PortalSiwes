@@ -77,8 +77,8 @@ export function Testimonials() {
   return (
     <>
       <>
-        <div className="flex gap-5">
-          <div className="w-[25vw] border border-white rounded-lg p-2 h-[9vw] hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
+        <div className="flex gap-5 bg-black h-auto md:mt-0 mt-20">
+          <div className="md:w-[25vw] w-3/4 border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
                 <>loading...</>

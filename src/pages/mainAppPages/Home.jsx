@@ -26,7 +26,7 @@ const Home = ({ applyModal, setapplyModal }) => {
   });
 
   return (
-    <div className="py-20 bg-primary h-screen md:px-16 bg overflow-hidden">
+    <div className="py-20 bg-primary h-screen md:px-16 px-5 bg overflow-hidden">
       <AdminStatusBar
         conditionGood={conditionGood}
         setStatusBarMessage={setStatusBarMessage}
@@ -37,9 +37,9 @@ const Home = ({ applyModal, setapplyModal }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex w-full justify-between items-center py-4"
+        className="flex w-full md:justify-between justify-center h-[85vh] md:h-auto items-start md:items-center md:py-4 py-7"
       >
-        <div className="w-1/2 flex flex-col gap-7 text-white">
+        <div className="md:w-1/2 w-full flex flex-col gap-3 md:gap-7 text-white">
           <AnimatePresence>
             {applyModal ? (
               <motion.div
@@ -49,11 +49,11 @@ const Home = ({ applyModal, setapplyModal }) => {
                 transition={{ duration: 0.5 }}
                 className="flex justify-start text-start"
               >
-                <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
+                <span className="md:text-[3.7rem] text-3xl md:leading-[4.2rem] tracking-tight md:tracking-tighter">
                   Discover your path <br /> to success as an
                   <div className="flex items-baseline gap-4">
                     intern at
-                    <span className="font-secondary text-5xl flex">
+                    <span className="font-secondary md:text-5xl text-4xl flex">
                       IT
                       <div className="font-primary -rotate-45 font-semibold">
                         e
@@ -76,11 +76,11 @@ const Home = ({ applyModal, setapplyModal }) => {
                 showIndicators={false}
               >
                 <div className="flex justify-start text-start">
-                  <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
+                  <span className="md:text-[3.7rem] text-3xl md:leading-[4.2rem] tracking-tight md:tracking-tighter">
                     Welcome to the <br /> SIWES Application
-                    <div className="flex items-baseline gap-4">
+                    <div className="flex items-baseline gap-3 md:gap-4">
                       Portal for
-                      <span className="font-secondary text-5xl flex">
+                      <span className="font-secondary md:text-5xl text-4xl flex">
                         IT
                         <div className="font-primary -rotate-45 font-semibold">
                           e
@@ -91,11 +91,11 @@ const Home = ({ applyModal, setapplyModal }) => {
                   </span>
                 </div>
                 <div className="flex justify-start text-start">
-                  <span className="text-[3.7rem] leading-[4.2rem] tracking-tighter">
+                  <span className="md:text-[3.7rem] text-3xl md:leading-[4.2rem] tracking-tight md:tracking-tighter">
                     Discover your path <br /> to success as an
-                    <div className="flex items-baseline gap-4">
+                    <div className="flex items-baseline gap-3 md:gap-4">
                       intern at
-                      <span className="font-secondary text-5xl flex">
+                      <span className="font-secondary md:text-5xl text-4xl flex">
                         IT
                         <div className="font-primary -rotate-45 font-semibold">
                           e
@@ -120,7 +120,9 @@ const Home = ({ applyModal, setapplyModal }) => {
                     transition={{ duration: 0.5 }}
                     className="flex justify-start text-start"
                   >
-                    <span>Unleash your potential, shape your future</span>
+                    <span className="md:text-base text-sm">
+                      Unleash your potential, shape your future
+                    </span>
                   </motion.div>
                 ) : (
                   <Carousel
@@ -134,14 +136,14 @@ const Home = ({ applyModal, setapplyModal }) => {
                     stopOnHover={false}
                     showIndicators={false}
                   >
-                    <div className="flex justify-start text-start">
+                    <div className="flex justify-start text-start md:text-base text-sm">
                       <span>
                         <span className="font-semibold">ITeMS -</span> The
                         Directorate for Information Technology and media
                         services of the University of Ibadan
                       </span>
                     </div>
-                    <div className="flex justify-start text-start">
+                    <div className="flex justify-start text-start md:text-base text-sm">
                       <span>Unleash your potential, shape your future</span>
                     </div>
                   </Carousel>
@@ -150,7 +152,7 @@ const Home = ({ applyModal, setapplyModal }) => {
             </span>
 
             <button
-              className="border outline-none border-white text-sm rounded-lg px-10 py-3 w-fit transition-all duration-300 ease-in-out hover:bg-white hover:text-primary"
+              className="border md:mt-0 mt-2 outline-none border-white text-sm rounded-lg md:px-10 px-7 md:py-3 py-2 w-fit transition-all duration-300 ease-in-out hover:bg-white hover:text-primary"
               onClick={() => setapplyModal(true)}
             >
               Apply Now
@@ -158,7 +160,7 @@ const Home = ({ applyModal, setapplyModal }) => {
           </div>
           <Testimonials />
         </div>
-        <div className="w-1/2 flex items-center justify-center">
+        <div className="md:w-1/2 hidden md:flex items-center justify-center">
           <div className="w-[38vw] max-w-[80%]">
             {applyModal && (
               <motion.div
