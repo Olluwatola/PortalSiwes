@@ -1,3 +1,4 @@
+import { validateImage } from "image-validator";
 import { db, auth, storage } from "./../config/firebase";
 import {
   //getStorage,
@@ -6,6 +7,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { generateTimestampId } from "./../utils/idGenerator";
+import FormSuccessModal from "./../components/mainAppComponents/FormSuccessModal";
 import {
   //getDocs,
   //collection,
@@ -21,11 +23,15 @@ const storageRef = ref(storage);
 //const applicationCollectionRef = collection(db, "studentApplication");
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
-function isImage(file) {
-  return file.type.startsWith("image/");
+async function isImage(file) {
+   const imageValidateResult= await validateImage(file); 
+   return(imageValidateResult)
 }
 
 async function uploadFile(file, filetype, generatedID) {
+  console.log(file);
+  console.log("Type: " + file.type);
+  console.log("Size: " + file.size + " bytes");
   return new Promise((resolve, reject) => {
     if (file) {
       //const refName = removeSpecialCharacters(auth?.currentUser?.email);
@@ -86,7 +92,7 @@ export async function createApplication(
   setsubmitButtonClicked,
   setConditionGood,
   setStatusBarMessage,
-  IDfile,
+  IDFile,
   siwesFile,
   studentLastName,
   studentOtherNames,
@@ -97,18 +103,16 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
-  if (isImage(IDfile) !== true && isImage(siwesFile) !== true) {
-    setConditionGood("error");
-    setStatusBarMessage("ERROR 415:ensure your files are image files!");
-    throw Error("ERROR 415:ensure your files are image files!");
+  if (await isImage(IDFile.file) !== true || await isImage(siwesFile.file) !== true) {
+    throw Error("Ensure your files are image files!");
   }
   setConditionGood("loading");
-  setStatusBarMessage("submitting your application...");
+  setStatusBarMessage("Submitting your application...");
   const generatedID = generateTimestampId();
   try {
-    const idDownloadLink = await uploadFile(IDfile, "idfile", generatedID);
+    const idDownloadLink = await uploadFile(IDFile.file, "IDFile", generatedID);
     const siwesFileDownloadLink = await uploadFile(
-      siwesFile,
+      siwesFile.file,
       "siwesFile",
       generatedID
     );
@@ -138,8 +142,8 @@ export async function createApplication(
       applicationTestScore: 0,
       createdAt: serverTimestamp(),
     }).then((feedback) => {
+      setStatusBarMessage(null);
       setConditionGood("good");
-      setStatusBarMessage("successfully submitted application");
       console.log(feedback);
     });
   } catch (err) {
