@@ -38,7 +38,7 @@ const AdminStatusBar = ({
             ${conditionGood === "loading" ? "bg-yellow-500" : ""}
             ${conditionGood === "error" ? "bg-red-500" : ""}
             ${conditionGood === "info" ? "bg-blue-500" : ""}
-            text-white text-sm text-center py-1 px-4 w-full fixed top-0 left-0 z-50
+            text-white text-xs md:text-sm text-center py-1 px-4 w-full fixed top-0 left-0 z-50
           `}
         >
           {statusBarMessage}

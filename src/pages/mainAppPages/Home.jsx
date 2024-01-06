@@ -16,7 +16,7 @@ const Home = ({ applyModal, setapplyModal }) => {
   const [studentEmail, setStudentEmail] = useState("");
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
-  
+
   useEffect(() => {
     async function loadEmailToEmailState() {
       if (auth.currentUser.email) {
@@ -201,7 +201,7 @@ const Home = ({ applyModal, setapplyModal }) => {
                 initial={{ x: "100vw" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100vw" }}
-                transition={{ type: "spring", stiffness: 80, duration: 0.5 }}
+                transition={{ type: "spring", stiffness: 90, duration: 0.4 }}
                 className="bg-white z-50 overflow-y-scroll overflow-x-hidden flex-col absolute top-0 h-[100vh] w-full md:w-1/2 right-0 items-center"
               >
                 {conditionGood === "good" ? (
@@ -213,6 +213,7 @@ const Home = ({ applyModal, setapplyModal }) => {
                 ) : (
                   <>
                     <Auth
+                      setApplyModal={setapplyModal}
                       studentEmail={studentEmail}
                       setStudentEmail={setStudentEmail}
                     />

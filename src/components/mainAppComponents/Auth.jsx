@@ -5,9 +5,10 @@ import {
   signOut,
 } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
+import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
 
-export const Auth = ({ studentEmail, setStudentEmail }) => {
+export const Auth = ({ studentEmail, setStudentEmail, setApplyModal }) => {
   let welcomeMessageStarter = auth.currentUser
     ? `Welcome ${auth?.currentUser?.displayName}`
     : "Welcome! Log in to apply.";
@@ -34,7 +35,14 @@ export const Auth = ({ studentEmail, setStudentEmail }) => {
   };
 
   return (
-    <div className="w-full flex flex-col px-6 md:px-10 pt-8">
+    <div className="w-full flex flex-col px-6 md:px-10 md:pt-8 pt-10">
+      <button
+        className="md:hidden flex text-xl text-white bg-primary absolute mt-2 top-0 left-0 px-2 rounded-e-lg py-1 justify-start items-center
+      "
+        onClick={() => setApplyModal(false)}
+      >
+        <IoIosArrowBack />
+      </button>
       <div className="w-full flex justify-between items-center md:items-start">
         <div className="flex flex-col gap-1 md:gap-2">
           <span className="font-semibold md:text-3xl text-xl">Apply Now!</span>
