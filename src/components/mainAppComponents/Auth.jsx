@@ -37,7 +37,7 @@ export const Auth = ({ studentEmail, setStudentEmail, setApplyModal }) => {
   return (
     <div className="w-full flex flex-col px-6 md:px-10 md:pt-8 pt-10">
       <button
-        className="md:hidden flex text-xl text-white bg-primary absolute top-0 left-0 px-2 py-1 justify-start items-center
+        className="md:hidden flex text-xl text-white bg-primary absolute mt-2 top-0 left-0 px-2 rounded-e-lg py-1 justify-start items-center
       "
         onClick={() => setApplyModal(false)}
       >

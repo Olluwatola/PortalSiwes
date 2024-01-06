@@ -29,11 +29,11 @@ const FormSuccessModal = ({ conditionGood, setApplyModal, setConditionGood }) =>
         </div>
         <img src={success} alt="success" className="w-48" />
         <span className="text-2xl font-medium">Success!</span>
-        <span className="w-[55%] text-center">
+        <span className="md:w-[55%] w-[80%] md:text-base text-sm text-center">
           Your application has been submitted and you will be contacted shortly
           via email.
         </span>
-        <span className="w-[55%] mt-10 mb-1 tracking-[0.5rem] text-sm font-light text-center ">
+        <span className="md:w-[55%] w-[80%] mt-10 mb-1 tracking-[0.3rem] md:tracking-[0.5rem] text-sm font-light text-center ">
           VISIT OUR HOME WEBSITE FOR OTHER SERVICES
         </span>
         <BsArrowDownCircle className="text-2xl" />
