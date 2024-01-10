@@ -3,7 +3,7 @@ import {
   auth,
   //storage
 } from "./../../config/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import //getDocs,
 //collection,
 //addDoc,
@@ -17,6 +17,7 @@ import { createApplication } from "./../../controllers/applicationControllers";
 import { AnimatePresence, motion } from "framer-motion";
 import MoonLoader from "react-spinners/MoonLoader";
 import { FiChevronDown } from "react-icons/fi";
+import { HiOutlineLightBulb } from "react-icons/hi";
 import { PiUploadSimpleThin } from "react-icons/pi";
 import { CiFileOn } from "react-icons/ci";
 
@@ -31,6 +32,7 @@ export function ApplicationForm({
   // ] = useState(false);
   //const [applicationStatusCreationError, setApplicationStatusCreationError] =
   //useState(null);
+  const [showHint, setshowHint] = useState(false);
   const [submitButtonClicked, setsubmitButtonClicked] = useState(false);
   const [studentLastName, setStudentLastName] = useState("");
   const [studentOtherNames, setStudentOtherNames] = useState("");
@@ -42,6 +44,33 @@ export function ApplicationForm({
     file: null,
     uploading: false,
     uploaded: false,
+  });
+
+  const openHint = () => {
+    setshowHint(true);
+  };
+
+  const closeHint = () => {
+    setshowHint(false);
+  };
+
+  const handleClickOutside = (e) => {
+    if (e.target.id !== "hint") {
+      setshowHint(false);
+    }
+    if (e.target.id !== "level") {
+      setIsDropdownOpen(false);
+    }
+    if (e.target.id !== "duration") {
+      setIsDurationDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
   });
 
   const [siwesFile, setSiwesFile] = useState({
@@ -289,6 +318,7 @@ export function ApplicationForm({
           <div className="relative">
             <button
               type="button"
+              id="level"
               className={`
               ${
                 studentLevel === "Select your level"
@@ -330,6 +360,7 @@ export function ApplicationForm({
           <div className="relative">
             <button
               type="button"
+              id="duration"
               className={`
               ${
                 durationOfInternship === "Select duration"
@@ -366,7 +397,40 @@ export function ApplicationForm({
         </div>
         <div className="col-span-2 flex flex-col gap-1">
           <label className="text-xs text-gray-500">
-            Tell us about yourself (in not more than 100 words)
+            Tell us about yourself (
+            <button
+              id="hint"
+              type="button"
+              className="underline text-neutral-700"
+              onClick={openHint}
+            >
+              Click here to get a hint
+            </button>
+            )
+            <div
+              className={`
+            ${showHint ? "block" : "hidden"}
+            bg-white absolute ml-4 md:ml-10 shadow-md flex flex-col items-center text-black text-xs md:px-16 px-5 box-border py-5 rounded-lg mt-2 border border-neutral-300`}
+            >
+              <HiOutlineLightBulb className="text-2xl text-black" />
+              <span className="mt-2 font-medium tracking-[-0.07rem] text-[#020050] text-base md:text-lg">
+                Hint on what to tell us about yourself
+              </span>
+              <ul class="list-disc md:text-xs text-[0.65rem] md:w-72 w-52 mt-3 flex flex-col md:gap-2 gap-1">
+                <li> 
+                  Your experience and what you did if you’ve interned at other
+                  companies
+                </li>
+                <li>
+                  Whatever skills you have that could be of use to the
+                  Directorate (not compulsory you have any)
+                </li>
+                <li>Skills you hope to gain from this internship.</li>
+              </ul>
+              <button type="button" onClick={closeHint} className="md:mt-5 mt-3 px-4 py-2 border border-neutral-300 rounded-md">
+                Close
+              </button>
+            </div>
           </label>
           <textarea
             className={`
@@ -397,8 +461,10 @@ export function ApplicationForm({
         </div>
 
         <span className="col-span-2">
-          <span className="md:text-sm text-xs"> Upload your Documents</span>{" "}
-          <span className="text-xs font-medium">(School ID card, SIWES letter)</span>
+          <span className="md:text-sm text-xs"> Upload your Documents</span>
+          <span className="text-xs font-medium">
+            (School ID card, SIWES letter)
+          </span>
         </span>
         {/* ID File upload section */}
         <div className="col-span-1 md:gap-5 gap-3 flex flex-col">
@@ -449,7 +515,6 @@ export function ApplicationForm({
             </button>
             <span className="text-center flex flex-col justify-center items-center gap-4 text-base">
               <AnimatePresence>
-                {" "}
                 {IDFile && IDFile.uploaded ? (
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -458,14 +523,18 @@ export function ApplicationForm({
                     transition={{ duration: 0.5 }}
                     className="text-center flex flex-col justify-center items-center gap-4 text-base"
                   >
-                    <span className="md:text-sm text-xs w-[80%] md:w-full">Made an error? Click to reupload</span>
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">
+                      Made an error? Click to reupload
+                    </span>
                     <span className="text-primary text-xs">
                       File Uploaded Successfully*
                     </span>
                   </motion.div>
                 ) : (
                   <>
-                    <span className="md:text-sm text-xs w-[80%] md:w-full">Click here to add your file or, Drag and Drop your file</span>
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">
+                      Click here to add your file or, Drag and Drop your file
+                    </span>
                     <span className="text-gray-500 text-xs">
                       Image file Format*
                     </span>
@@ -534,14 +603,18 @@ export function ApplicationForm({
                     transition={{ duration: 0.5 }}
                     className="text-center flex flex-col justify-center items-center gap-4 text-base"
                   >
-                    <span className="md:text-sm text-xs w-[80%] md:w-full">Made an error? Click to reupload</span>
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">
+                      Made an error? Click to reupload
+                    </span>
                     <span className="text-primary text-xs">
                       File Uploaded Successfully*
                     </span>
                   </motion.div>
                 ) : (
                   <>
-                    <span className="md:text-sm text-xs w-[80%] md:w-full">Click here to add your file or, Drag and Drop your file</span>
+                    <span className="md:text-sm text-xs w-[80%] md:w-full">
+                      Click here to add your file or, Drag and Drop your file
+                    </span>
                     <span className="text-gray-500 text-xs">
                       Image file Format*
                     </span>
