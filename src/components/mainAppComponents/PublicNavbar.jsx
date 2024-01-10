@@ -1,10 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const PublicNavbar = ({ applyModal, setapplyModal }) => {
+  const [home, setHome] = useState(null);
+  const location = useLocation();
+
+  const handleHome = () => {
+    if (location.pathname === "/") {
+      setHome(true);
+    } else {
+      setHome(false);
+    }
+  };
+
+  useEffect(() => {
+    handleHome();
+  }, [location.pathname]);
+
   return (
     <nav className="fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8">
-      <ul className="text-white text-sm md:text-base flex items-center justify-between md:justify-start md:w-fit gap-3">
-        <li>
+      <ul
+        className={`
+      ${home ? "text-white" : "text-slate-500"}
+      text-sm md:text-base flex items-center justify-between md:justify-start md:w-fit gap-3
+      `}
+      >
+        <li
+        className={`
+        ${home ? "text-white" : "text-primary"}`}
+        >
           {applyModal == true ? (
             <button onClick={() => setapplyModal(false)}>
               <span className="font-secondary flex items-center justify-center text-xl">
