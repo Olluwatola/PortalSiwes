@@ -413,11 +413,11 @@ export function ApplicationForm({
             bg-white absolute ml-4 md:ml-10 shadow-md flex flex-col items-center text-black text-xs md:px-16 px-5 box-border py-5 rounded-lg mt-2 border border-neutral-300`}
             >
               <HiOutlineLightBulb className="text-2xl text-black" />
-              <span className="mt-2 font-medium tracking-[-0.07rem] text-[#020050] text-base md:text-lg">
+              <span className="mt-2 font-medium tracking-[-0.07rem] text-darkBlue text-base md:text-lg">
                 Hint on what to tell us about yourself
               </span>
               <ul class="list-disc md:text-xs text-[0.65rem] md:w-72 w-52 mt-3 flex flex-col md:gap-2 gap-1">
-                <li> 
+                <li>
                   Your experience and what you did if you’ve interned at other
                   companies
                 </li>
@@ -427,7 +427,11 @@ export function ApplicationForm({
                 </li>
                 <li>Skills you hope to gain from this internship.</li>
               </ul>
-              <button type="button" onClick={closeHint} className="md:mt-5 mt-3 px-4 py-2 border border-neutral-300 rounded-md">
+              <button
+                type="button"
+                onClick={closeHint}
+                className="md:mt-5 mt-3 px-4 py-2 border border-neutral-300 rounded-md"
+              >
                 Close
               </button>
             </div>

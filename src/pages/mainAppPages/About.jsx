@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { collection, 
+import {
+  collection,
   //addDoc, doc,
-   getDocs } from "firebase/firestore";
+  getDocs,
+} from "firebase/firestore";
 import { db } from "./../../config/firebase";
 
 function About() {
@@ -22,7 +24,12 @@ function About() {
     };
     getAbout();
   }, [about]);
-  return <>{about ? about : ""}</>;
+  return (
+    <div className="py-36 gap-7 px-16 flex flex-col ">
+      <span className="font-medium text-6xl text-darkBlue -tracking-widest">About</span>
+      {about ? about : ""}
+    </div>
+  );
 }
 
 export default About;
