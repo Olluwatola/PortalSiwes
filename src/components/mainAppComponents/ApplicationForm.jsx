@@ -100,7 +100,7 @@ export function ApplicationForm({
   };
 
   const handleDurationDropdownToggle = () => {
-    setIsDurationDropdownOpen((prev) => !prev);
+    setIsDurationDropdownOpen(!isDurationDropdownOpen);
   };
 
   const level_options = [
@@ -117,7 +117,7 @@ export function ApplicationForm({
   };
 
   const handleDropdownToggle = () => {
-    setIsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleIDFileChange = async (e) => {
@@ -338,19 +338,31 @@ export function ApplicationForm({
                 }
               />
             </button>
-            {isDropdownOpen && (
-              <div className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full">
-                {level_options.map((option, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handlelevel_optionselect(option.name)}
-                    className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
-                  >
-                    {option.name}
-                  </div>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {isDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full"
+                >
+                  {level_options.map((option, index) => (
+                    <motion.div
+                      key={index}
+                      onClick={() => handlelevel_optionselect(option.name)}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
+                    >
+                      {option.name}
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <div className="flex flex-col gap-1">
@@ -380,19 +392,31 @@ export function ApplicationForm({
                 }
               />
             </button>
-            {isDurationDropdownOpen && (
-              <div className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full">
-                {durationOptions.map((option, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleDurationOptionSelect(option.value)}
-                    className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
-                  >
-                    {option.name}
-                  </div>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {isDurationDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full"
+                >
+                  {durationOptions.map((option, index) => (
+                    <motion.div
+                      key={index}
+                      onClick={() => handleDurationOptionSelect(option.value)}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
+                    >
+                      {option.name}
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <div className="col-span-2 flex flex-col gap-1">
@@ -407,34 +431,40 @@ export function ApplicationForm({
               Click here to get a hint
             </button>
             )
-            <div
-              className={`
-            ${showHint ? "block" : "hidden"}
-            bg-white absolute ml-4 md:ml-10 shadow-md flex flex-col items-center text-black text-xs md:px-16 px-5 box-border py-5 rounded-lg mt-2 border border-neutral-300`}
-            >
-              <HiOutlineLightBulb className="text-2xl text-black" />
-              <span className="mt-2 font-medium tracking-[-0.07rem] text-darkBlue text-base md:text-lg">
-                Hint on what to tell us about yourself
-              </span>
-              <ul class="list-disc md:text-xs text-[0.65rem] md:w-72 w-52 mt-3 flex flex-col md:gap-2 gap-1">
-                <li>
-                  Your experience and what you did if you’ve interned at other
-                  companies
-                </li>
-                <li>
-                  Whatever skills you have that could be of use to the
-                  Directorate (not compulsory you have any)
-                </li>
-                <li>Skills you hope to gain from this internship.</li>
-              </ul>
-              <button
-                type="button"
-                onClick={closeHint}
-                className="md:mt-5 mt-3 px-4 py-2 border border-neutral-300 rounded-md"
-              >
-                Close
-              </button>
-            </div>
+            <AnimatePresence>
+              {showHint && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="bg-white absolute ml-4 md:ml-10 shadow-md flex flex-col items-center text-black text-xs md:px-16 px-5 box-border py-5 rounded-lg mt-2 border border-neutral-300"
+                >
+                  <HiOutlineLightBulb className="text-2xl text-black" />
+                  <span className="mt-2 font-medium tracking-[-0.07rem] text-darkBlue text-base md:text-lg">
+                    Hint on what to tell us about yourself
+                  </span>
+                  <ul className="list-disc md:text-xs text-[0.65rem] md:w-72 w-52 mt-3 flex flex-col md:gap-2 gap-1">
+                    <li>
+                      Your experience and what you did if you’ve interned at
+                      other companies
+                    </li>
+                    <li>
+                      Whatever skills you have that could be of use to the
+                      Directorate (not compulsory you have any)
+                    </li>
+                    <li>Skills you hope to gain from this internship.</li>
+                  </ul>
+                  <button
+                    type="button"
+                    onClick={closeHint}
+                    className="md:mt-5 mt-3 px-4 py-2 border border-neutral-300 rounded-md"
+                  >
+                    Close
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </label>
           <textarea
             className={`
