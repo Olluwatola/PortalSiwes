@@ -23,7 +23,15 @@ function ContactUs() {
   }, []);
 
   return (
-    <>
+    <div className="py-36 gap-7 px-16 flex flex-col ">
+      <div className="flex flex-col gap-4 text-darkBlue">
+        <span className="font-medium text-6xl -tracking-widest">
+          Contact Us
+        </span>
+        <span className="tracking-tighter">
+          Feel free to get in touch using any of the following methods
+        </span>
+      </div>
       IF YOU HAVE ANY QUESTIONS? MAIL US ON ...
       {contactUsInfo[0]?.contactUsEmail}
       <br />
@@ -31,7 +39,7 @@ function ContactUs() {
       <br />
       {contactUsInfo[0]?.address}
       {/* <ContactUsForm /> */}
-    </>
+    </div>
   );
 }
 export default ContactUs;

@@ -29,16 +29,23 @@ function Faq() {
   }, []);
 
   return (
-    <>
+    <div className="py-36 gap-7 px-16 flex flex-col ">
       <AdminStatusBar
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
       />
+      <div className="flex flex-col gap-4 text-darkBlue">
+        <span className="font-medium text-6xl -tracking-widest">
+          Frequently <br />
+          asked Questions
+        </span>
+        <span className="tracking-tighter">Still Need help? Click the button below</span>
+      </div>
       {faqArray.map((faq, index) => (
         <Accordion key={index} question={faq.question} answer={faq.answer} />
       ))}
       {/* <FaqForm /> */}
-    </>
+    </div>
   );
 }
 

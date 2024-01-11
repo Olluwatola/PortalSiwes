@@ -26,7 +26,10 @@ function About() {
   }, [about]);
   return (
     <div className="py-36 gap-7 px-16 flex flex-col ">
-      <span className="font-medium text-6xl text-darkBlue -tracking-widest">About</span>
+      <div className="flex flex-col gap-4 text-darkBlue">
+        <span className="font-medium text-6xl -tracking-widest">About</span>
+        <span className="tracking-tighter">Get to know us</span>
+      </div>
       {about ? about : ""}
     </div>
   );

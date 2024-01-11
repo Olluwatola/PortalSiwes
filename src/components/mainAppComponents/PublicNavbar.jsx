@@ -23,11 +23,14 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
         className={`
       ${home ? "text-white" : "text-slate-500"}
       text-sm md:text-base flex items-center justify-between md:justify-start md:w-fit gap-3
+      transition-all ease-in-out duration-300
       `}
       >
         <li
         className={`
-        ${home ? "text-white" : "text-primary"}`}
+        ${home ? "text-white" : "text-primary"}
+        transition-all ease-in-out duration-300`}
+        
         >
           {applyModal == true ? (
             <button onClick={() => setapplyModal(false)}>
