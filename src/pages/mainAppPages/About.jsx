@@ -6,7 +6,8 @@ import {
 } from "firebase/firestore";
 import { db } from "./../../config/firebase";
 import { motion } from "framer-motion";
-
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 function About() {
   const [about, setAbout] = useState();
 
@@ -40,7 +41,7 @@ function About() {
         <span className="tracking-tighter">Get to know us</span>
       </div>
       <div className="md:w-3/4 text-justify md:text-base text-sm leading-relaxed md:leading-[1.7rem] font-light">
-        {about ? about : ""}
+        {about ? about : <Skeleton count={10} />}
       </div>
     </motion.div>
   );
