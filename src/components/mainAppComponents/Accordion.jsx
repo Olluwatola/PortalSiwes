@@ -1,14 +1,7 @@
-import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Accordion = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleAccordionToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Accordion = ({ question, answer, isOpen, handleAccordionToggle }) => {
   return (
     <div className="bg-gray-100 bg-opacity-70 rounded-lg pl-5 pr-12 py-5">
       <div
@@ -27,8 +20,16 @@ const Accordion = ({ question, answer }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-          
-          className="pl-[3.75rem] mt-3">
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: "auto" },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.3 }}
+            className="pl-[3.75rem] mt-3"
+          >
             <div className="text-gray-700 text-sm font-light">{answer}</div>
           </motion.div>
         )}

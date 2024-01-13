@@ -10,6 +10,11 @@ function Faq() {
   const [faqArray, setFaqArray] = useState([]);
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleAccordionToggle = (index) => {
+    setIsOpen((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   // const getFaqs = async () => {
   //   try {
@@ -63,6 +68,9 @@ function Faq() {
                 key={index}
                 question={faq.question}
                 answer={faq.answer}
+                setIsOpen={setIsOpen}
+                isOpen={isOpen === index} // Pass whether the current FAQ is open or not
+                handleAccordionToggle={() => handleAccordionToggle(index)}
               />
             ))}
           </AnimatePresence>
