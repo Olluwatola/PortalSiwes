@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "./../../config/firebase";
 import ContactUsForm from "./../../components/mainAppComponents/ContactUsForm";
 import { collection, getDocs } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 function ContactUs() {
   const [contactUsInfo, setContactUsInfo] = useState([]);
@@ -23,7 +24,13 @@ function ContactUs() {
   }, []);
 
   return (
-    <div className="py-36 gap-7 px-16 flex flex-col ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="md:py-36 py-20 gap-5 md:gap-7 md:px-16 px-6 flex flex-col "
+    >
       <div className="flex flex-col gap-4 text-darkBlue">
         <span className="font-medium text-6xl -tracking-widest">
           Contact Us
@@ -39,7 +46,7 @@ function ContactUs() {
       <br />
       {contactUsInfo[0]?.address}
       {/* <ContactUsForm /> */}
-    </div>
+    </motion.div>
   );
 }
 export default ContactUs;
