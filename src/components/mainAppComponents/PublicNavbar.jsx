@@ -21,6 +21,8 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
       setActive("faqs");
     } else if (location.pathname === "/contactus") {
       setActive("contactus");
+    } else {
+      setActive("");
     }
   };
 
@@ -73,21 +75,45 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
         <li
           className={`
         ${active === "about" ? "text-black" : ""}
-        hidden md:flex transition-all ease-in-out duration-200`}
+        hidden md:flex transition-all ease-in-out duration-200 items-center flex-col`}
         >
           <Link to="/about">About</Link>
+          <div
+            className={`${
+              active === "about"
+                ? "bg-darkBlue translate-y-0"
+                : "bg-transparent translate-y-1"
+            } 
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+          ></div>
         </li>
         <li
           className={`${active === "faqs" ? "text-black" : ""}
-          hidden md:flex transition-all ease-in-out duration-200`}
+          hidden md:flex transition-all ease-in-out duration-200 items-center flex-col`}
         >
           <Link to="/faqs">FAQs</Link>
+          <div
+            className={`${
+              active === "faqs"
+                ? "bg-darkBlue translate-y-0"
+                : "bg-transparent translate-y-1"
+            } 
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+          ></div>
         </li>
         <li
           className={`${active === "contactus" ? "text-black" : ""}
-          hidden md:flex transition-all ease-in-out duration-200`}
+          hidden md:flex transition-all ease-in-out duration-200 items-center flex-col`}
         >
           <Link to="/contactus">Contact Us</Link>
+          <div
+            className={`${
+              active === "contactus"
+                ? "bg-darkBlue translate-y-0"
+                : "bg-transparent translate-y-1"
+            } 
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+          ></div>
         </li>
 
         {/* For mobile */}
@@ -95,21 +121,45 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
           <li
             className={`
           ${active === "about" ? "text-black" : ""}
-          transition-all ease-in-out duration-200`}
+          transition-all ease-in-out duration-200 items-center flex flex-col`}
           >
             <Link to="/about">About</Link>
+            <div
+              className={`${
+                active === "about"
+                  ? "bg-darkBlue translate-y-0"
+                  : "bg-transparent translate-y-1"
+              }
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+            ></div>
           </li>
           <li
             className={`${active === "faqs" ? "text-black" : ""}
-          transition-all ease-in-out duration-200`}
+          transition-all ease-in-out duration-200 items-center flex flex-col`}
           >
             <Link to="/faqs">FAQs</Link>
+            <div
+              className={`${
+                active === "faqs"
+                  ? "bg-darkBlue translate-y-0"
+                  : "bg-transparent translate-y-1"
+              }
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+            ></div>
           </li>
           <li
             className={`${active === "contactus" ? "text-black" : ""}
-          transition-all ease-in-out duration-200`}
+          transition-all ease-in-out duration-200 items-center flex flex-col`}
           >
             <Link to="/contactus">Contact Us</Link>
+            <div
+              className={`${
+                active === "contactus"
+                  ? "bg-darkBlue translate-y-0"
+                  : "bg-transparent translate-y-1"
+              }
+            w-[5px] h-[5px] rounded-full absolute bottom-0 transition-all ease-in-out duration-200`}
+            ></div>
           </li>
         </div>
       </ul>
