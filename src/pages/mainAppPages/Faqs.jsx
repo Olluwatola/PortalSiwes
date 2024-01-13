@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Accordion from "./../../components/mainAppComponents/Accordion";
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import { getFaqs } from "../../controllers/fetchMainAppDetails";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import faq from "../../assets/faq.svg";
 
 function Faq() {
@@ -56,14 +56,16 @@ function Faq() {
           </button>
           <img src={faq} alt="faq" className="w-full" />
         </div>
-        <div className="flex flex-col w-1/2">
-          {faqArray.map((faq, index) => (
-            <Accordion
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-            />
-          ))}
+        <div className="flex flex-col gap-5 w-1/2">
+          <AnimatePresence>
+            {faqArray.map((faq, index) => (
+              <Accordion
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+              />
+            ))}
+          </AnimatePresence>
         </div>
       </div>
       <div className="flex flex-col gap-5 items-center mt-16 text-darkBlue">
