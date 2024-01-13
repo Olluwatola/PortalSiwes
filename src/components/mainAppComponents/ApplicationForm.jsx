@@ -663,9 +663,14 @@ export function ApplicationForm({
           <button
             type="submit"
             disabled={submitButtonClicked}
-            className="bg-primary w-full py-3 rounded-lg text-white text-sm transition-all duration-300 ease-in-out hover:bg-white hover:text-primary hover:border-primary border border-primary"
+            className={`
+            ${
+              submitButtonClicked
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-primary"
+            } w-full py-3 rounded-lg text-white text-sm transition-all duration-300 ease-in-out hover:bg-white hover:text-primary hover:border-primary border border-primary`}
           >
-            Submit Application
+            {submitButtonClicked ? "Submitting..." : "Submit Application"}
           </button>
         </div>
       </form>
