@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export default function Accordion({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -9,7 +8,7 @@ export default function Accordion({ question, answer }) {
   }
   return (
     <>
-      <div style={{ border: "red solid 1px" }}>
+      <div className="bg-yellow-300">
         <div>
           {question}
           <button onClick={handleAccordionToggle}>🔽</button>
