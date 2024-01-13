@@ -18,7 +18,12 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
   }, [location.pathname]);
 
   return (
-    <nav className="fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8">
+    <nav
+      className={`${
+        home ? "bg-transparent" : "bg-white backdrop-blur-md bg-opacity-30"
+      }
+      fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8`}
+    >
       <ul
         className={`
       ${home ? "text-white" : "text-slate-500"}
@@ -27,10 +32,9 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
       `}
       >
         <li
-        className={`
+          className={`
         ${home ? "text-white" : "text-primary"}
         transition-all ease-in-out duration-300`}
-        
         >
           {applyModal == true ? (
             <button onClick={() => setapplyModal(false)}>
