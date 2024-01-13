@@ -69,7 +69,7 @@ function Faq() {
                 question={faq.question}
                 answer={faq.answer}
                 setIsOpen={setIsOpen}
-                isOpen={isOpen === index} // Pass whether the current FAQ is open or not
+                isOpen={isOpen === index}
                 handleAccordionToggle={() => handleAccordionToggle(index)}
               />
             ))}
