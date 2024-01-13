@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-//import FaqForm from "./../../components/mainAppComponents/FaqForm";
+import FaqForm from "./../../components/mainAppComponents/FaqForm";
 import Accordion from "./../../components/mainAppComponents/Accordion";
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import { getFaqs } from "../../controllers/fetchMainAppDetails";
+import { motion } from "framer-motion";
 
 function Faq() {
   const [faqArray, setFaqArray] = useState([]);
@@ -29,7 +30,13 @@ function Faq() {
   }, []);
 
   return (
-    <div className="py-36 gap-7 px-16 flex flex-col ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="md:py-36 py-20 gap-5 md:gap-7 md:px-16 px-6 flex flex-col "
+    >
       <AdminStatusBar
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
@@ -39,13 +46,15 @@ function Faq() {
           Frequently <br />
           asked Questions
         </span>
-        <span className="tracking-tighter">Still Need help? Click the button below</span>
+        <span className="tracking-tighter">
+          Still Need help? Click the button below
+        </span>
       </div>
       {faqArray.map((faq, index) => (
         <Accordion key={index} question={faq.question} answer={faq.answer} />
       ))}
-      {/* <FaqForm /> */}
-    </div>
+      <FaqForm />
+    </motion.div>
   );
 }
 

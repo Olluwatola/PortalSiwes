@@ -8,6 +8,7 @@ import { db } from "./../../config/firebase";
 import { motion } from "framer-motion";
 import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
 import Skeleton from "react-loading-skeleton";
+
 function About() {
   const [about, setAbout] = useState();
 
