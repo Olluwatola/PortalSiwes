@@ -26,18 +26,18 @@ body {
 
 /* custom scrollbar */
 ::-webkit-scrollbar {
-  width: 0.7vw;
+  width: 0.6vw;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #b4b4b4;
   border-radius: 10vw;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #919191;
 }
