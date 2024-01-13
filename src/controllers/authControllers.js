@@ -30,7 +30,7 @@ export const signUserOut = async () => {
 
 export const handleGetUserProfile = async (userAuthID) => {
   try {
-    console.log(userAuthID);
+    // console.log(userAuthID);
     const docRef = doc(db, "admins", userAuthID);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {

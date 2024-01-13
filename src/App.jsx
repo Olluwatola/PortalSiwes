@@ -3,6 +3,7 @@ import { auth } from "./config/firebase";
 import { handleGetUserProfile } from "./controllers/authControllers";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import PrivateRoutesLayout from "./layouts/PrivateRoutesLayout";
 import Home from "./pages/mainAppPages/Home";
 import Faqs from "./pages/mainAppPages/Faqs";
@@ -83,6 +84,7 @@ function App() {
           <Route path="/admin/portal" element={<PortalSettings />} />
         </Route>
       </Routes>
+      <Footer />
     </Router>
   );
 }
