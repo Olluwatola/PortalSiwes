@@ -42,7 +42,18 @@ function About() {
         <span className="tracking-tighter">Get to know us</span>
       </div>
       <div className="md:w-3/4 text-justify md:text-base text-sm leading-relaxed md:leading-[1.7rem] font-light">
-        {about ? about : <Skeleton count={10} />}
+        {about ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+          >
+            {about}
+          </motion.div>
+        ) : (
+          <Skeleton count={10} />
+        )}
       </div>
     </motion.div>
   );
