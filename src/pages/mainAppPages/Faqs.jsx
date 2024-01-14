@@ -43,27 +43,27 @@ function Faq() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="md:py-36 py-20 gap-5 md:gap-7 md:px-16 px-6 flex flex-col "
+      className="md:py-36 pt-20 pb-5 gap-5 md:gap-7 md:px-16 px-6 flex flex-col "
     >
       <AdminStatusBar
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
       />
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-4 text-darkBlue">
-          <span className="font-medium text-6xl -tracking-widest">
+      <div className="flex md:flex-row flex-col justify-between">
+        <div className="flex flex-col gap-2 md:gap-4 text-darkBlue">
+          <span className="font-medium text-4xl md:text-6xl -tracking-widest">
             Frequently <br />
             asked Questions
           </span>
-          {/* <span className="tracking-tighter">
+          <span className="tracking-tighter">
             Still Need help? Click the button below
           </span>
-          <button className="bg-primary w-fit hover:bg-transparent border mt-5 text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
+          <button className="bg-primary w-fit hover:bg-transparent border md:mt-5 text-xs mt-2 md:text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
             I have a Question
-          </button> */}
-          <img src={faq} alt="faq" className="w-full" />
+          </button>
+          <img src={faq} alt="faq" className="md:w-full w-3/4 self-center" />
         </div>
-        <div className="flex flex-col gap-5 w-1/2">
+        <div className="flex flex-col md:gap-5 gap-3 md:w-1/2">
           <AnimatePresence>
             {faqArray.length > 0 ? (
               faqArray.map((faq, index) => (
@@ -84,18 +84,18 @@ function Faq() {
                 </motion.div>
               ))
             ) : (
-              <Skeleton count={6} className="h-20 rounded-lg mb-5" />
+              <Skeleton count={6} className="h-20 rounded-lg md:mb-5 mb-3" />
             )}
           </AnimatePresence>
         </div>
       </div>
-      <div className="flex flex-col gap-5 items-center mt-16 text-darkBlue">
-        <span className="font-medium text-5xl mb-2 -tracking-[0.25rem] text-center leading-[3.5rem]">
+      <div className="flex flex-col md:gap-5 gap-1 items-center mt-16 text-darkBlue">
+        <span className="font-medium text-lg tracking-tighter md:text-5xl md:mb-2 md:-tracking-[0.25rem] text-center md:leading-[3.5rem]">
           Ready to Kickstart Your IT Journey? <br /> Apply Now for the
           Internship Program!
         </span>
-        <span>Click the button below to apply</span>
-        <button className="bg-primary w-fit hover:bg-transparent border text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
+        <span className="md:text-base text-sm md:mb-0 mb-3">Click the button below to apply</span>
+        <button className="bg-primary w-fit md:text-sm hover:bg-transparent border text-xs text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
           Apply Now!
         </button>
       </div>

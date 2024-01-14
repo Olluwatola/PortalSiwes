@@ -3,19 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Accordion = ({ question, answer, isOpen, handleAccordionToggle }) => {
   return (
-    <div className="bg-gray-100 bg-opacity-70 rounded-lg pl-5 pr-12 py-5">
+    <div className="bg-gray-100 bg-opacity-70 rounded-lg px-4 md:pl-5 md:pr-12 py-5">
       <div
-        className="flex gap-10 items-center cursor-pointer"
+        className="flex md:gap-10 gap-4 items-center cursor-pointer"
         onClick={handleAccordionToggle}
       >
         <div className="transform transition-transform">
           <FiChevronDown
-            className={`text-xl transition-all duration-300 ease-in-out
+            className={`md:text-xl transition-all duration-300 ease-in-out
           ${isOpen ? "rotate-180 text-primary" : "text-gray-400"}
           `}
           />
         </div>
-        <div className="text-darkBlue">{question}</div>
+        <div className="text-darkBlue md:text-base text-sm">{question}</div>
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -30,7 +30,7 @@ const Accordion = ({ question, answer, isOpen, handleAccordionToggle }) => {
             transition={{ duration: 0.3 }}
             className="pl-[3.75rem] mt-3"
           >
-            <div className="text-gray-700 text-sm font-light">{answer}</div>
+            <div className="text-gray-700 md:text-sm text-xs font-light">{answer}</div>
           </motion.div>
         )}
       </AnimatePresence>

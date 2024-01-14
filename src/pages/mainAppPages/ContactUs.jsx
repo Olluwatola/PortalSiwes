@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "./../../config/firebase";
-import ContactUsForm from "./../../components/mainAppComponents/ContactUsForm";
+// import ContactUsForm from "./../../components/mainAppComponents/ContactUsForm";
 import { collection, getDocs } from "firebase/firestore";
 import { motion } from "framer-motion";
 
