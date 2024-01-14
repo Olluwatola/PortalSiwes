@@ -55,12 +55,12 @@ function Faq() {
             Frequently <br />
             asked Questions
           </span>
-          <span className="tracking-tighter">
+          {/* <span className="tracking-tighter">
             Still Need help? Click the button below
           </span>
           <button className="bg-primary w-fit hover:bg-transparent border mt-5 text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
             I have a Question
-          </button>
+          </button> */}
           <img src={faq} alt="faq" className="w-full" />
         </div>
         <div className="flex flex-col gap-5 w-1/2">
