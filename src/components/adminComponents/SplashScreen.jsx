@@ -5,7 +5,7 @@ const SplashScreen = () => {
     <motion.div
       transition={{ duration: 0.5 }}
       exit={{ opacity: 0 }}
-      className="w-screen h-screen flex items-center justify-center absolute bg-white text-primary"
+      className="w-screen h-screen flex items-center justify-center absolute bg-white text-primary z-50"
     >
       <motion.span
         initial={{ opacity: 0, x: 200 }}

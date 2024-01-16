@@ -45,7 +45,7 @@ export const Auth = ({ studentEmail, setStudentEmail, setApplyModal }) => {
       </button>
       <div className="w-full flex justify-between items-center md:items-start">
         <div className="flex flex-col gap-1 md:gap-2">
-          <span className="font-semibold md:text-3xl text-xl">Apply Now!</span>
+          <span className="font-semibold md:text-2xl tracking-tight text-xl">Apply Now!</span>
           <span className="md:text-sm md:flex hidden text-xs text-slate-500">
             Enter your details below to get started
           </span>
