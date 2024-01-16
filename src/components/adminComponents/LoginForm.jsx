@@ -36,6 +36,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
+      setSignInButtonClicked(true);
       console.log(auth);
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -61,14 +62,15 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
       setLoginPassword("");
     } catch (err) {
       setErrorMessage(err.message);
+    } finally {
+      setSignInButtonClicked(false);
     }
   };
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setSignInButtonClicked(true);
 
+    try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         signUpEmail,
@@ -86,8 +88,6 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
     } catch (err) {
       setSignUpErrorMessage(err.message);
       console.log(err);
-    } finally {
-      setSignInButtonClicked(false);
     }
   };
 
