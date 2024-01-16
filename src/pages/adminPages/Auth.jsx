@@ -26,10 +26,13 @@ function Admin() {
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
       />
-      <LoginForm
-        setConditionGood={setConditionGood}
-        setStatusBarMessage={setStatusBarMessage}
-      />
+      <div className="w-screen  bg-lime-300">
+        <div></div>
+        <LoginForm
+          setConditionGood={setConditionGood}
+          setStatusBarMessage={setStatusBarMessage}
+        />
+      </div>
     </>
   );
 }

@@ -3,14 +3,16 @@ import { useLocation } from "react-router-dom";
 
 const Footer = () => {
   const [year, setYear] = useState();
-  const [home, setHome] = useState(null);
+  const [show, setShow] = useState(null);
   const location = useLocation();
 
-  const handleHome = () => {
+  const handleshow = () => {
     if (location.pathname === "/") {
-      setHome(true);
+      setShow(true);
+    } else if (location.pathname.startsWith("/admin")) {
+      setShow(true);
     } else {
-      setHome(false);
+      setShow(false);
     }
   };
 
@@ -23,12 +25,12 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    handleHome();
+    handleshow();
   }, [location.pathname]);
 
   return (
     <>
-      {home ? null : (
+      {show ? null : (
         <div className="md:px-16 px-6 text-sm py-10">
           <span className="flex items-center gap-2">
             <span>©️ {year}</span>
