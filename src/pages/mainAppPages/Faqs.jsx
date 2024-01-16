@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import FaqForm from "./../../components/mainAppComponents/FaqForm";
 import Accordion from "./../../components/mainAppComponents/Accordion";
 import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
@@ -58,9 +59,9 @@ function Faq() {
           <span className="tracking-tighter">
             Still Need help? Click the button below
           </span>
-          <button className="bg-primary w-fit hover:bg-transparent border md:mt-5 text-xs mt-2 md:text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
+          <Link to="/contactus" className="bg-primary w-fit hover:bg-transparent border md:mt-5 text-xs mt-2 md:text-sm text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
             I have a Question
-          </button>
+          </Link>
           <img src={faq} alt="faq" className="md:w-full w-3/4 self-center" />
         </div>
         <div className="flex flex-col md:gap-5 gap-3 md:w-1/2">
@@ -94,10 +95,12 @@ function Faq() {
           Ready to Kickstart Your IT Journey? <br /> Apply Now for the
           Internship Program!
         </span>
-        <span className="md:text-base text-sm md:mb-0 mb-3">Click the button below to apply</span>
-        <button className="bg-primary w-fit md:text-sm hover:bg-transparent border text-xs text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
+        <span className="md:text-base text-sm md:mb-0 mb-3">
+          Click the button below to apply
+        </span>
+        <Link to="/" className="bg-primary w-fit md:text-sm hover:bg-transparent border text-xs text-white md:px-7 px-4 md:py-3.5 py-2 hover:text-primary rounded-lg border-primary transition-all ease-in-out duration-300">
           Apply Now!
-        </button>
+        </Link>
       </div>
       {/* <FaqForm /> */}
     </motion.div>
