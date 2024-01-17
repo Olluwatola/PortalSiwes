@@ -12,7 +12,7 @@ import {
 import ResetPasswordComponent from "./ResetPasswordComponent";
 import { motion, AnimatePresence } from "framer-motion";
 
-const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
+const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, resetActive }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
@@ -32,6 +32,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
   const from = location.state?.from?.pathname || "/admin";
 
   const handleToggleResetPassword = () => {
+    setResetActive(!resetActive); // Toggle the resetActive state
     setResetPasswordToggle(!resetPasswordToggle); // Toggle the resetPasswordToggle state
   };
 

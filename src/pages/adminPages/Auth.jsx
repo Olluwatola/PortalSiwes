@@ -8,6 +8,7 @@ import Welcome from "../../assets/welcome.svg";
 function Admin() {
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
+  const [resetActive, setResetActive] = useState(false);
   const [splashScreen, setSplashScreen] = useState(true);
   const [year, setYear] = useState();
 
@@ -42,7 +43,11 @@ function Admin() {
             Ms
           </span>
           <div className="w-full h-[75%] flex">
-            <img src={Welcome} className="w-full h-full object-contain" />
+            <img
+              src={Welcome}
+              className={`${resetActive ? "opacity-0" : ""}
+              w-full h-full object-contain transition-all duration-300 ease-in-out`}
+            />
           </div>
           <div className="text-sm text-white">
             <span className="flex items-center gap-2">
@@ -57,6 +62,8 @@ function Admin() {
         <LoginForm
           setConditionGood={setConditionGood}
           setStatusBarMessage={setStatusBarMessage}
+          setResetActive={setResetActive}
+          resetActive={resetActive}
         />
       </div>
     </>
