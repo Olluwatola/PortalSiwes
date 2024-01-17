@@ -10,6 +10,7 @@ import {
   handleCreateAdminProfileDocument,
 } from "./../../controllers/authControllers";
 import ResetPasswordComponent from "./ResetPasswordComponent";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -23,6 +24,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
   const [adminProfileCreationLoading, setAdminProfileCreationLoading] =
     useState(false);
   const [signInButtonClicked, setSignInButtonClicked] = useState(false);
+  const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -89,6 +91,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
     e.preventDefault();
 
     try {
+      setSignUpButtonClicked(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         signUpEmail,
@@ -106,6 +109,8 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
     } catch (err) {
       setSignUpErrorMessage(err.message);
       console.log(err);
+    } finally {
+      setSignUpButtonClicked(false);
     }
   };
 
@@ -113,97 +118,171 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
     setSignUpAttempt(!signUpAttempt); // Toggle the signUpAttempt state
   };
 
-  return resetPasswordToggle ? (
-    <ResetPasswordComponent
-      setConditionGood={setConditionGood}
-      setStatusBarMessage={setStatusBarMessage}
-      handleToggleResetPassword={handleToggleResetPassword}
-    />
-  ) : signUpAttempt ? (
-    <>
-      <h2>Sign Up</h2>
-      <p>Approval of your application to be an admin might take a while.</p>
-      <p>
-        You will receive an approval mail as soon as your application is
-        approved.
-      </p>
-      <form onSubmit={handleSignUpSubmit}>
-        <input
-          value={signUpEmail}
-          placeholder="Sign Up Email.."
-          onChange={(e) => setSignUpEmail(e.target.value)}
+  return (
+    <AnimatePresence>
+      {resetPasswordToggle ? (
+        <ResetPasswordComponent
+          setConditionGood={setConditionGood}
+          setStatusBarMessage={setStatusBarMessage}
+          handleToggleResetPassword={handleToggleResetPassword}
         />
-        <input
-          value={signUpPassword}
-          placeholder="Sign Up Password.."
-          onChange={(e) => setSignUpPassword(e.target.value)}
-        />
-        {signUpErrorMessage && <p>{signUpErrorMessage}</p>}
-        <button type="submit">Apply to be an admin</button>
-      </form>
-      <hr />
-      <button onClick={toggleSignUpAttempt}>Login</button>
-    </>
-  ) : (
-    <div className="w-[57%] h-screen py-8 px-12 flex flex-col">
-      <div className="flex flex-col gap-1 md:gap-2">
-        <span className="font-semibold md:text-2xl tracking-tight text-xl">
-          Welcome Back!
-        </span>
-        <span className="md:text-sm md:flex hidden text-xs text-slate-500">
-          Enter your details below to continue
-        </span>
-      </div>
-      <form onSubmit={handleLoginSubmit} className="mt-8 flex flex-col gap-8">
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Email</label>
-          <input
-            className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
-            value={loginEmail}
-            placeholder="e.g thatemail@mail.com"
-            name="loginEmail"
-            onChange={(e) => setLoginEmail(e.target.value)}
-          />
-        </div>{" "}
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Password</label>
-          <input
-            className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
-            placeholder="● ● ● ● ● ● ● ●"
-            name="loginPassword"
-            onChange={(e) => setLoginPassword(e.target.value)}
-            value={loginPassword}
-          />
-        </div>
-        <button
-          className="underline text-sm w-fit -mt-5"
-          onClick={handleToggleResetPassword}
+      ) : signUpAttempt ? (
+        <motion.div
+          key="signUp"
+          initial={{ opacity: 0, x: 500 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 500 }}
+          transition={{ duration: 0.2 }}
+          className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
         >
-          Forgot password?
-        </button>
-        {errorMessage && (
-          <span className="-my-4 text-red-500 text-xs">{errorMessage}</span>
-        )}
-        <button
-          type="submit"
-          disabled={signInButtonClicked}
-          className={`
+          <div className="flex flex-col gap-1 md:gap-2">
+            <span className="font-semibold md:text-2xl tracking-tight text-xl">
+              Create your account
+            </span>
+            <span className="md:text-sm md:flex hidden text-xs text-slate-500">
+              Admin approval may take time. You'll receive an email upon
+              approval.
+            </span>
+          </div>
+          <form
+            onSubmit={handleSignUpSubmit}
+            className="mt-8 flex flex-col gap-8"
+          >
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">Email Address</label>
+              <input
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                value={signUpEmail}
+                placeholder="e.g thatemail@mail.com"
+                name="signUpEmail"
+                onChange={(e) => setSignUpEmail(e.target.value)}
+              />
+            </div>{" "}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">
+                Full Name (First Name first)
+              </label>
+              <input
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                // value={signUpName}
+                placeholder="Tola David"
+                // name="signUpName"
+                // onChange={(e) => setSignUpName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">Password</label>
+              <input
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                placeholder="● ● ● ● ● ● ● ●"
+                name="signUpPassword"
+                onChange={(e) => setSignUpPassword(e.target.value)}
+                value={signUpPassword}
+              />
+            </div>
+            {signUpErrorMessage && (
+              <span className="-my-4 text-red-500 text-xs">
+                {signUpErrorMessage}
+              </span>
+            )}
+            <button
+              type="submit"
+              disabled={signUpButtonClicked}
+              className={`
+            ${
+              signUpButtonClicked
+                ? "bg-gray-300 text-gray-600 border-none cursor-not-allowed"
+                : "bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary"
+            } w-3/4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
+            >
+              {signUpButtonClicked ? "Signing up..." : "Sign up"}
+            </button>
+          </form>
+          <span className="text-xs text-center w-3/4 mt-10">
+            Have an account?{" "}
+            <button
+              className="text-primary underline"
+              onClick={toggleSignUpAttempt}
+            >
+              Sign In
+            </button>
+          </span>{" "}
+        </motion.div>
+      ) : (
+        <motion.div
+          key="signIn"
+          initial={{ opacity: 0, x: 500 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 500 }}
+          transition={{ duration: 0.2 }}
+          className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
+        >
+          <div className="flex flex-col gap-1 md:gap-2">
+            <span className="font-semibold md:text-2xl tracking-tight text-xl">
+              Welcome Back!
+            </span>
+            <span className="md:text-sm md:flex hidden text-xs text-slate-500">
+              Enter your details below to continue
+            </span>
+          </div>
+          <form
+            onSubmit={handleLoginSubmit}
+            className="mt-8 flex flex-col gap-8"
+          >
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">Email Address</label>
+              <input
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                value={loginEmail}
+                placeholder="e.g thatemail@mail.com"
+                name="loginEmail"
+                onChange={(e) => setLoginEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">Password</label>
+              <input
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                placeholder="● ● ● ● ● ● ● ●"
+                name="loginPassword"
+                onChange={(e) => setLoginPassword(e.target.value)}
+                value={loginPassword}
+              />
+            </div>
+            <button
+              className="underline text-sm w-fit -mt-5"
+              onClick={handleToggleResetPassword}
+            >
+              Forgot password?
+            </button>
+            {errorMessage && (
+              <span className="-my-4 text-red-500 text-xs">{errorMessage}</span>
+            )}
+            <button
+              type="submit"
+              disabled={signInButtonClicked}
+              className={`
             ${
               signInButtonClicked
                 ? "bg-gray-300 text-gray-600 border-none cursor-not-allowed"
                 : "bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary"
             } w-3/4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
-        >
-          {signInButtonClicked ? "Signing in..." : "Sign in"}
-        </button>
-      </form>
-      <span className="text-xs text-center w-3/4 mt-10">
-        Don't have an account?{" "}
-        <button className="text-primary" onClick={toggleSignUpAttempt}>
-          Sign Up
-        </button>
-      </span>
-    </div>
+            >
+              {signInButtonClicked ? "Signing in..." : "Sign in"}
+            </button>
+          </form>
+          <span className="text-xs text-center w-3/4 mt-10">
+            Don't have an account?{" "}
+            <button
+              className="text-primary underline"
+              onClick={toggleSignUpAttempt}
+            >
+              Sign Up
+            </button>
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
