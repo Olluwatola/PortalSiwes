@@ -4,6 +4,7 @@ import AdminStatusBar from "../../components/adminComponents/adminStatusBar/Admi
 import SplashScreen from "../../components/adminComponents/SplashScreen";
 import { AnimatePresence, motion } from "framer-motion";
 import Welcome from "../../assets/welcome.svg";
+import Modal from "../../components/adminComponents/adminModals/Modal";
 
 function Admin() {
   const [conditionGood, setConditionGood] = useState(null);
@@ -11,6 +12,11 @@ function Admin() {
   const [resetActive, setResetActive] = useState(false);
   const [splashScreen, setSplashScreen] = useState(true);
   const [year, setYear] = useState();
+
+  const [modalTitle, setModalTitle] = useState("Login Successful!");
+  const [modalMessage, setModalMessage] = useState(
+    "You’ll be redirected to the home dashboard shortly"
+  );
 
   const hideSplashScreen = () => {
     setTimeout(() => {
@@ -29,6 +35,8 @@ function Admin() {
 
   return (
     <>
+      {" "}
+      <Modal title={modalTitle} message={modalMessage} />
       <AnimatePresence>{splashScreen && <SplashScreen />}</AnimatePresence>
       <AdminStatusBar
         conditionGood={conditionGood}

@@ -29,6 +29,8 @@ const LoginForm = ({
   const [signUpErrorMessage, setSignUpErrorMessage] = useState(null);
   const [adminProfileCreationLoading, setAdminProfileCreationLoading] =
     useState(false);
+
+  
   const [signInButtonClicked, setSignInButtonClicked] = useState(false);
   const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
 
@@ -174,6 +176,7 @@ const LoginForm = ({
           transition={{ duration: 0.2 }}
           className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
         >
+
           <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-semibold md:text-2xl tracking-tight text-xl">
               Create your account
