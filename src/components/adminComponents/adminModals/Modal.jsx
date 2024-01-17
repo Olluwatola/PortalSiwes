@@ -10,9 +10,10 @@ const Modal = ({ title, message }) => {
             force={0.7}
             duration={4000}
             particleCount={300}
-            width={900}
-            height={1000}
+            width={700}
+            height={800}
             colors={["#0071BC", "#DBE5FF", "#8A8A8A"]}
+            zIndex={30}
           />
         </div>
         <img src={success} alt="success" className="w-48" />
