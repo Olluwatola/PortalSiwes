@@ -246,16 +246,12 @@ export async function resetPassword(
   setConditionGood,
   setStatusBarMessage
 ) {
-  sendPasswordResetEmail(auth, resetPasswordEmail)
-    .then(() => {
-      setConditionGood("good");
-      setStatusBarMessage(`mail reset password set`);
-    })
-    .catch((error) => {
-      setConditionGood("error");
-      setStatusBarMessage(`error resetting password: ${error}`);
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // ..
-    });
+  try {
+    await sendPasswordResetEmail(auth, resetPasswordEmail);
+    setConditionGood("good");
+    setStatusBarMessage("Mail reset password set");
+  } catch (error) {
+    setConditionGood("error");
+    setStatusBarMessage(`Error resetting password: ${error.message}`);
+  }
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import LoginForm from "./../../components/adminComponents/LoginForm";
-import StatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
+import AdminStatusBar from "../../components/adminComponents/adminStatusBar/AdminStatusBar";
 import SplashScreen from "../../components/adminComponents/SplashScreen";
 import { AnimatePresence, motion } from "framer-motion";
 import Welcome from "../../assets/welcome.svg";
@@ -29,9 +29,10 @@ function Admin() {
   return (
     <>
       <AnimatePresence>{splashScreen && <SplashScreen />}</AnimatePresence>
-      <StatusBar
+      <AdminStatusBar
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
+        setStatusBarMessage={setStatusBarMessage}
       />
       <div className="w-screen h-screen flex">
         <div className="w-[43%] h-screen bg-primary flex flex-col px-12 py-8 justify-between">

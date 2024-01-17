@@ -107,7 +107,27 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
       setSignUpEmail("");
       setSignUpPassword("");
     } catch (err) {
-      setSignUpErrorMessage(err.message);
+      if (err.code === "auth/email-already-in-use") {
+        setSignUpErrorMessage("The email address is already in use.");
+      } else if (err.code === "auth/invalid-email") {
+        setSignUpErrorMessage(
+          "Invalid email address. Please check your email."
+        );
+      } else if (err.code === "auth/weak-password") {
+        setSignUpErrorMessage("Password should be at least 6 characters.");
+      } else if (err.code === "auth/network-request-failed") {
+        setSignUpErrorMessage("Network error. Please try again later.");
+      } else if (err.code === "auth/too-many-requests") {
+        setSignUpErrorMessage("Too many requests. Please try again later.");
+      } else if (err.code === "auth/missing-email") {
+        setSignUpErrorMessage(
+          "Invalid email address. Please check your email."
+        );
+      } else if (err.code === "auth/missing-password") {
+        setSignUpErrorMessage("Invalid password. Please check your password.");
+      } else {
+        setSignUpErrorMessage(err.message);
+      }
       console.log(err);
     } finally {
       setSignUpButtonClicked(false);
@@ -201,6 +221,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
           <span className="text-xs text-center w-3/4 mt-10">
             Have an account?{" "}
             <button
+              type="button"
               className="text-primary underline"
               onClick={toggleSignUpAttempt}
             >
@@ -250,6 +271,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
               />
             </div>
             <button
+              type="button"
               className="underline text-sm w-fit -mt-5"
               onClick={handleToggleResetPassword}
             >
@@ -274,6 +296,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
           <span className="text-xs text-center w-3/4 mt-10">
             Don't have an account?{" "}
             <button
+              type="button"
               className="text-primary underline"
               onClick={toggleSignUpAttempt}
             >
