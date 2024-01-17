@@ -53,7 +53,7 @@ const ResetPasswordComponent = ({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Email Address</label>
           <input
-            className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             value={resetPasswordEmail}
             placeholder="e.g thatemail@mail.com"
             name="resetEmail"

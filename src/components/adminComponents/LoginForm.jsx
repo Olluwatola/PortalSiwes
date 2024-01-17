@@ -11,8 +11,14 @@ import {
 } from "./../../controllers/authControllers";
 import ResetPasswordComponent from "./ResetPasswordComponent";
 import { motion, AnimatePresence } from "framer-motion";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
-const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, resetActive }) => {
+const LoginForm = ({
+  setConditionGood,
+  setStatusBarMessage,
+  setResetActive,
+  resetActive,
+}) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
@@ -25,6 +31,18 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
     useState(false);
   const [signInButtonClicked, setSignInButtonClicked] = useState(false);
   const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
+
+  const [showPasswordSignIn, setShowPasswordSignIn] = useState(false);
+
+  const togglePasswordVisibilitySignIn = () => {
+    setShowPasswordSignIn(!showPasswordSignIn);
+  };
+
+  const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);  
+
+  const togglePasswordVisibilitySignUp = () => {  
+    setShowPasswordSignUp(!showPasswordSignUp);
+  };
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -172,7 +190,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Email Address</label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 value={signUpEmail}
                 placeholder="e.g thatemail@mail.com"
                 name="signUpEmail"
@@ -184,7 +202,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
                 Full Name (First Name first)
               </label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 // value={signUpName}
                 placeholder="Tola David"
                 // name="signUpName"
@@ -193,13 +211,22 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Password</label>
-              <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="● ● ● ● ● ● ● ●"
-                name="signUpPassword"
-                onChange={(e) => setSignUpPassword(e.target.value)}
-                value={signUpPassword}
-              />
+              <div className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
+                <input
+                  className="h-full outline-none w-[90%]"
+                  placeholder="● ● ● ● ● ● ● ●"
+                  type={showPasswordSignUp ? "text" : "password"}
+                  name="signUpPassword"
+                  onChange={(e) => setSignUpPassword(e.target.value)}
+                  value={signUpPassword}
+                />
+                <div
+                  className="cursor-pointer text-primary text-lg"
+                  onClick={togglePasswordVisibilitySignUp}
+                >
+                  {showPasswordSignUp ? <BsEyeSlash /> : <BsEye />}
+                </div>
+              </div>
             </div>
             {signUpErrorMessage && (
               <span className="-my-4 text-red-500 text-xs">
@@ -254,7 +281,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Email Address</label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 value={loginEmail}
                 placeholder="e.g thatemail@mail.com"
                 name="loginEmail"
@@ -263,13 +290,22 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage, setResetActive, rese
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Password</label>
-              <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="● ● ● ● ● ● ● ●"
-                name="loginPassword"
-                onChange={(e) => setLoginPassword(e.target.value)}
-                value={loginPassword}
-              />
+              <div className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
+                <input
+                  className="h-full outline-none w-[90%]"
+                  placeholder="● ● ● ● ● ● ● ●"
+                  type={showPasswordSignIn ? "text" : "password"}
+                  name="loginPassword"
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  value={loginPassword}
+                />
+                <div
+                  className="cursor-pointer text-primary text-lg"
+                  onClick={togglePasswordVisibilitySignIn}
+                >
+                  {showPasswordSignIn ? <BsEyeSlash /> : <BsEye />}
+                </div>
+              </div>
             </div>
             <button
               type="button"
