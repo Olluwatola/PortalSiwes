@@ -252,6 +252,12 @@ export async function resetPassword(
     setStatusBarMessage("Mail reset password set");
   } catch (error) {
     setConditionGood("error");
-    setStatusBarMessage(`Error resetting password: ${error.message}`);
+    if (error.code === "auth/invalid-email") {
+      setStatusBarMessage("invalid email");
+    } else if (error.code === "auth/user-not-found") {
+      setStatusBarMessage("user not found");
+    } else {
+      setStatusBarMessage("error 500: failed to reset password");
+    }
   }
 }

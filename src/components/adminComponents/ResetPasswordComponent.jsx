@@ -13,7 +13,16 @@ const ResetPasswordComponent = ({
   async function handleResetPassword(e) {
     e.preventDefault();
     setSignUpButtonClicked(true);
-    resetPassword(resetPasswordEmail, setConditionGood, setStatusBarMessage);
+
+    try {
+      await resetPassword(
+        resetPasswordEmail,
+        setConditionGood,
+        setStatusBarMessage
+      );
+    } finally {
+      setSignUpButtonClicked(false);
+    }
   }
 
   return (
