@@ -61,7 +61,25 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
       setLoginEmail("");
       setLoginPassword("");
     } catch (err) {
-      setErrorMessage(err.message);
+      // Display specific error messages based on Firebase error codes
+      if (err.code === "auth/email-already-in-use") {
+        setErrorMessage("The email address is already in use.");
+      } else if (err.code === "auth/invalid-email") {
+        setErrorMessage("Invalid email address. Please check your email.");
+      } else if (err.code === "auth/wrong-password") {
+        setErrorMessage("Wrong password. Please try again.");
+      } else if (err.code === "auth/user-not-found") {
+        setErrorMessage("User not found. Please try again.");
+      } else if (err.code === "auth/too-many-requests") {
+        setErrorMessage("Too many requests. Please try again later.");
+      } else if (err.code === "auth/network-request-failed") {
+        setErrorMessage("Network error. Please try again later.");
+      } else if (err.code === "auth/missing-password") {
+        setErrorMessage("Invalid password. Please check your password.");
+      } else {
+        setErrorMessage(err.message);
+      }
+      console.log(err);
     } finally {
       setSignInButtonClicked(false);
     }
@@ -127,7 +145,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
       <button onClick={toggleSignUpAttempt}>Login</button>
     </>
   ) : (
-    <div className="w-[57%] h-screen py-8 px-12">
+    <div className="w-[57%] h-screen py-8 px-12 flex flex-col">
       <div className="flex flex-col gap-1 md:gap-2">
         <span className="font-semibold md:text-2xl tracking-tight text-xl">
           Welcome Back!
@@ -142,7 +160,7 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
           <input
             className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
             value={loginEmail}
-            placeholder="Login Email.."
+            placeholder="e.g thatemail@mail.com"
             name="loginEmail"
             onChange={(e) => setLoginEmail(e.target.value)}
           />
@@ -151,12 +169,21 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
           <label className="text-xs text-gray-500">Password</label>
           <input
             className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
-            placeholder="Password.."
+            placeholder="● ● ● ● ● ● ● ●"
             name="loginPassword"
             onChange={(e) => setLoginPassword(e.target.value)}
             value={loginPassword}
           />
         </div>
+        <button
+          className="underline text-sm w-fit -mt-5"
+          onClick={handleToggleResetPassword}
+        >
+          Forgot password?
+        </button>
+        {errorMessage && (
+          <span className="-my-4 text-red-500 text-xs">{errorMessage}</span>
+        )}
         <button
           type="submit"
           disabled={signInButtonClicked}
@@ -169,11 +196,13 @@ const LoginForm = ({ setConditionGood, setStatusBarMessage }) => {
         >
           {signInButtonClicked ? "Signing in..." : "Sign in"}
         </button>
-        {errorMessage && <p>{errorMessage}</p>}
       </form>
-      <button onClick={handleToggleResetPassword}>Reset password</button>
-      <hr />
-      <button onClick={toggleSignUpAttempt}>Sign Up</button>
+      <span className="text-xs text-center w-3/4 mt-10">
+        Don't have an account?{" "}
+        <button className="text-primary" onClick={toggleSignUpAttempt}>
+          Sign Up
+        </button>
+      </span>
     </div>
   );
 };
