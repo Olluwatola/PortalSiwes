@@ -50,7 +50,7 @@ function Admin() {
         setStatusBarMessage={setStatusBarMessage}
       />
       <div className="w-screen h-screen flex">
-        <div className="w-[43%] h-screen bg-primary flex flex-col px-12 py-8 justify-between">
+        <div className="w-[43%] h-screen bg-primary md:flex hidden   flex-col px-12 py-8 justify-between">
           <span className="font-secondary -tracking-wider md:text-xl text-white text-xl flex">
             IT
             <div className="font-primary -rotate-45 font-semibold">e</div>

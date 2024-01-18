@@ -163,8 +163,6 @@ const LoginForm = ({
     setSignUpAttempt(!signUpAttempt); // Toggle the signUpAttempt state
   };
 
-  
-
   return (
     <AnimatePresence>
       {resetPasswordToggle ? (
@@ -180,7 +178,7 @@ const LoginForm = ({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 500 }}
           transition={{ duration: 0.2 }}
-          className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
+          className="md:w-[57%] w-screen bg-white absolute right-0 bg h-screen md:py-8 md:px-12 px-6 pt-7 flex flex-col"
         >
           <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-semibold md:text-2xl tracking-tight text-xl">
@@ -190,15 +188,18 @@ const LoginForm = ({
               Admin approval may take time. You'll receive an email upon
               approval.
             </span>
+            <span className="md:text-sm md:hidden flex text-xs text-slate-500">
+              You'll receive an email upon approval.
+            </span>
           </div>
           <form
             onSubmit={handleSignUpSubmit}
-            className="mt-8 flex flex-col gap-8"
+            className="md:mt-8 mt-5 flex flex-col md:gap-8 gap-5"
           >
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Email Address</label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+                className="border md:w-3/4 w-full border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 value={signUpEmail}
                 placeholder="e.g thatemail@mail.com"
                 name="signUpEmail"
@@ -210,7 +211,7 @@ const LoginForm = ({
                 Full Name (First Name first)
               </label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+                className="border md:w-3/4 w-full border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 value={signUpName}
                 placeholder="Tola David"
                 name="signUpName"
@@ -219,7 +220,7 @@ const LoginForm = ({
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Password</label>
-              <div className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
+              <div className="border md:w-3/4 w-full border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
                 <input
                   className="h-full outline-none w-[90%]"
                   placeholder="● ● ● ● ● ● ● ●"
@@ -237,7 +238,7 @@ const LoginForm = ({
               </div>
             </div>
             {signUpErrorMessage && (
-              <span className="-my-4 text-red-500 text-xs">
+              <span className="md:-my-4 -my-2 text-red-500 text-xs">
                 {signUpErrorMessage}
               </span>
             )}
@@ -249,12 +250,12 @@ const LoginForm = ({
               signUpButtonClicked
                 ? "bg-gray-300 text-gray-600 border-none cursor-not-allowed"
                 : "bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary"
-            } w-3/4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
+            } md:w-3/4 w-full py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
             >
               {signUpButtonClicked ? "Signing up..." : "Sign up"}
             </button>
           </form>
-          <span className="text-xs text-center w-3/4 mt-10">
+          <span className="text-xs text-center md:w-3/4 w-full mt-10">
             Have an account?{" "}
             <button
               type="button"
@@ -272,24 +273,24 @@ const LoginForm = ({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 500 }}
           transition={{ duration: 0.2 }}
-          className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
+          className="md:w-[57%] w-screen bg-white absolute right-0 bg h-screen md:py-8 md:px-12 px-6 pt-7 flex flex-col"
         >
           <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-semibold md:text-2xl tracking-tight text-xl">
               Welcome Back!
             </span>
-            <span className="md:text-sm md:flex hidden text-xs text-slate-500">
+            <span className="md:text-sm flex text-xs text-slate-500">
               Enter your details below to continue
             </span>
           </div>
           <form
             onSubmit={handleLoginSubmit}
-            className="mt-8 flex flex-col gap-8"
+            className="md:mt-8 mt-5 flex flex-col md:gap-8 gap-5"
           >
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Email Address</label>
               <input
-                className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+                className="border md:w-3/4 w-full border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
                 value={loginEmail}
                 placeholder="e.g thatemail@mail.com"
                 name="loginEmail"
@@ -298,7 +299,7 @@ const LoginForm = ({
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Password</label>
-              <div className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
+              <div className="border md:w-3/4 w-full border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center transition-all duration-300 ease-in-out focus-within:ring-1 focus-within:ring-primary justify-between">
                 <input
                   className="h-full outline-none w-[90%]"
                   placeholder="● ● ● ● ● ● ● ●"
@@ -317,13 +318,13 @@ const LoginForm = ({
             </div>
             <button
               type="button"
-              className="underline text-sm w-fit -mt-5"
+              className="underline md:text-sm text-xs w-fit md:-mt-5 -mt-2"
               onClick={handleToggleResetPassword}
             >
               Forgot password?
             </button>
             {errorMessage && (
-              <span className="-my-4 text-red-500 text-xs">{errorMessage}</span>
+              <span className="md:-my-4 -my-2 text-red-500 text-xs">{errorMessage}</span>
             )}
             <button
               type="submit"
@@ -333,12 +334,12 @@ const LoginForm = ({
               signInButtonClicked
                 ? "bg-gray-300 text-gray-600 border-none cursor-not-allowed"
                 : "bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary"
-            } w-3/4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
+            } md:w-3/4 w-full py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
             >
               {signInButtonClicked ? "Signing in..." : "Sign in"}
             </button>
           </form>
-          <span className="text-xs text-center w-3/4 mt-10">
+          <span className="text-xs text-center md:w-3/4 w-full mt-10">
             Don't have an account?{" "}
             <button
               type="button"
