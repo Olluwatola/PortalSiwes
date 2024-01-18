@@ -8,11 +8,11 @@ const ResetPasswordComponent = ({
   setStatusBarMessage,
 }) => {
   const [resetPasswordEmail, setResetPasswordEmail] = useState("");
-  const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
+  const [resetButtonClicked, setresetButtonClicked] = useState(false);
 
   async function handleResetPassword(e) {
     e.preventDefault();
-    setSignUpButtonClicked(true);
+    setresetButtonClicked(true);
 
     try {
       await resetPassword(
@@ -21,13 +21,14 @@ const ResetPasswordComponent = ({
         setStatusBarMessage
       );
     } finally {
-      setSignUpButtonClicked(false);
+      setResetPasswordEmail("");
+      setresetButtonClicked(false);
     }
   }
 
   return (
     <motion.div
-      key="signUp"
+      key="reset"
       initial={{ opacity: 0, x: 500 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 500 }}
@@ -65,12 +66,12 @@ const ResetPasswordComponent = ({
           disabled={resetPasswordEmail.length < 1}
           className={`
             ${
-              resetPasswordEmail.length < 1
+              resetPasswordEmail.length < 1 || resetButtonClicked
                 ? "bg-gray-300 text-gray-600 border-none cursor-not-allowed"
                 : "bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary"
             } w-3/4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out`}
         >
-          {signUpButtonClicked ? "Processing..." : "Reset Password"}
+          {resetButtonClicked ? "Processing..." : "Reset Password"}
         </button>
       </form>
     </motion.div>

@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const LoginForm = ({
+  setModalTitle,
+  setModalMessage,
   setConditionGood,
   setStatusBarMessage,
   setResetActive,
@@ -23,6 +25,7 @@ const LoginForm = ({
   const [loginPassword, setLoginPassword] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpName, setSignUpName] = useState("");
   const [signUpAttempt, setSignUpAttempt] = useState(false);
   const [resetPasswordToggle, setResetPasswordToggle] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -30,7 +33,6 @@ const LoginForm = ({
   const [adminProfileCreationLoading, setAdminProfileCreationLoading] =
     useState(false);
 
-  
   const [signInButtonClicked, setSignInButtonClicked] = useState(false);
   const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
 
@@ -40,9 +42,9 @@ const LoginForm = ({
     setShowPasswordSignIn(!showPasswordSignIn);
   };
 
-  const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);  
+  const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);
 
-  const togglePasswordVisibilitySignUp = () => {  
+  const togglePasswordVisibilitySignUp = () => {
     setShowPasswordSignUp(!showPasswordSignUp);
   };
 
@@ -120,13 +122,15 @@ const LoginForm = ({
       );
 
       await handleCreateAdminProfileDocument(
-        setSignUpErrorMessage,
+        setModalTitle("Login Successful!"),
+        setModalMessage("You'll be notified when your account is approved."),
         setAdminProfileCreationLoading,
         userCredential.user.email,
         userCredential.user.uid
       );
       setSignUpEmail("");
       setSignUpPassword("");
+      setSignUpName("");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         setSignUpErrorMessage("The email address is already in use.");
@@ -159,6 +163,8 @@ const LoginForm = ({
     setSignUpAttempt(!signUpAttempt); // Toggle the signUpAttempt state
   };
 
+  
+
   return (
     <AnimatePresence>
       {resetPasswordToggle ? (
@@ -176,7 +182,6 @@ const LoginForm = ({
           transition={{ duration: 0.2 }}
           className="w-[57%] absolute right-0 bg h-screen py-8 px-12 flex flex-col"
         >
-
           <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-semibold md:text-2xl tracking-tight text-xl">
               Create your account
@@ -206,10 +211,10 @@ const LoginForm = ({
               </label>
               <input
                 className="border w-3/4 border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
-                // value={signUpName}
+                value={signUpName}
                 placeholder="Tola David"
-                // name="signUpName"
-                // onChange={(e) => setSignUpName(e.target.value)}
+                name="signUpName"
+                onChange={(e) => setSignUpName(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1">

@@ -13,10 +13,8 @@ function Admin() {
   const [splashScreen, setSplashScreen] = useState(true);
   const [year, setYear] = useState();
 
-  const [modalTitle, setModalTitle] = useState("Login Successful!");
-  const [modalMessage, setModalMessage] = useState(
-    "You’ll be redirected to the home dashboard shortly"
-  );
+  const [modalTitle, setModalTitle] = useState(null);
+  const [modalMessage, setModalMessage] = useState(null);
 
   const hideSplashScreen = () => {
     setTimeout(() => {
@@ -33,10 +31,18 @@ function Admin() {
     setYear(new Date().getFullYear());
   };
 
+  const closeModal = () => {
+    setModalTitle(null);
+    setModalMessage(null);
+  };
+
   return (
     <>
-      {" "}
-      <Modal title={modalTitle} message={modalMessage} />
+      <Modal
+        title={modalTitle}
+        message={modalMessage}
+        closeModal={closeModal}
+      />
       <AnimatePresence>{splashScreen && <SplashScreen />}</AnimatePresence>
       <AdminStatusBar
         conditionGood={conditionGood}
@@ -68,6 +74,8 @@ function Admin() {
           </div>
         </div>
         <LoginForm
+          setModalTitle={setModalTitle}
+          setModalMessage={setModalMessage}
           setConditionGood={setConditionGood}
           setStatusBarMessage={setStatusBarMessage}
           setResetActive={setResetActive}

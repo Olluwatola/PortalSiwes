@@ -198,13 +198,13 @@ export async function grantAdminAccessController(
         setReturnedTestimonials
       );
       setConditionGood("good");
-      setStatusBarMessage("admin role granted");
-      console.log(`we have updated ${id}`);
+      setStatusBarMessage("Admin role granted");
+      console.log(`We have updated ${id}`);
     });
   } catch (error) {
     console.log(error);
     setConditionGood("error");
-    setStatusBarMessage("error 505: admin grant unsuccessful");
+    setStatusBarMessage("Error 505: admin grant unsuccessful");
   }
 }
 
@@ -219,7 +219,7 @@ export async function revokeAdminAccessController(
   const adminDocRef = doc(db, "admins", id);
   try {
     setConditionGood("loading");
-    setStatusBarMessage("revoking admin access....");
+    setStatusBarMessage("Revoking admin access....");
     await updateDoc(adminDocRef, {
       role: "unverifiedAdmin",
     }).then(() => {
@@ -231,13 +231,13 @@ export async function revokeAdminAccessController(
         setReturnedTestimonials
       );
       setConditionGood("good");
-      setStatusBarMessage("admin role revoked");
-      console.log(`we have updated ${id}`);
+      setStatusBarMessage("Admin role revoked");
+      console.log(`We have updated ${id}`);
     });
   } catch (error) {
     console.log(error);
     setConditionGood("error");
-    setStatusBarMessage("error 505: admin revoke unsuccessful");
+    setStatusBarMessage("Error 505: admin revoke unsuccessful");
   }
 }
 
@@ -249,15 +249,15 @@ export async function resetPassword(
   try {
     await sendPasswordResetEmail(auth, resetPasswordEmail);
     setConditionGood("good");
-    setStatusBarMessage("Mail reset password set");
+    setStatusBarMessage("Mail reset password sent, check your inbox");
   } catch (error) {
     setConditionGood("error");
     if (error.code === "auth/invalid-email") {
-      setStatusBarMessage("invalid email");
+      setStatusBarMessage("Invalid email");
     } else if (error.code === "auth/user-not-found") {
-      setStatusBarMessage("user not found");
+      setStatusBarMessage("User not found");
     } else {
-      setStatusBarMessage("error 500: failed to reset password");
+      setStatusBarMessage("Error 500: failed to reset password");
     }
   }
 }
