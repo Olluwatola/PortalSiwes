@@ -258,7 +258,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">First Name</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="e.g John"
             value={studentOtherNames}
             // required
@@ -268,7 +268,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Last Name</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="e.g Doe"
             value={studentLastName}
             // required
@@ -278,7 +278,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Email Address</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="e.g thatemail@mail.com"
             value={studentEmail}
             // required
@@ -288,7 +288,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Phone Number</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="e.g 08012345678"
             // required
             value={studentPhoneNumber}
@@ -298,7 +298,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Institution of Study</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="e.g University of Computer"
             value={studentInstitution}
             onChange={(e) => setStudentInstitution(e.target.value)}
@@ -307,7 +307,7 @@ export function ApplicationForm({
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Course of Study</label>
           <input
-            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
             placeholder="Computer Science"
             value={studentCourse}
             onChange={(e) => setStudentCourse(e.target.value)}
@@ -325,7 +325,7 @@ export function ApplicationForm({
                   ? "text-neutral-400"
                   : "text-black"
               }
-              w-full md:text-sm text-xs border border-gray-300 whitespace-nowrap  justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full md:text-sm text-xs border border-gray-300 whitespace-nowrap  justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none
               `}
               onClick={handleDropdownToggle}
             >
@@ -379,7 +379,7 @@ export function ApplicationForm({
                   ? "text-neutral-400 whitespace-nowrap"
                   : "text-black"
               }
-              w-full md:text-sm text-xs overflow-ellipsis  border border-gray-300 justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary
+              w-full md:text-sm text-xs overflow-ellipsis  border border-gray-300 justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none
               `}
               onClick={handleDurationDropdownToggle}
             >
@@ -473,7 +473,7 @@ export function ApplicationForm({
                 ? "text-red-500"
                 : ""
             }
-            resize-none border md:text-sm text-xs border-gray-300 md:px-4 px-2 py-1 md:py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary leading-6
+            resize-none border md:text-sm text-xs border-gray-300 md:px-4 px-2 py-1 md:py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none leading-6
             `}
             placeholder="Impress us!"
             value={aboutStudent}
@@ -518,7 +518,7 @@ export function ApplicationForm({
             >
               {IDFile && IDFile.uploading ? (
                 <motion.div
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 0 }}  
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
