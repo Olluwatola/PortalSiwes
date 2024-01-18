@@ -24,7 +24,7 @@ const Modal = ({ title, message, closeModal }) => {
           transition={{ duration: 0.2 }}
           className="w-screen h-screen bg-black bg-opacity-40 absolute flex items-center justify-center z-10 cursor-pointer"
         >
-          <div className="shadow-md border border-neutral-300 rounded-lg p-10 w-[30vw] h-[30vw] absolute bg-white flex flex-col justify-center items-center gap-3 z-20">
+          <div className="shadow-md border border-neutral-300 rounded-lg md:p-10 md:w-[30vw] w-[80vw] h-[80vw] md:h-[30vw] absolute bg-white flex flex-col justify-center items-center gap-3 z-20">
             <div className="w-full absolute h-full flex justify-center z-30">
               <ConfettiExplosion
                 force={0.7}
@@ -36,9 +36,13 @@ const Modal = ({ title, message, closeModal }) => {
                 zIndex={100}
               />
             </div>
-            <img src={success} alt="success" className="w-48" />
-            <span className="font-medium text-xl">{title}</span>
-            <span className="font-normal text-[0.8rem]">{message}</span>
+            <img src={success} alt="success" className="md:w-48 w-32" />
+            <span className="font-medium text-lg text-center md:text-xl">
+              {title}
+            </span>
+            <span className="font-normal text-center text-[0.8rem]">
+              {message}
+            </span>
           </div>
         </motion.div>
       )}
