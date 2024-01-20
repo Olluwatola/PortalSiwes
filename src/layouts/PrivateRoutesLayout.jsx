@@ -1,10 +1,18 @@
 import { Outlet, useLocation, Navigate } from "react-router-dom";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 
 const PrivateRoutesLayout = ({ isAuthReady, userProfile }) => {
   const location = useLocation();
 
   if (!isAuthReady) {
-    return "Loading..."; // Display a loading message while waiting for authentication data
+    return (
+      <div className=" w-screen h-screen flex justify-center items-center">
+        <div className="">
+          <Skeleton count={1} className="w-48 h-10" />
+        </div>
+      </div>
+    ); // Display a loading message while waiting for authentication data
   } else if (
     userProfile?.role === "admin" ||
     userProfile?.role === "superAdmin"
