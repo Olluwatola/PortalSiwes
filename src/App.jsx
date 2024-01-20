@@ -96,18 +96,7 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/admin/auth"
-          element={
-            <Layout
-              userProfile={userProfile}
-              applyModal={applyModal}
-              setapplyModal={setapplyModal}
-            >
-              <Auth />
-            </Layout>
-          }
-        />
+        <Route path="/admin/auth" element={<Auth />} />
         <Route path="*" element={<Error404 />} />
         {/*private pages */}
         <Route

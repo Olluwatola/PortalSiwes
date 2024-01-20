@@ -7,6 +7,7 @@ export default {
         primary: "#3B37FF",
         primaryAlt: "#C4C4C4",
         darkBlue: "#020050",
+        dashBlue: "#05036980",
       },
       fontFamily: {
         primary: ["Poppins", "sans-serif"],

@@ -7,18 +7,21 @@ const Layout = ({ children, userProfile, applyModal, setapplyModal }) => {
   const location = useLocation();
 
   const isProtectedRoute = location.pathname.startsWith("/admin");
-  const isAdmin = userProfile?.role === "admin" || userProfile?.role === "superAdmin";
+  const isAdmin =
+    userProfile?.role === "admin" || userProfile?.role === "superAdmin";
 
   if (isProtectedRoute && isAdmin) {
     console.log(userProfile.role);
     return (
-      <div className="flex gap-5 w-screen h-screen overflow-hidden pt-10 pr-10">
-        <Navbar
-          userProfile={userProfile}
-          applyModal={applyModal}
-          setapplyModal={setapplyModal}
-        />
-        <div className="flex gap-5 flex-col w-full">
+      <div className="flex w-screen h-screen overflow-hidden px-10">
+        <div>
+          <Navbar
+            userProfile={userProfile}
+            applyModal={applyModal}
+            setapplyModal={setapplyModal}
+          />
+        </div>
+        <div className="flex gap-5 flex-col w-full bg-purple-500">
           <Header />
           <div>{children}</div>
           <Footer />
