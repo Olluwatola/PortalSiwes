@@ -11,6 +11,8 @@ import {
 } from "firebase/firestore";
 import avatar from "../../assets/testimonial.jpg";
 import { BsArrowRightCircle } from "react-icons/bs";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const testimonialRef = collection(db, "testimonial");
 
@@ -81,7 +83,15 @@ export function Testimonials() {
           <div className="md:w-[25vw] w-full md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
-                <>loading...</>
+                <SkeletonTheme baseColor="#3B37FF" highlightColor="#6361c1">
+                  <div className="flex flex-col gap-2 w-full h-full">
+                    <Skeleton count={1} />
+                    <div className="flex gap-2 items-center">
+                      <Skeleton height={50} width={50} />
+                      <Skeleton count={2} width={100} />
+                    </div>
+                  </div>
+                </SkeletonTheme>
               ) : (
                 <div className="flex flex-col gap-3 justify-center w-full">
                   <span className="overflow-hidden md:truncate md:whitespace-nowrap w-full">
