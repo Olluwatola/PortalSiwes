@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { auth } from "./config/firebase";
 import { handleGetUserProfile } from "./controllers/authControllers";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import PrivateRoutesLayout from "./layouts/PrivateRoutesLayout";
 import Home from "./pages/mainAppPages/Home";
 import Faqs from "./pages/mainAppPages/Faqs";
@@ -19,6 +17,7 @@ import ScreeningPage from "./pages/adminPages/ScreeningPage";
 import InvitationDetails from "./pages/adminPages/InvitationDetails";
 import PortalSettings from "./pages/adminPages/PortalSettings";
 import Error404 from "./pages/mainAppPages/error404";
+import Layout from "./layouts/Layout";
 
 function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
@@ -48,22 +47,67 @@ function App() {
 
   return (
     <Router>
-      <Navbar
-        userProfile={userProfile}
-        applyModal={applyModal}
-        setapplyModal={setapplyModal}
-      />
       <Routes>
         <Route
           path="/"
           element={
-            <Home applyModal={applyModal} setapplyModal={setapplyModal} />
+            <Layout
+              userProfile={userProfile}
+              applyModal={applyModal}
+              setapplyModal={setapplyModal}
+            >
+              <Home applyModal={applyModal} setapplyModal={setapplyModal} />
+            </Layout>
           }
         />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/admin/auth" element={<Auth />} />
+        <Route
+          path="/faqs"
+          element={
+            <Layout
+              userProfile={userProfile}
+              applyModal={applyModal}
+              setapplyModal={setapplyModal}
+            >
+              <Faqs />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contactus"
+          element={
+            <Layout
+              userProfile={userProfile}
+              applyModal={applyModal}
+              setapplyModal={setapplyModal}
+            >
+              <ContactUs />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout
+              userProfile={userProfile}
+              applyModal={applyModal}
+              setapplyModal={setapplyModal}
+            >
+              <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/admin/auth"
+          element={
+            <Layout
+              userProfile={userProfile}
+              applyModal={applyModal}
+              setapplyModal={setapplyModal}
+            >
+              <Auth />
+            </Layout>
+          }
+        />
         <Route path="*" element={<Error404 />} />
         {/*private pages */}
         <Route
@@ -74,27 +118,116 @@ function App() {
             />
           }
         >
-          <Route path="/admin" element={<Dashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <Dashboard />
+              </Layout>
+            }
+          />
           <Route
             path="/admin/applications/category/:c"
-            element={<ApplicationsPage />}
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <ApplicationsPage />
+              </Layout>
+            }
           />
-          <Route path="/admin/applications" element={<ApplicationsPage />} />
+          <Route
+            path="/admin/applications"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <ApplicationsPage />
+              </Layout>
+            }
+          />
           <Route
             path="/admin/applications/:id"
-            element={<ApplicationDetail />}
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <ApplicationDetail />
+              </Layout>
+            }
           />
-          <Route path="/admin/placement" element={<PlacementPosting />} />
+          <Route
+            path="/admin/placement"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <PlacementPosting />
+              </Layout>
+            }
+          />
           <Route
             path="/admin/placement/:unit"
-            element={<PlacementUnitView />}
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <PlacementUnitView />
+              </Layout>
+            }
           />
-          <Route path="/admin/screening" element={<ScreeningPage />} />
-          <Route path="/admin/screening/:id" element={<InvitationDetails />} />
-          <Route path="/admin/portal" element={<PortalSettings />} />
+          <Route
+            path="/admin/screening"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <ScreeningPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/admin/screening/:id"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <InvitationDetails />
+              </Layout>
+            }
+          />
+          <Route
+            path="/admin/portal"
+            element={
+              <Layout
+                userProfile={userProfile}
+                applyModal={applyModal}
+                setapplyModal={setapplyModal}
+              >
+                <PortalSettings />
+              </Layout>
+            }
+          />
         </Route>
       </Routes>
-      <Footer />
     </Router>
   );
 }
