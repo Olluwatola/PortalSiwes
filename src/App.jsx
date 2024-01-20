@@ -18,6 +18,7 @@ import PlacementUnitView from "./pages/adminPages/PlacementUnitView";
 import ScreeningPage from "./pages/adminPages/ScreeningPage";
 import InvitationDetails from "./pages/adminPages/InvitationDetails";
 import PortalSettings from "./pages/adminPages/PortalSettings";
+import Error404 from "./pages/mainAppPages/error404";
 
 function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
@@ -47,14 +48,23 @@ function App() {
 
   return (
     <Router>
-      <Navbar userProfile={userProfile} applyModal={applyModal} setapplyModal={setapplyModal} />
+      <Navbar
+        userProfile={userProfile}
+        applyModal={applyModal}
+        setapplyModal={setapplyModal}
+      />
       <Routes>
-        <Route path="/" element={<Home applyModal={applyModal} setapplyModal={setapplyModal} />} />
+        <Route
+          path="/"
+          element={
+            <Home applyModal={applyModal} setapplyModal={setapplyModal} />
+          }
+        />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin/auth" element={<Auth />} />
-
+        <Route path="*" element={<Error404 />} />
         {/*private pages */}
         <Route
           element={
