@@ -13,13 +13,15 @@ const AdminNavbar = () => {
   const [active, setActive] = useState("");
 
   const handleActive = () => {
-    if (location.pathname === "/admin/applications") {
+    const path = location.pathname;
+
+    if (path.includes("/admin/applications")) {
       setActive("applications");
-    } else if (location.pathname === "/admin/placement") {
+    } else if (path.includes("/admin/placement")) {
       setActive("placement");
-    } else if (location.pathname === "/admin/screening") {
+    } else if (path.includes("/admin/screening")) {
       setActive("screening");
-    } else if (location.pathname === "/admin/portal") {
+    } else if (path.includes("/admin/portal")) {
       setActive("portal");
     } else {
       setActive("");

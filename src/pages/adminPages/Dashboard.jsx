@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <div className="">
-      <div className="py-2 px-4 bg-primary w-fit text-white rounded-e-lg">
+      <div className="py-2 px-4 bg-primary w-fit text-white rounded-lg">
         Hello, {auth?.currentUser?.displayName}
       </div>
       {/* <button onClick={handleLogOut}>Log Out</button>      <>Dashboard:{auth?.currentUser?.email}</> */}
