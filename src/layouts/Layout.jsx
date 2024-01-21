@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import Header from "../components/adminComponents/Header";
+// import Header from "../components/adminComponents/Header";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const Layout = ({ children, userProfile, applyModal, setapplyModal }) => {
           />
         </div>
         <div className="flex flex-col w-full pt-10 gap-5">
-          <Header />
+          {/* <Header /> */}
           <div className="overflow-y-auto flex-grow">{children}</div>
         </div>
       </div>
