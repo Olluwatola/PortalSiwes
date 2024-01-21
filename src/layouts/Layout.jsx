@@ -21,10 +21,7 @@ const Layout = ({ children, userProfile, applyModal, setapplyModal }) => {
             setapplyModal={setapplyModal}
           />
         </div>
-        <div className="flex flex-col w-full pt-10 gap-5">
-          {/* <Header /> */}
-          <div className="overflow-y-auto flex-grow">{children}</div>
-        </div>
+        <div className="overflow-y-auto w-full p-10">{children}</div>
       </div>
     );
   } else {
