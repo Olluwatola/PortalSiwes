@@ -64,34 +64,35 @@ const StatisticPanel = () => {
     <div className="mt-8 flex flex-col gap-5">
       <span className="text-3xl font-medium">Overview</span>
       <span className="text-neutral-500 tracking-widest">SUMMARY</span>
+      <div className="grid grid-cols-3 gap-8">
+        <ElementBox
+          valueOfHeader={totalNumberOfApplications}
+          link={"/admin/applications/category/all"}
+        >
+          Total Number of Applications
+        </ElementBox>
 
-      <ElementBox
-        valueOfHeader={totalNumberOfApplications}
-        link={"/admin/applications/category/all"}
-      >
-        Total number of applications
-      </ElementBox>
+        <ElementBox
+          valueOfHeader={numberOfAcceptedApplications}
+          link={"/admin/applications/category/accepted"}
+        >
+          Number of Applications Approved
+        </ElementBox>
 
-      <ElementBox
-        valueOfHeader={numberOfAcceptedApplications}
-        link={"/admin/applications/category/accepted"}
-      >
-        Number of applications approved
-      </ElementBox>
+        <ElementBox
+          valueOfHeader={numberOfRejectedApplications}
+          link={"/admin/applications/category/rejected"}
+        >
+          Number of Applications Declined
+        </ElementBox>
+        <ElementBox
+          valueOfHeader={numberOfPendingApplications}
+          link={"/admin/applications/category/pending"}
+        >
+          Number of Pending Applications 
 
-      <ElementBox
-        valueOfHeader={numberOfRejectedApplications}
-        link={"/admin/applications/category/rejected"}
-      >
-        Number of applications declined
-      </ElementBox>
-      <ElementBox
-        valueOfHeader={numberOfPendingApplications}
-        link={"/admin/applications/category/pending"}
-      >
-        Number of pending applications (written test but not rejected nor
-        accepted)
-      </ElementBox>
+        </ElementBox>
+      </div>
 
       <button
         onClick={() =>

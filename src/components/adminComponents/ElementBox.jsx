@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
 
-const divStyle = {
-  display: "inline-block",
-  marginRight: "10px", // Optional: Add some spacing between the divs
-};
-
 const ElementBox = ({
   children,
   valueOfHeader,
@@ -29,11 +24,16 @@ const ElementBox = ({
     console.log(`switching unit`);
   }
   return (
-    <div style={divStyle}>
-      <p>{children}</p>
-      <h2>{valueOfHeader}</h2>
+    <div className="bg-white shadow-lg border border-neutral-100 rounded-xl p-5 flex flex-col  justify-between gap-5">
+      <span className="text-sm">{children}</span>
+      <span className="text-3xl font-medium">{valueOfHeader}</span>
       {link ? (
-        <Link to={link}>View details</Link>
+        <Link
+          className="border border-primary rounded-md py-2.5 transition-all text-primary text-center text-sm duration-300 ease-in-out hover:bg-primary hover:text-white"
+          to={link}
+        >
+          View details
+        </Link>
       ) : (
         <button
           onClick={() => {
