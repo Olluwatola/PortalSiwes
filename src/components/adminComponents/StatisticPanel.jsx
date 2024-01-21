@@ -63,7 +63,7 @@ const StatisticPanel = () => {
   return (
     <div className="mt-8 flex flex-col gap-5">
       <span className="text-3xl font-medium">Overview</span>
-      <span className="text-neutral-500 tracking-widest">SUMMARY</span>
+      <span className="text-neutral-500 text-sm tracking-widest">SUMMARY</span>
       <div className="grid grid-cols-3 gap-8">
         <ElementBox
           valueOfHeader={totalNumberOfApplications}
