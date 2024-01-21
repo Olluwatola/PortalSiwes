@@ -12,7 +12,7 @@ const PrivateRoutesLayout = ({ isAuthReady, userProfile }) => {
           <Skeleton count={1} className="w-48 h-10" />
         </div>
       </div>
-    ); // Display a loading message while waiting for authentication data
+    );
   } else if (
     userProfile?.role === "admin" ||
     userProfile?.role === "superAdmin"

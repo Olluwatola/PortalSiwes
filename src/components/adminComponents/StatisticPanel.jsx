@@ -61,9 +61,9 @@ const StatisticPanel = () => {
   }
 
   return (
-    <>
-      <h2>Overview</h2>
-      <h4>SUMMARY</h4>
+    <div className="mt-8 flex flex-col gap-5">
+      <span className="text-3xl font-medium">Overview</span>
+      <span className="text-neutral-500 tracking-widest">SUMMARY</span>
 
       <ElementBox
         valueOfHeader={totalNumberOfApplications}
@@ -104,7 +104,7 @@ const StatisticPanel = () => {
       {fetchStatisticsError
         ? "error fetching application statistics, report issue"
         : null}
-    </>
+    </div>
   );
 };
 

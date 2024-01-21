@@ -69,7 +69,7 @@ const UpdateMainUiForm = ({ setConditionGood, setStatusBarMessage }) => {
       <br />
       <textarea
         rows={10}
-        cols={80}
+        cols={50}
         value={aboutUs}
         onChange={(e) => {
           setAboutUs(e.target.value);
