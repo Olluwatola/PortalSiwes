@@ -46,7 +46,8 @@ const ApplicationListItem = ({
     <Link
       className={`${
         index === lastIndex ? "" : "border-b border-neutral-200"
-      } text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
+      }
+       text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
       to={`/admin/applications/${application.id}`}
     >
       <span className="w-4 text-neutral-500">{index + 1}.</span>

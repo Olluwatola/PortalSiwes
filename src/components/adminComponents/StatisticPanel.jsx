@@ -114,7 +114,7 @@ const StatisticPanel = () => {
           text-xs tracking-widest text-center`}>
             {fetchStatisticsError
               ? "Error fetching application statistics, report issue"
-              : "We recommend you calibrate statistics every month"}
+              : "We recommend you calibrate statistics every week"}
           </span>
         </div>
       </div>

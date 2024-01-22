@@ -21,7 +21,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="">
+    <>
       <div className="text-primary">
         Hello, {auth?.currentUser?.displayName}
       </div>
@@ -32,7 +32,7 @@ const Dashboard = () => {
         <NotCompletedInvitationPanel />
       </div>
       <div>{errorFeedback ? errorFeedback : null}</div>
-    </div>
+    </>
   );
 };
 

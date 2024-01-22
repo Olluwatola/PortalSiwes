@@ -6,7 +6,7 @@ const ApplicationsPage = () => {
 
   return (
     <>
-      <h1>Applications</h1>
+      <span className="text-3xl font-medium">Applications</span>
       <div>
         <ApplicationsPanel category={c} />
       </div>

@@ -74,19 +74,19 @@ const SummarizedAppicationPanel = () => {
 
   return (
     <div className="flex flex-col gap-5 w-[70%]">
-      <span className="text-neutral-500 text-sm tracking-widest flex justify-between">
+      <span className="text-neutral-500 text-xs tracking-widest flex justify-between">
         PENDING APPLICATIONS
         <div className="flex items-center gap-3">
           <button onClick={handleFetchSummarizeApplication} hint="refresh">
             <MdOutlineRefresh
-              className={`${isLoading ? "animate-spin" : null}`}
+              className={`${isLoading ? "animate-spin" : null} text-lg`}
             />
           </button>
           <Link
             className="text-primary"
             to="/admin/applications/category/pending"
           >
-            VIEW ALL
+            View all
           </Link>
         </div>
       </span>
@@ -97,7 +97,7 @@ const SummarizedAppicationPanel = () => {
       >
         {getApplicationsError ? getApplicationsError : null}
       </span>
-      <div className="bg-white shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3">
+      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3">
         <div className="w-full flex items-center justify-between text-neutral-500 text-[0.65rem]">
           <span className="w-4 opacity-0">0</span>
           <span className="w-36">NAME</span>
@@ -106,7 +106,9 @@ const SummarizedAppicationPanel = () => {
           <span className="w-32">COURSE OF STUDY</span>
         </div>
         {isLoading ? (
-          <Skeleton count={10} className="h-16" />
+          <div className="w-full">
+            <Skeleton count={3} className="h-16" />
+          </div>
         ) : (
           arrayOfApplication?.map((item, index) => (
             <ApplicationListItem
