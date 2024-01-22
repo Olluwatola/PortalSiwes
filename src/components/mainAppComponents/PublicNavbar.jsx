@@ -15,11 +15,13 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
   };
 
   const handleActive = () => {
-    if (location.pathname === "/about") {
+    const path = location.pathname;
+
+    if (path.includes("/about")) {
       setActive("about");
-    } else if (location.pathname === "/faqs") {
+    } else if (path.includes("/faqs")) {
       setActive("faqs");
-    } else if (location.pathname === "/contactus") {
+    } else if (path.includes("/contactus")) {
       setActive("contactus");
     } else {
       setActive("");

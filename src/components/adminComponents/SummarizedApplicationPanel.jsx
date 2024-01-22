@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { db } from "./../../config/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
+import { Link } from "react-router-dom";
+import { MdOutlineRefresh } from "react-icons/md";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 
 const SummarizedAppicationPanel = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [getApplicationsError, setGetApplicationsError] = useState(null);
   const [arrayOfApplication, setArrayOfApplication] = useState(null);
   const applicationCollectionRef = collection(db, "studentApplication");
+  const [lastIndex, setLastIndex] = useState(0);
   let returnedApplications;
 
   async function fetchSummarizeApplication() {
@@ -48,6 +53,8 @@ const SummarizedAppicationPanel = () => {
         if (isMounted) {
           setArrayOfApplication(returnedApplications);
           console.log(returnedApplications);
+          const lastIndex = returnedApplications.length - 1;
+          setLastIndex(lastIndex);
         }
       } catch (err) {
         console.error(err);
@@ -66,25 +73,54 @@ const SummarizedAppicationPanel = () => {
   }, []);
 
   return (
-    <>
-      <h2>PENDING APPLICATIONS</h2>
-      <small>
-        these are applications that have written the accessment test, but have
-        not been accepted nor been declined
-      </small>
-      <br />
-      <button onClick={handleFetchSummarizeApplication}>refresh</button>
-      {isLoading
-        ? "loading...."
-        : arrayOfApplication?.map((item, index) => (
+    <div className="flex flex-col gap-5 w-[70%]">
+      <span className="text-neutral-500 text-xs tracking-widest flex justify-between">
+        PENDING APPLICATIONS
+        <div className="flex items-center gap-3">
+          <button onClick={handleFetchSummarizeApplication} hint="refresh">
+            <MdOutlineRefresh
+              className={`${isLoading ? "animate-spin" : null} text-lg`}
+            />
+          </button>
+          <Link
+            className="text-primary"
+            to="/admin/applications/category/pending"
+          >
+            View all
+          </Link>
+        </div>
+      </span>
+      <span
+        className={`
+      ${getApplicationsError ? "text-red-500" : "hidden"}
+      text-xs tracking-widest`}
+      >
+        {getApplicationsError ? getApplicationsError : null}
+      </span>
+      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3">
+        <div className="w-full flex items-center justify-between text-neutral-500 text-[0.65rem]">
+          <span className="w-4 opacity-0">0</span>
+          <span className="w-36">NAME</span>
+          <span className="w-36">PHONE NUMBER</span>
+          <span className="w-32">DURATION</span>
+          <span className="w-32">COURSE OF STUDY</span>
+        </div>
+        {isLoading ? (
+          <div className="w-full">
+            <Skeleton count={3} className="h-16" />
+          </div>
+        ) : (
+          arrayOfApplication?.map((item, index) => (
             <ApplicationListItem
               index={index}
+              lastIndex={lastIndex}
               application={item}
               key={item.id}
             />
-          ))}
-      {getApplicationsError ? getApplicationsError : null}
-    </>
+          ))
+        )}
+      </div>
+    </div>
   );
 };
 

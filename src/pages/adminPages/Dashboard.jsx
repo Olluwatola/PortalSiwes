@@ -21,16 +21,18 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="">
-      <div className="py-2 px-4 bg-primary w-fit text-white rounded-e-lg">
+    <>
+      <div className="text-primary">
         Hello, {auth?.currentUser?.displayName}
       </div>
       {/* <button onClick={handleLogOut}>Log Out</button>      <>Dashboard:{auth?.currentUser?.email}</> */}
       <StatisticPanel />
-      <SummarizedApplicationPanel />
-      <NotCompletedInvitationPanel />
+      <div className="flex mt-14 gap-8">
+        <SummarizedApplicationPanel />
+        <NotCompletedInvitationPanel />
+      </div>
       <div>{errorFeedback ? errorFeedback : null}</div>
-    </div>
+    </>
   );
 };
 
