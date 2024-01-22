@@ -29,7 +29,7 @@ const ElementBox = ({
       <span className="text-3xl font-medium">{valueOfHeader}</span>
       {link ? (
         <Link
-          className="border border-primary rounded-md py-2.5 transition-all text-primary text-center text-sm duration-300 ease-in-out hover:bg-primary hover:text-white"
+          className="border border-primary rounded-md py-2.5 transition-all hover:bg-white hover:text-primary text-center text-sm duration-300 ease-in-out bg-primary text-white"
           to={link}
         >
           View details
