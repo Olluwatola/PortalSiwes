@@ -42,7 +42,7 @@ const InvitationPanel = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-5 w-[30%] bg-blue-600">
       <h2>SCHEDULED INVITATIONS</h2>
       <button
         onClick={() => {
@@ -76,7 +76,7 @@ const InvitationPanel = () => {
         isCIVOpen={isCIVModalOpen}
         onCIVClose={closeCIVModal}
       />
-    </>
+    </div>
   );
 };
 

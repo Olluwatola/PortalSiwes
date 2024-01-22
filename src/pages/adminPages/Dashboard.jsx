@@ -27,8 +27,10 @@ const Dashboard = () => {
       </div>
       {/* <button onClick={handleLogOut}>Log Out</button>      <>Dashboard:{auth?.currentUser?.email}</> */}
       <StatisticPanel />
-      <SummarizedApplicationPanel />
-      <NotCompletedInvitationPanel />
+      <div className="flex mt-14 gap-8">
+        <SummarizedApplicationPanel />
+        <NotCompletedInvitationPanel />
+      </div>
       <div>{errorFeedback ? errorFeedback : null}</div>
     </div>
   );

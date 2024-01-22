@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { db } from "./../../config/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
+import { Link } from "react-router-dom";
+import { MdOutlineRefresh } from "react-icons/md";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 
 const SummarizedAppicationPanel = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -66,16 +70,25 @@ const SummarizedAppicationPanel = () => {
   }, []);
 
   return (
-    <>
-      <h2>PENDING APPLICATIONS</h2>
-      <small>
-        these are applications that have written the accessment test, but have
-        not been accepted nor been declined
-      </small>
-      <br />
-      <button onClick={handleFetchSummarizeApplication}>refresh</button>
+    <div className="flex flex-col gap-5 w-[70%]">
+      <span className="text-neutral-500 text-sm tracking-widest flex justify-between">
+        PENDING APPLICATIONS
+        <div className="flex items-center gap-3">
+          <button onClick={handleFetchSummarizeApplication} hint="refresh">
+            <MdOutlineRefresh
+              className={`${isLoading ? "animate-spin" : null}`}
+            />
+          </button>
+          <Link
+            className="text-primary"
+            to="/admin/applications/category/pending"
+          >
+            VIEW ALL
+          </Link>
+        </div>
+      </span>
       {isLoading
-        ? "loading...."
+        ? <Skeleton count={10} className="h-16" />
         : arrayOfApplication?.map((item, index) => (
             <ApplicationListItem
               index={index}
@@ -84,7 +97,7 @@ const SummarizedAppicationPanel = () => {
             />
           ))}
       {getApplicationsError ? getApplicationsError : null}
-    </>
+    </div>
   );
 };
 
