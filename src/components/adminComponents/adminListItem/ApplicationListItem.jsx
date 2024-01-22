@@ -1,13 +1,12 @@
 import { useState } from "react";
-import {
-  db
-} from "../../../config/firebase";
+import { db } from "../../../config/firebase";
 import { Link } from "react-router-dom";
 
 import { updateDoc, doc } from "firebase/firestore";
 
 const ApplicationListItem = ({
   index,
+  lastIndex,
   application,
   arrayOfApplication,
   setArrayOfApplication,
@@ -44,40 +43,42 @@ const ApplicationListItem = ({
     }
   }
   return (
-    <li>
-      <Link to={`/admin/applications/${application.id}`}>
-        <span>{index}</span> |
-        <span>
-          {application.studentLastName} {application.studentOtherNames}
-        </span>{" "}
-        |<span>{application.durationOfInternship} Months</span> |
-        <span>{application.studentCourse}</span> |
-        <span>{application.studentPhoneNumber}</span> |
-        <span>
-          {application.isAccepted
-            ? "Accepted"
-            : application.isRejected
-            ? "Rejected"
-            : application.isReviewed
-            ? "Under review"
-            : "Not Reviewed"}
-        </span>{" "}
-      </Link>
-      |
-      {putUnderReviewIsLoading ? (
-        "..."
-      ) : (
-        <button
-          onClick={() => {
-            handlePutApplicationUnderReview(application.id);
-          }}
-          disabled={application.isReviewed ? true : false}
-        >
-          Put Under Review
-        </button>
-      )}
-      <hr />
-    </li>
+    <Link
+      className={`${
+        index === lastIndex ? "" : "border-b border-neutral-200"
+      } text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
+      to={`/admin/applications/${application.id}`}
+    >
+      <span className="w-4 text-neutral-500">{index + 1}.</span>
+      <span className="w-36">
+        {application.studentLastName} {application.studentOtherNames}
+      </span>
+      <span className="w-36">{application.studentPhoneNumber}</span>
+      <span className="w-32">{application.durationOfInternship} Months</span>
+      <span className="w-32">{application.studentCourse}</span>
+    </Link>
+    // <span>
+    //   {application.isAccepted
+    //     ? "Accepted"
+    //     : application.isRejected
+    //     ? "Rejected"
+    //     : application.isReviewed
+    //     ? "Under review"
+    //     : "Not Reviewed"}
+    // </span>
+
+    //  {putUnderReviewIsLoading ? (
+    //   "..."
+    // ) : (
+    //   <button
+    //     onClick={() => {
+    //       handlePutApplicationUnderReview(application.id);
+    //     }}
+    //     disabled={application.isReviewed ? true : false}
+    //   >
+    //     Put Under Review
+    //   </button>
+    // )}
   );
 };
 

@@ -12,6 +12,7 @@ const SummarizedAppicationPanel = () => {
   const [getApplicationsError, setGetApplicationsError] = useState(null);
   const [arrayOfApplication, setArrayOfApplication] = useState(null);
   const applicationCollectionRef = collection(db, "studentApplication");
+  const [lastIndex, setLastIndex] = useState(0);
   let returnedApplications;
 
   async function fetchSummarizeApplication() {
@@ -52,6 +53,8 @@ const SummarizedAppicationPanel = () => {
         if (isMounted) {
           setArrayOfApplication(returnedApplications);
           console.log(returnedApplications);
+          const lastIndex = returnedApplications.length - 1;
+          setLastIndex(lastIndex);
         }
       } catch (err) {
         console.error(err);
@@ -87,16 +90,34 @@ const SummarizedAppicationPanel = () => {
           </Link>
         </div>
       </span>
-      {isLoading
-        ? <Skeleton count={10} className="h-16" />
-        : arrayOfApplication?.map((item, index) => (
+      <span
+        className={`
+      ${getApplicationsError ? "text-red-500" : "hidden"}
+      text-xs tracking-widest`}
+      >
+        {getApplicationsError ? getApplicationsError : null}
+      </span>
+      <div className="bg-white shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3">
+        <div className="w-full flex items-center justify-between text-neutral-500 text-[0.65rem]">
+          <span className="w-4 opacity-0">0</span>
+          <span className="w-36">NAME</span>
+          <span className="w-36">PHONE NUMBER</span>
+          <span className="w-32">DURATION</span>
+          <span className="w-32">COURSE OF STUDY</span>
+        </div>
+        {isLoading ? (
+          <Skeleton count={10} className="h-16" />
+        ) : (
+          arrayOfApplication?.map((item, index) => (
             <ApplicationListItem
               index={index}
+              lastIndex={lastIndex}
               application={item}
               key={item.id}
             />
-          ))}
-      {getApplicationsError ? getApplicationsError : null}
+          ))
+        )}
+      </div>
     </div>
   );
 };
