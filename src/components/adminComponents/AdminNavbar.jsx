@@ -33,7 +33,7 @@ const AdminNavbar = () => {
   }, [location.pathname]);
 
   return (
-    <nav className="w-72 bg-white border-r-2 border-neutral-200 flex flex-col justify-between h-screen pb-10">
+    <nav className="2xl:container 2xl:mx-auto w-72 bg-white border-r-2 border-neutral-200 flex flex-col justify-between h-screen pb-10">
       <div className="flex flex-col gap-2">
         <span className="font-secondary flex items-center text-primary pt-10 text-3xl tracking-tight">
           IT<div className="font-primary -rotate-45 font-semibold">e</div>

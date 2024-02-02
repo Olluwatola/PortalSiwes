@@ -38,7 +38,7 @@ const PublicNavbar = ({ applyModal, setapplyModal }) => {
       className={`${
         home ? "bg-transparent" : "bg-white backdrop-blur-md bg-opacity-30"
       }
-      fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8`}
+      fixed h-fit inset-0 md:px-16 px-6 pt-5 md:pt-8 2xl:container 2xl:mx-auto`}
     >
       <ul
         className={`
