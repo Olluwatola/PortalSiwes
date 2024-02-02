@@ -6,11 +6,7 @@ const ApplicationsPage = () => {
 
   return (
     <>
-      <span className="text-3xl font-medium">
-
-
-
-Applications</span>
+      <span className="text-3xl font-medium">Applications</span>
       <div>
         <ApplicationsPanel category={c} />
       </div>
