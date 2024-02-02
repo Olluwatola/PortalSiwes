@@ -13,7 +13,7 @@ const Layout = ({ children, userProfile, applyModal, setapplyModal }) => {
   if (isProtectedRoute && isAdmin) {
     console.log(userProfile.role);
     return (
-      <div className="flex w-screen h-screen overflow-hidden pl-10">
+      <div className="flex w-screen h-screen overflow-hidden pl-10 ">
         <div>
           <Navbar
             userProfile={userProfile}
