@@ -80,7 +80,7 @@ export function Testimonials() {
     <>
       <>
         <div className="flex justify-between md:justify-normal gap-3 md:gap-5 h-auto md:mt-0 mt-7">
-          <div className="md:w-[25vw] w-full md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
+          <div className="md:w-[25vw] 2xl:w-fit w-full md:text-base text-sm border border-white rounded-lg p-2 min-h-[9vw] 2xl:min-h-fit md:hover:w-[35vw] transition-all duration-300 ease-in-out cursor-pointer">
             <div className="bg-primaryAlt bg-opacity-10 p-3 h-full rounded-lg flex items-center">
               {loading ? (
                 <SkeletonTheme baseColor="#3B37FF" highlightColor="#6361c1">

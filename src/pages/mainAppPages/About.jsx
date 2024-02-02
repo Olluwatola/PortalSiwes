@@ -33,7 +33,7 @@ function About() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="md:py-36 pt-20 pb-5 bg gap-5 md:gap-7 md:px-16 px-6 flex flex-col "
+      className="md:py-36 pt-20 pb-5 bg gap-5 md:gap-7 md:px-16 2xl:container 2xl:mx-auto px-6 flex flex-col "
     >
       <div className="flex flex-col gap-2 md:gap-4 text-darkBlue">
         <span className="font-medium text-4xl md:text-6xl -tracking-widest">
@@ -41,19 +41,21 @@ function About() {
         </span>
         <span className="tracking-tighter">Get to know us</span>
       </div>
-      <div className="md:w-3/4 text-justify md:text-base text-sm leading-relaxed md:leading-[1.7rem] font-light">
-        {about ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            {about}
-          </motion.div>
-        ) : (
-          <Skeleton count={10} />
-        )}
+      <div className="w-full  2xl:container 2xl:mx-auto">
+        <div className="md:w-3/4 text-justify md:text-base text-sm leading-relaxed md:leading-[1.7rem] font-light">
+          {about ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
+            >
+              {about}
+            </motion.div>
+          ) : (
+            <Skeleton count={10} />
+          )}
+        </div>
       </div>
     </motion.div>
   );

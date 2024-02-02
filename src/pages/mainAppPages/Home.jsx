@@ -27,7 +27,7 @@ const Home = ({ applyModal, setapplyModal }) => {
   });
 
   return (
-    <div className="py-20 bg-primary h-screen md:px-16 px-6 bg overflow-hidden">
+    <div className="py-20 bg-primary h-screen md:px-16 px-6 bg overflow-hidden 2xl:container 2xl:mx-auto">
       <AdminStatusBar
         conditionGood={conditionGood}
         setStatusBarMessage={setStatusBarMessage}

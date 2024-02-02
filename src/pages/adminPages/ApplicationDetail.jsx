@@ -131,7 +131,7 @@ const ApplicationDetail = () => {
       <br />
       <h2>Review Application</h2>
       <br />
-      <h3>
+      <div>
         status{" "}
         {returnedDocument?.isAccepted
           ? "Accepted"
@@ -140,7 +140,7 @@ const ApplicationDetail = () => {
           : returnedDocument?.isReviewed
           ? "Under review"
           : "Not Reviewed"}
-      </h3>
+      </div>
       <br />
       {returnedDocument?.studentLastName} {returnedDocument?.studentOtherNames}
       <br />

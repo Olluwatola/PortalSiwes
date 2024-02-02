@@ -31,7 +31,7 @@ const Footer = () => {
   return (
     <>
       {show ? null : (
-        <div className="md:px-16 px-6 text-sm py-10">
+        <div className="md:px-16 px-6 text-sm py-10 2xl:mx-auto 2xl:container">
           <span className="flex items-center gap-2">
             <span>©️ {year}</span>
             <span>
