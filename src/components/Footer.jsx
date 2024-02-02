@@ -29,9 +29,9 @@ const Footer = () => {
   }, [location.pathname]);
 
   return (
-    <div className="w-full 2xl:mx-auto 2xl:container">
+    <>
       {show ? null : (
-        <div className="md:px-16 px-6 text-sm py-10 2xl:px-0">
+        <div className="md:px-16 px-6 text-sm py-10 2xl:mx-auto 2xl:container">
           <span className="flex items-center gap-2">
             <span>©️ {year}</span>
             <span>
@@ -41,7 +41,7 @@ const Footer = () => {
           </span>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

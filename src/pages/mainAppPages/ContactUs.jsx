@@ -32,7 +32,7 @@ function ContactUs() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="md:py-36 pt-20 pb-5 gap-5 bg md:gap-7 md:px-16 px-6 flex flex-col "
+      className="md:py-36 pt-20 pb-5 gap-5 bg md:gap-7 md:px-16 px-6 flex flex-col 2xl:container 2xl:mx-auto"
     >
       <div className="flex flex-col gap-2 md:gap-4 text-darkBlue">
         <span className="font-medium text-4xl md:text-6xl -tracking-widest">
