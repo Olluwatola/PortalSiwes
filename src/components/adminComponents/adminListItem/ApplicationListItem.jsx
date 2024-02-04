@@ -42,21 +42,77 @@ const ApplicationListItem = ({
       setPutUnderReviewIsLoading(false);
     }
   }
+
+  const getStatusColor = () => {
+    const {
+      isAccepted,
+      isRejected,
+      isReviewed,
+      placedTo,
+      hasWrittenApplicationTest,
+    } = application;
+    if (isAccepted) {
+      return "bg-green-300 text-green-800";
+    } else if (isRejected) {
+      return "bg-red-400 text-white";
+    } else if (isReviewed) {
+      return "bg-primary text-white";
+    } else if (hasWrittenApplicationTest && placedTo === "yetToBePlaced") {
+      return "bg-amber-500 bg-opacity-70 text-lime-950";
+    } else if (!isReviewed) {
+      return "bg-blue-500 text-white";
+    }
+
+    return "bg-gray-500";
+  };
+
+  const getStatusText = () => {
+    const {
+      isAccepted,
+      isRejected,
+      isReviewed,
+      placedTo,
+      hasWrittenApplicationTest,
+    } = application;
+
+    if (isAccepted) {
+      return "Approved";
+    } else if (isRejected) {
+      return "Declined";
+    } else if (isReviewed) {
+      return "Reviewed";
+    } else if (hasWrittenApplicationTest && placedTo === "yetToBePlaced") {
+      return "Pending";
+    } else if (!isReviewed) {
+      return "Not Reviewed";
+    }
+
+    return "Unknown Status"; // Default text if none of the conditions match
+  };
+
   return (
     <Link
-      className={`${
-        index === lastIndex ? "" : "border-b border-neutral-200"
-      }
-       text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
+      className={`${index === lastIndex ? "" : "border-b border-neutral-200"}
+       text-neutral-800 text-sm w-full items-center flex gap-2 justify-between py-5`}
       to={`/admin/applications/${application.id}`}
     >
       <span className="w-4 text-neutral-500">{index + 1}.</span>
-      <span className="w-36">
+      <span className="w-60">
         {application.studentLastName} {application.studentOtherNames}
-      </span>
-      <span className="w-36">{application.studentPhoneNumber}</span>
-      <span className="w-32">{application.durationOfInternship} Months</span>
+      </span>{" "}
+      <span className="w-60">{application.studentEmail}</span>
+      <span className="w-32">
+        {application.durationOfInternship} Months
+      </span>{" "}
       <span className="w-32">{application.studentCourse}</span>
+      <span className="w-36">{application.studentPhoneNumber}</span>
+      <div className="flex items-center justify-start w-40">
+        <span
+          className={`px-4 py-1.5 rounded-lg text-center ${getStatusColor()}`}
+        >
+          {getStatusText()}
+        </span>
+      </div>
     </Link>
     // <span>
     //   {application.isAccepted

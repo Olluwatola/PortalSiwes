@@ -17,7 +17,7 @@ const ApplicationsPageTabs = ({
   setGetApplicationsError,
 }) => {
   //const [filter, setFilter] = useState();
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState("Not Reviewed");
 
   useEffect(() => {
     if (active === "Not Reviewed") {
@@ -26,8 +26,8 @@ const ApplicationsPageTabs = ({
     if (active === "Pending") {
       setActive("Pending");
     }
-    if (active === "Under Review") {
-      setActive("Under Review");
+    if (active === "Review") {
+      setActive("Review");
     }
     if (active === "Approved") {
       setActive("Approved");
@@ -83,9 +83,9 @@ const ApplicationsPageTabs = ({
       />
       <FilterTabs
         active={active}
-        name={"Under Review"}
+        name={"Reviewed"}
         onClickFunction={() => {
-          setActive("Under Review");
+          setActive("Reviewed");
           getAllUnderReviewedApplications(
             setArrayOfApplication,
             setIsLoading,
