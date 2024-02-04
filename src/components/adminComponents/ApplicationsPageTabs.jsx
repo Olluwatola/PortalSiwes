@@ -17,7 +17,7 @@ const ApplicationsPageTabs = ({
   setGetApplicationsError,
 }) => {
   //const [filter, setFilter] = useState();
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState("Not Reviewed");
 
   useEffect(() => {
     if (active === "Not Reviewed") {
