@@ -52,15 +52,15 @@ const ApplicationListItem = ({
       hasWrittenApplicationTest,
     } = application;
     if (isAccepted) {
-      return "bg-green-500";
+      return "bg-green-300 text-green-800";
     } else if (isRejected) {
-      return "bg-red-500";
+      return "bg-red-400 text-white";
     } else if (isReviewed) {
-      return "bg-teal-500";
+      return "bg-primary text-white";
     } else if (hasWrittenApplicationTest && placedTo === "yetToBePlaced") {
-      return "bg-gray-500";
+      return "bg-amber-500 bg-opacity-70 text-lime-950";
     } else if (!isReviewed) {
-      return "bg-indigo-600";
+      return "bg-blue-500 text-white";
     }
 
     return "bg-gray-500";
@@ -76,13 +76,13 @@ const ApplicationListItem = ({
     } = application;
 
     if (isAccepted) {
-      return "Accepted";
+      return "Approved";
     } else if (isRejected) {
-      return "Rejected";
+      return "Declined";
     } else if (isReviewed) {
       return "Reviewed";
     } else if (hasWrittenApplicationTest && placedTo === "yetToBePlaced") {
-      return "Yet to be Placed";
+      return "Pending";
     } else if (!isReviewed) {
       return "Not Reviewed";
     }
@@ -93,22 +93,26 @@ const ApplicationListItem = ({
   return (
     <Link
       className={`${index === lastIndex ? "" : "border-b border-neutral-200"}
-       text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
+       text-neutral-800 text-sm w-full items-center flex gap-2 justify-between py-5`}
       to={`/admin/applications/${application.id}`}
     >
-      <span className="w-4 bg- text-neutral-500">{index + 1}.</span>
-      <span className="w-40 bg-cyan-100">
+      <span className="w-4 text-neutral-500">{index + 1}.</span>
+      <span className="w-60">
         {application.studentLastName} {application.studentOtherNames}
       </span>{" "}
-      <span className="w-64 bg-fuchsia-500">{application.studentEmail}</span>
-      <span className="w-32 bg-red-400">
+      <span className="w-60">{application.studentEmail}</span>
+      <span className="w-32">
         {application.durationOfInternship} Months
       </span>{" "}
-      <span className="w-32 bg-yellow-200">{application.studentCourse}</span>
-      <span className="w-36 bg-yellow-300">
-        {application.studentPhoneNumber}
-      </span>
-      <span className={`w-32 ${getStatusColor()}`}>{getStatusText()}</span>
+      <span className="w-32">{application.studentCourse}</span>
+      <span className="w-36">{application.studentPhoneNumber}</span>
+      <div className="flex items-center justify-start w-40">
+        <span
+          className={`px-4 py-1.5 rounded-lg text-center ${getStatusColor()}`}
+        >
+          {getStatusText()}
+        </span>
+      </div>
     </Link>
     // <span>
     //   {application.isAccepted
