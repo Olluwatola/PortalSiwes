@@ -24,6 +24,8 @@ export async function getAllNotReviewedApplications(
       where("isRejected", "==", false),
       where("isAccepted", "==", false),
       where("isReviewed", "==", false),
+      where("hasWrittenApplicationTest", "==", false),
+      where("placedTo", "==", "yetToBePlaced")
     );
     const data = await getDocs(q);
     returnedApplications = data.docs.map((doc) => ({
