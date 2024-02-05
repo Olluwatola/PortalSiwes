@@ -10,8 +10,10 @@ const ApplicationListItem = ({
   application,
   arrayOfApplication,
   setArrayOfApplication,
+  showStatusState,
 }) => {
   const [putUnderReviewIsLoading, setPutUnderReviewIsLoading] = useState(false);
+  const [showStatus, setShowStatus] = useState(showStatusState);
 
   function removeObjectById(arr, idToRemove) {
     // Use the filter method to create a new array with objects that do not have the specified ID.
@@ -106,7 +108,12 @@ const ApplicationListItem = ({
       </span>{" "}
       <span className="w-32">{application.studentCourse}</span>
       <span className="w-36">{application.studentPhoneNumber}</span>
-      <div className="flex items-center justify-start w-40">
+      <div
+        className={`
+      ${showStatus ? "block" : "hidden"}
+      flex items-center justify-start w-40
+      `}
+      >
         <span
           className={`px-4 py-1.5 rounded-lg text-center ${getStatusColor()}`}
         >

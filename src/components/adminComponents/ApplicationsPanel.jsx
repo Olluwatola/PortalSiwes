@@ -116,6 +116,7 @@ const ApplicationsPanel = ({ category }) => {
                 key={item.id}
                 arrayOfApplication={arrayOfApplication}
                 setArrayOfApplication={setArrayOfApplication}
+                showStatusState={true}
               />
             </>
           ))}
