@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "./../../config/firebase";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
 import ApplicationsPageTabs from "./ApplicationsPageTabs";
@@ -103,7 +105,7 @@ const ApplicationsPanel = ({ category }) => {
       />{" "}
       <br />
       {isLoading ? (
-        <h1>loading applications....</h1>
+        <Skeleton className="h-20 gap-1 rounded-lg"  count={10} />
       ) : arrayOfApplication ? (
         <>
           {arrayOfApplication?.map((item, index) => (
@@ -115,7 +117,6 @@ const ApplicationsPanel = ({ category }) => {
                 arrayOfApplication={arrayOfApplication}
                 setArrayOfApplication={setArrayOfApplication}
               />
-              <br />
             </>
           ))}
         </>
