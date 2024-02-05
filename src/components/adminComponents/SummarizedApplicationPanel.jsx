@@ -97,14 +97,7 @@ const SummarizedAppicationPanel = () => {
       >
         {getApplicationsError ? getApplicationsError : null}
       </span>
-      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3">
-        <div className="w-full flex items-center justify-between text-neutral-500 text-[0.65rem]">
-          <span className="w-4 opacity-0">0</span>
-          <span className="w-36">NAME</span>
-          <span className="w-36">PHONE NUMBER</span>
-          <span className="w-32">DURATION</span>
-          <span className="w-32">COURSE OF STUDY</span>
-        </div>
+      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center gap-3">
         {isLoading ? (
           <div className="w-full">
             <Skeleton count={3} className="h-16" />
@@ -116,6 +109,7 @@ const SummarizedAppicationPanel = () => {
               lastIndex={lastIndex}
               application={item}
               key={item.id}
+              showStatusState={false}
             />
           ))
         )}
