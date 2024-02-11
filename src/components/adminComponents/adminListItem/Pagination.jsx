@@ -9,10 +9,10 @@ const Pagination = ({
   const getPageNumbers = () => {
     const pageNumbers = [];
     let startingPage = Math.max(1, currentPage - 1); // Ensure starting page is not less than 1
-    if (currentPage >= totalPages - 2) {
-      startingPage = Math.max(1, totalPages - 2);
+    if (currentPage >= totalPages - 9) {
+      startingPage = Math.max(1, totalPages - 9);
     }
-    for (let i = startingPage; i <= Math.min(startingPage + 2, totalPages); i++) {
+    for (let i = startingPage; i <= Math.min(startingPage + 9, totalPages); i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
@@ -20,7 +20,7 @@ const Pagination = ({
 
   return (
     <ul className="flex mt-8 text-neutral-600">
-      {totalPages > 3 && currentPage > 2 && (
+      {totalPages > 10 && currentPage > 9 && (
         <>
           <li className="mx-1">
             <button className="w-8 h-8 transition-all duration-200 ease-in-out rounded-md flex justify-center items-center hover:bg-primary hover:text-white" onClick={() => paginate(1)}>
@@ -46,7 +46,7 @@ const Pagination = ({
           </button>
         </li>
       ))}
-      {totalPages > 3 && currentPage < totalPages - 1 && (
+      {totalPages > 10 && currentPage < totalPages - 1 && (
         <>
           <li className="mx-1">
             
