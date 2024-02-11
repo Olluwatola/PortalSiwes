@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { db } from "./../../config/firebase";
-import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import "react-loading-skeleton/dist/skeleton.css"; // Don't forget to import the styles
 import Skeleton from "react-loading-skeleton";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
 import ApplicationsPageTabs from "./ApplicationsPageTabs";
+import Pagination from "../adminComponents/adminListItem/Pagination";
 import {
   getAllPendingApplications,
   getAllRejectedApplications,
@@ -16,83 +17,80 @@ import {
 const applicationCollectionRef = collection(db, "studentApplication");
 
 const ApplicationsPanel = ({ category }) => {
-  let returnedApplications;
   const [isLoading, setIsLoading] = useState(false);
   const [getApplicationsError, setGetApplicationsError] = useState(null);
   const [arrayOfApplication, setArrayOfApplication] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [applicationsPerPage] = useState(10);
 
   useEffect(() => {
-    if (category === undefined) {
-      getAllNotReviewedApplications(
-        setArrayOfApplication,
-        setIsLoading,
-        returnedApplications,
-        setGetApplicationsError
-      );
+    setIsLoading(true);
+    let fetchedApplications;
+    switch (category) {
+      case undefined:
+        getAllNotReviewedApplications(
+          setArrayOfApplication,
+          setIsLoading,
+          fetchedApplications,
+          setGetApplicationsError
+        );
+        break;
+      case "all":
+        getAllApplications(
+          setArrayOfApplication,
+          setIsLoading,
+          fetchedApplications,
+          setGetApplicationsError
+        );
+        break;
+      case "accepted":
+        getAllAcceptedApplications(
+          setArrayOfApplication,
+          setIsLoading,
+          fetchedApplications,
+          setGetApplicationsError
+        );
+        break;
+      case "rejected":
+        getAllRejectedApplications(
+          setArrayOfApplication,
+          setIsLoading,
+          fetchedApplications,
+          setGetApplicationsError
+        );
+        break;
+      case "pending":
+        getAllPendingApplications(
+          setArrayOfApplication,
+          setIsLoading,
+          fetchedApplications,
+          setGetApplicationsError
+        );
+        break;
+      default:
+        break;
     }
-    if (category === "all") {
-      getAllApplications(
-        setArrayOfApplication,
-        setIsLoading,
-        returnedApplications,
-        setGetApplicationsError
-      );
-    }
-    if (category === "accepted") {
-      getAllAcceptedApplications(
-        setArrayOfApplication,
-        setIsLoading,
-        returnedApplications,
-        setGetApplicationsError
-      );
-    }
-    if (category === "rejected") {
-      getAllRejectedApplications(
-        setArrayOfApplication,
-        setIsLoading,
-        returnedApplications,
-        setGetApplicationsError
-      );
-    }
-    if (category === "pending") {
-      getAllPendingApplications(
-        setArrayOfApplication,
-        setIsLoading,
-        returnedApplications,
-        setGetApplicationsError
-      );
-    }
-    // async function fetchUnreviewedApplications() {
-    //   setIsLoading(true);
-    //   try {
-    //     const q = query(
-    //       applicationCollectionRef,
-    //       where("isRejected", "==", false),
-    //       where("isAccepted", "==", false),
-    //       where("isReviewed", "==", false)
-    //     );
-    //     const data = await getDocs(q);
-    //     returnedApplications = data.docs.map((doc) => ({
-    //       ...doc.data(),
-    //       id: doc.id,
-    //     }));
-    //     setArrayOfApplication(returnedApplications);
-    //     console.log(returnedApplications);
-    //     setIsLoading(false);
-    //   } catch (error) {
-    //     setGetApplicationsError(error.message);
-    //     setIsLoading(false);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // }
+  }, [category]);
 
-    // fetchUnreviewedApplications();
+  // Logic for pagination
+  const totalPages = Math.ceil(arrayOfApplication?.length / applicationsPerPage);
 
-    //   return () => {
-    //     second
-    //   }
-  }, []);
+  const onNextClick = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const onLastClick = () => setCurrentPage(totalPages);
+
+  const indexOfLastApplication = currentPage * applicationsPerPage;
+  const indexOfFirstApplication = indexOfLastApplication - applicationsPerPage;
+  const currentApplications = arrayOfApplication?.slice(
+    indexOfFirstApplication,
+    indexOfLastApplication
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -100,34 +98,39 @@ const ApplicationsPanel = ({ category }) => {
         category={category}
         setArrayOfApplication={setArrayOfApplication}
         setIsLoading={setIsLoading}
-        returnedApplications={returnedApplications}
         setGetApplicationsError={setGetApplicationsError}
       />{" "}
       <br />
       {isLoading ? (
-        <Skeleton className="h-20 gap-1 rounded-lg"  count={10} />
-      ) : arrayOfApplication ? (
+        <Skeleton className="h-20 gap-1 rounded-lg" count={10} />
+      ) : currentApplications && currentApplications.length > 0 ? (
         <>
-          {arrayOfApplication?.map((item, index) => (
-            <>
-              <ApplicationListItem
-                index={index}
-                application={item}
-                key={item.id}
-                arrayOfApplication={arrayOfApplication}
-                setArrayOfApplication={setArrayOfApplication}
-                showStatusState={true}
-              />
-            </>
+          {currentApplications.map((item, index) => (
+            <ApplicationListItem
+              key={item.id}
+              index={index + indexOfFirstApplication}
+              application={item}
+              arrayOfApplication={arrayOfApplication}
+              setArrayOfApplication={setArrayOfApplication}
+              showStatusState={true}
+            />
           ))}
+          {/* Pagination */}
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            paginate={paginate}
+            onNextClick={onNextClick}
+            onLastClick={onLastClick}
+          />
         </>
       ) : arrayOfApplication?.length === 0 ? (
-        "no applicaton fetched"
+        "No application fetched"
       ) : (
-        "an error occurred"
+        "An error occurred"
       )}
       <br />
-      {getApplicationsError ? getApplicationsError : null}
+      {getApplicationsError && getApplicationsError}
     </>
   );
 };
