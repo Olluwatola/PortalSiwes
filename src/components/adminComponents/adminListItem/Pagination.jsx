@@ -6,7 +6,11 @@ const Pagination = ({
     // Function to generate an array of page numbers
     const getPageNumbers = () => {
       const pageNumbers = [];
-      for (let i = 1; i <= totalPages; i++) {
+      let startingPage = Math.max(1, currentPage - 1); // Ensure starting page is not less than 1
+      if (currentPage >= totalPages - 2) {
+        startingPage = Math.max(1, totalPages - 2);
+      }
+      for (let i = startingPage; i <= Math.min(startingPage + 2, totalPages); i++) {
         pageNumbers.push(i);
       }
       return pageNumbers;
@@ -26,6 +30,16 @@ const Pagination = ({
             </button>
           </li>
         ))}
+        {totalPages > 3  && (
+          <>
+            <li className="mx-1">
+              <button onClick={() => paginate(currentPage + 1)}>Next</button>
+            </li>
+            <li className="mx-1">
+              <button onClick={() => paginate(totalPages)}>Last</button>
+            </li>
+          </>
+        )}
       </ul>
     );
   };
