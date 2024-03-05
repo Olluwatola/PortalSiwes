@@ -73,7 +73,9 @@ const ApplicationsPanel = ({ category }) => {
   }, [category]);
 
   // Logic for pagination
-  const totalPages = Math.ceil(arrayOfApplication?.length / applicationsPerPage);
+  const totalPages = Math.ceil(
+    arrayOfApplication?.length / applicationsPerPage
+  );
 
   const onNextClick = () => {
     if (currentPage < totalPages) {
@@ -92,14 +94,18 @@ const ApplicationsPanel = ({ category }) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category, arrayOfApplication]);
+
   return (
     <>
       <ApplicationsPageTabs
-        category={category}
+        // category={category}
         setArrayOfApplication={setArrayOfApplication}
         setIsLoading={setIsLoading}
         setGetApplicationsError={setGetApplicationsError}
-      />{" "}
+      />
       <br />
       {isLoading ? (
         <Skeleton className="h-20 gap-1 rounded-lg" count={10} />
