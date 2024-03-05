@@ -7,7 +7,7 @@ const ApplicationsPage = () => {
   return (
     <>
       <span className="text-3xl font-medium">Applications</span>
-      <div>
+      <div className="mt-10">
         <ApplicationsPanel category={c} />
       </div>
     </>
