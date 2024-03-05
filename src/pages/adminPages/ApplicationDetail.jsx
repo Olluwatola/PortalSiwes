@@ -4,6 +4,7 @@ import { getDoc, doc } from "firebase/firestore";
 import InvitationModal from "./../../components/adminComponents/adminModals/CreateInvitationModal";
 import PlacementButton from "./../../components/adminComponents/adminButtons/PlacementButton";
 import { Link } from "react-router-dom";
+import IDModal from "./../../components/adminComponents/adminModals/IDModal";
 
 import {
   db,
@@ -29,6 +30,16 @@ const ApplicationDetail = () => {
     useState(undefined);
   const [returnedApplicationId, setReturnedApplicationId] = useState(undefined);
   const [placementError, setPlacementError] = useState(undefined);
+
+  const [modalImageUrl, setModalImageUrl] = useState(null);
+
+  const openModalImg = (imageUrl) => {
+    setModalImageUrl(imageUrl);
+  };
+
+  const closeModalImg = () => {
+    setModalImageUrl(null);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -151,7 +162,7 @@ const ApplicationDetail = () => {
 
   return (
     <div className="">
-      <span className="text-3xl font-medium">Applications</span>
+      <span classNam>Applications</span>
       <div className="mt-8 flex items-center gap-3 pb-3 border-b-neutral-300 border-b">
         <div className="text-primary">Review Application</div>
         <div className="w-[0.125rem] h-4 bg-black"></div>
@@ -160,7 +171,7 @@ const ApplicationDetail = () => {
         </Link>
       </div>
       <br />
-      <div className="border border-neutral-300 rounded-2xl px-12 py-10">
+      <div className="border border-neutral-300 rounded-2xl px-10 py-8 text-sm flex flex-col gap-10">
         <div className="flex items-center gap-2">
           <span className="text-neutral-400"> STATUS</span>
           <span className="text-neutral-400">-</span>
@@ -185,27 +196,70 @@ const ApplicationDetail = () => {
             </span>
           ) : null}
         </div>
-        <br />
-        {returnedDocument?.studentLastName}
-        {returnedDocument?.studentOtherNames}
-        <br />
-        {returnedDocument?.studentEmail}
-        <br />
-        {returnedDocument?.studentCourse}
-        <br />
-        {returnedDocument?.studentPhoneNumber}
-        <br />
-        {returnedDocument?.studentInstitution}
-        <br />
-        {returnedDocument?.durationOfInternship}
-        <br />
-        {returnedDocument?.aboutStudent}
-        <br />
-        {returnedDocument?.hasWrittenApplicationTest === false
-          ? "has not written test"
-          : returnedDocument?.applicationTestScore}
-        <br />
-        <img
+        <div className="flex flex-wrap items-center gap-x-24 gap-y-10 w-full">
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">FIRST NAME</span>
+            <span>{returnedDocument?.studentLastName}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">LAST NAME</span>
+            <span>{returnedDocument?.studentOtherNames}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">EMAIL ADDRESS</span>
+            <span>{returnedDocument?.studentEmail}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">PHONE NUMBER</span>
+            <span>{returnedDocument?.studentPhoneNumber}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">
+              INSTITUTION OF STUDY
+            </span>
+            <span>{returnedDocument?.studentInstitution}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">DEPARTMENT</span>
+            <span>{returnedDocument?.studentCourse}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">LEVEL</span>
+            <span>{returnedDocument?.studentLevel}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-neutral-400 text-sm">
+              DURATION OF INTERNSHIP
+            </span>
+            <span>{returnedDocument?.durationOfInternship}</span>
+          </div>
+        </div>{" "}
+        <div className="flex flex-col gap-2">
+          <span className="text-neutral-400 text-sm">
+            TELL US ABOUT YOURSELF
+          </span>
+          <span className="tracking-wide leading-relaxed text-justify">
+            {returnedDocument?.aboutStudent}
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <button
+            className="bg-primary font-medium text-white py-2 px-4 rounded-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-200 ease-in-out"
+            onClick={() => openModalImg(returnedDocument?.idFileReference)}
+          >
+            View ID
+          </button>
+          <button
+            className="border-primary border font-medium text-primary py-2 px-4 rounded-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-200 ease-in-out"
+            onClick={() => openModalImg(returnedDocument?.siwesFileReference)}
+          >
+            View SIWES Letter
+          </button>
+        </div>
+        {modalImageUrl && (
+          <IDModal imageUrl={modalImageUrl} onClose={closeModalImg} />
+        )}
+        {/* <img
           src={returnedDocument?.idFileReference}
           alt="id image"
           style={{ width: "45vw" }}
@@ -214,7 +268,11 @@ const ApplicationDetail = () => {
           src={returnedDocument?.siwesFileReference}
           alt="siwes image"
           style={{ width: "45vw" }}
-        />
+        /> */}
+        {returnedDocument?.hasWrittenApplicationTest === false
+          ? "has not written test"
+          : returnedDocument?.applicationTestScore}
+        <br />
         {applicationStatusUpdateLoading ? "updating application..." : null}
         {applicationStatusUpdateError ? "ERROR UPDATING APPLICATION" : null}
         <button
