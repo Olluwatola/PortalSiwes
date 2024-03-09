@@ -4,6 +4,8 @@ import { getDoc, doc } from "firebase/firestore";
 import InvitationModal from "./../../components/adminComponents/adminModals/CreateInvitationModal";
 import PlacementButton from "./../../components/adminComponents/adminButtons/PlacementButton";
 import { Link } from "react-router-dom";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 import IDModal from "./../../components/adminComponents/adminModals/IDModal";
 
 import {
@@ -175,7 +177,9 @@ const ApplicationDetail = () => {
         <div className="flex items-center gap-2">
           <span className="text-neutral-400"> STATUS</span>
           <span className="text-neutral-400">-</span>
-          {returnedDocument ? (
+          {!returnedDocument ? (
+            <Skeleton width={100} height={30} />
+          ) : (
             <span
               className={`rounded-lg px-2 py-1 ${getStatusColor(
                 returnedDocument
@@ -194,52 +198,105 @@ const ApplicationDetail = () => {
                 ? "Not Reviewed"
                 : "Unknown Status"}
             </span>
-          ) : null}
+          )}
         </div>
+
         <div className="flex flex-wrap items-center gap-x-24 gap-y-10 w-full">
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">FIRST NAME</span>
-            <span>{returnedDocument?.studentLastName}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={100} />
+              ) : (
+                returnedDocument.studentLastName
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">LAST NAME</span>
-            <span>{returnedDocument?.studentOtherNames}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={100} />
+              ) : (
+                returnedDocument.studentOtherNames
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">EMAIL ADDRESS</span>
-            <span>{returnedDocument?.studentEmail}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={150} />
+              ) : (
+                returnedDocument.studentEmail
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">PHONE NUMBER</span>
-            <span>{returnedDocument?.studentPhoneNumber}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={120} />
+              ) : (
+                returnedDocument.studentPhoneNumber
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">
               INSTITUTION OF STUDY
             </span>
-            <span>{returnedDocument?.studentInstitution}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={150} />
+              ) : (
+                returnedDocument.studentInstitution
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">DEPARTMENT</span>
-            <span>{returnedDocument?.studentCourse}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={100} />
+              ) : (
+                returnedDocument.studentCourse
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">LEVEL</span>
-            <span>{returnedDocument?.studentLevel}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={50} />
+              ) : (
+                returnedDocument.studentLevel
+              )}
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">
               DURATION OF INTERNSHIP
             </span>
-            <span>{returnedDocument?.durationOfInternship}</span>
+            <span>
+              {!returnedDocument ? (
+                <Skeleton width={100} />
+              ) : (
+                returnedDocument.durationOfInternship
+              )}
+            </span>
           </div>
-        </div>{" "}
+        </div>
         <div className="flex flex-col gap-2">
           <span className="text-neutral-400 text-sm">
             TELL US ABOUT YOURSELF
           </span>
           <span className="tracking-wide leading-relaxed text-justify">
-            {returnedDocument?.aboutStudent}
+            {!returnedDocument ? (
+              <Skeleton count={5} />
+            ) : (
+              returnedDocument.aboutStudent
+            )}
           </span>
         </div>
         <div className="flex gap-2">
