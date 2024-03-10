@@ -35,6 +35,8 @@ const ApplicationDetail = () => {
 
   const [modalImageUrl, setModalImageUrl] = useState(null);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const openModalImg = (imageUrl) => {
     setModalImageUrl(imageUrl);
   };
@@ -299,6 +301,25 @@ const ApplicationDetail = () => {
             )}
           </span>
         </div>
+
+        {/* <img
+          src={returnedDocument?.idFileReference}
+          alt="id image"
+          style={{ width: "45vw" }}
+        />
+        <img
+          src={returnedDocument?.siwesFileReference}
+          alt="siwes image"
+          style={{ width: "45vw" }}
+        /> */}
+        <div className="flex flex-col gap-2">
+          <span className="text-neutral-400 text-sm">TEST SCORE</span>
+          {returnedDocument?.hasWrittenApplicationTest === false ? (
+            <span className="text-red-500">Has not written test</span>
+          ) : (
+            returnedDocument?.applicationTestScore
+          )}
+        </div>
         <div className="flex gap-2">
           <button
             className="bg-primary font-medium text-white py-2 px-4 rounded-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-200 ease-in-out"
@@ -316,57 +337,79 @@ const ApplicationDetail = () => {
         {modalImageUrl && (
           <IDModal imageUrl={modalImageUrl} onClose={closeModalImg} />
         )}
-        {/* <img
-          src={returnedDocument?.idFileReference}
-          alt="id image"
-          style={{ width: "45vw" }}
-        />
-        <img
-          src={returnedDocument?.siwesFileReference}
-          alt="siwes image"
-          style={{ width: "45vw" }}
-        /> */}
-        {returnedDocument?.hasWrittenApplicationTest === false
-          ? "has not written test"
-          : returnedDocument?.applicationTestScore}
-        <br />
         {applicationStatusUpdateLoading ? "updating application..." : null}
         {applicationStatusUpdateError ? "ERROR UPDATING APPLICATION" : null}
-        <button
-          disabled={returnedDocument?.isAccepted ? true : false}
-          onClick={() => handleAcceptApplication(returnedApplicationId)}
-        >
-          Accept
-        </button>
-        <button
-          disabled={returnedDocument?.isRejected ? true : false}
-          onClick={() => handleRejectApplication(returnedApplicationId)}
-        >
-          Decline
-        </button>
-        <button
-          disabled={returnedDocument?.isReviewed ? true : false}
-          onClick={() =>
-            handleMarkApplicationAsUnderReview(returnedApplicationId)
-          }
-        >
-          Mark as under review
-        </button>
-        <button
-          disabled={returnedDocument?.isReviewed === false ? true : false}
-          onClick={() =>
-            handleUnmarkApplicationAsUnderReview(returnedApplicationId)
-          }
-        >
-          Unmark as under review
-        </button>
-        <button onClick={openModal}>Invite for test</button>
-        <InvitationModal
-          userObjectArray={[returnedDocument]}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
-        <br />
+        <div className="flex items-center gap-3">
+          <button
+            disabled={returnedDocument?.isAccepted ? true : false}
+            onClick={() => handleAcceptApplication(returnedApplicationId)}
+            className={
+              returnedDocument?.isAccepted
+                ? "bg-green-500 bg-opacity-80 text-green-500 px-4 py-2 rounded-lg cursor-not-allowed"
+                : "bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-white hover:border-green-500 border hover:text-green-500 transition-all duration-200 ease-in-out"
+            }
+          >
+            {returnedDocument?.isAccepted ? "Accepted" : "Accept"}
+          </button>
+          <button
+            disabled={returnedDocument?.isRejected ? true : false}
+            onClick={() => handleRejectApplication(returnedApplicationId)}
+            className={
+              returnedDocument?.isRejected
+                ? "bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg cursor-not-allowed"
+                : "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-white hover:border-red-500 border hover:text-red-500 transition-all duration-200 ease-in-out"
+            }
+          >
+            {returnedDocument?.isRejected ? "Rejected" : "Reject"}
+          </button>
+          <button
+            onClick={() => {
+              if (returnedDocument?.isReviewed) {
+                handleUnmarkApplicationAsUnderReview(returnedApplicationId);
+              } else {
+                handleMarkApplicationAsUnderReview(returnedApplicationId);
+              }
+            }}
+            disabled={returnedDocument?.isReviewed === null}
+            className={`
+        ${returnedDocument?.isReviewed ? "bg-primary" : "bg-gray-400"} 
+        ${returnedDocument?.isReviewed ? "text-white" : "text-gray-800"} 
+        px-4 py-2 rounded-lg 
+        ${
+          returnedDocument?.isReviewed
+            ? "hover:bg-white hover:border-primary border hover:text-primary"
+            : "hover:bg-white hover:border-gray-500 border hover:text-gray-500"
+        } 
+        ${
+          returnedDocument?.isReviewed === null
+            ? "cursor-not-allowed bg-opacity-80"
+            : ""
+        } 
+        transition-all duration-200 ease-in-out w-52
+      `}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {returnedDocument?.isReviewed
+              ? isHovered
+                ? "Click to unmark"
+                : "Unmark as under review"
+              : isHovered
+              ? "Click to mark"
+              : "Mark as under review"}
+          </button>
+          <button
+            onClick={openModal}
+            className="bg-white text-primary px-4 py-2 rounded-lg border-primary border hover:bg-primary hover:text-white transition-all duration-200 ease-in-out"
+          >
+            Invite for test
+          </button>
+          <InvitationModal
+            userObjectArray={[returnedDocument]}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
+        </div>
         <PlacementButton
           returnedDocument={returnedDocument}
           setReturnedDocument={setReturnedDocument}
