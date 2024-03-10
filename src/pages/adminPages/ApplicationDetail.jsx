@@ -359,8 +359,8 @@ const ApplicationDetail = () => {
               onClick={() => handleAcceptApplication(returnedApplicationId)}
               className={
                 returnedDocument?.isAccepted
-                  ? "bg-green-400 text-green-800 px-4 py-2 rounded-lg cursor-not-allowed"
-                  : "bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-white hover:border-green-500 border hover:text-green-500 transition-all duration-200 ease-in-out"
+                  ? "bg-green-300 text-green-800 px-4 py-2 rounded-lg cursor-not-allowed"
+                  : "bg-green-400 text-green-800 px-4 py-2 rounded-lg hover:bg-white hover:border-green-500 border hover:text-green-500 transition-all duration-200 ease-in-out"
               }
             >
               {returnedDocument?.isAccepted ? "Accepted" : "Accept"}
@@ -371,7 +371,7 @@ const ApplicationDetail = () => {
               className={
                 returnedDocument?.isRejected
                   ? "bg-red-400 text-white px-4 py-2 rounded-lg cursor-not-allowed"
-                  : "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-white hover:border-red-500 border hover:text-red-500 transition-all duration-200 ease-in-out"
+                  : "bg-red-500 bg-opacity-90 text-white px-4 py-2 rounded-lg hover:bg-white hover:border-red-500 border hover:text-red-500 transition-all duration-200 ease-in-out"
               }
             >
               {returnedDocument?.isRejected ? "Rejected" : "Reject"}
