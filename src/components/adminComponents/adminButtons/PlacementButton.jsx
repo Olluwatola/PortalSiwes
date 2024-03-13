@@ -28,8 +28,9 @@ const PlacementButton = ({
       onClick={() => {
         placeApplicant(children.toLowerCase(), applicationID,setPlacementError,returnedDocument,setReturnedDocument,setApplicationStatusUpdateLoading);
       }}
+      className="bg-slate-900 text-white p-3 rounded-lg border hover:border-slate-900 hover:text-slate-900 hover:bg-white transition-all duration-200 ease-in-out"
     >
-      place applicant to {children}
+      Place to {children}
     </button>
   );
 };

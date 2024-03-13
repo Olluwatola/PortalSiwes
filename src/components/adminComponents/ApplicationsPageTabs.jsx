@@ -10,7 +10,7 @@ import {
 } from "./../../controllers/fetchApplication";
 
 const ApplicationsPageTabs = ({
-  category,
+  // category,
   setArrayOfApplication,
   setIsLoading,
   returnedApplications,
@@ -41,7 +41,7 @@ const ApplicationsPageTabs = ({
   }, [active]);
 
   return (
-    <div className="mt-8 flex items-center gap-10">
+    <div className="mt-8 flex items-center gap-10 ">
       <FilterTabs
         active={active}
         name={"All"}
