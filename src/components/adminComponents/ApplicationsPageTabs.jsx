@@ -41,7 +41,7 @@ const ApplicationsPageTabs = ({
   }, [active]);
 
   return (
-    <div className="mt-8 flex items-center gap-10 ">
+    <div className="mt-8 flex items-center gap-10 border-b border-neutral-200 pb-1 px-7 ">
       <FilterTabs
         active={active}
         name={"All"}

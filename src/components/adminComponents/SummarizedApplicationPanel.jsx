@@ -97,21 +97,30 @@ const SummarizedAppicationPanel = () => {
       >
         {getApplicationsError ? getApplicationsError : null}
       </span>
-      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center gap-3">
+      <div className="bg-white max-w-full h-[50vh] overflow-x-auto shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center gap-3">
         {isLoading ? (
           <div className="w-full">
             <Skeleton count={3} className="h-16" />
           </div>
         ) : (
-          arrayOfApplication?.map((item, index) => (
-            <ApplicationListItem
-              index={index}
-              lastIndex={lastIndex}
-              application={item}
-              key={item.id}
-              showStatusState={false}
-            />
-          ))
+          <div className="w-full">
+            <div className="w-full mb-3 flex items-center justify-between text-neutral-400 text-xs">
+              <span className="w-4"></span>
+              <span className="w-52">NAME</span>
+              <span className="w-64">EMAIL ADDRESS</span>
+              <span className="w-32">DURATION</span>
+              <span className="w-32">DEPARTMENT</span>
+            </div>
+            {arrayOfApplication?.map((item, index) => (
+              <ApplicationListItem
+                index={index}
+                lastIndex={lastIndex}
+                application={item}
+                key={item.id}
+                showStatusState={false}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>
