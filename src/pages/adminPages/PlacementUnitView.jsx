@@ -29,7 +29,7 @@ const PlacementUnitView = () => {
     useState([]);
   const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(false);
   const [successMessage, setSuccessMessage] = useState(undefined);
-  const [placingError, setPlacingError] = useState(undefined)
+  const [placingError, setPlacingError] = useState(undefined);
 
   useEffect(() => {
     // Apply unscrollableBodyStyles to the body element
@@ -61,16 +61,19 @@ const PlacementUnitView = () => {
     window.history.back();
   }
   return (
-    <>
-      <h1>Placement Posting</h1>
-      ITeMS, {unit?.toUpperCase()} |
-      <button
-        onClick={() => {
-          handleGoBack();
-        }}
-      >
-        Go back
-      </button>
+    <div className="flex flex-col gap-5">
+      <span className="text-3xl font-medium">Placement Posting</span>
+      <div className="flex gap-2 items-center">
+       <span className="text-primary">Interns at ITeMS, {unit?.toUpperCase()}</span> |
+        <button
+        className="text-neutral-400 text-sm"
+          onClick={() => {
+            handleGoBack();
+          }}
+        >
+          GO BACK
+        </button>
+      </div>
       <br />
       <div style={containerStyles}>
         <PlacementUnitViewTabs
@@ -103,14 +106,20 @@ const PlacementUnitView = () => {
               </div>
               <button
                 onClick={() => {
-                  placeToUnit(unit, arrayOfApplicantsToBePosted,setSuccessMessage,setPlacingError);
+                  placeToUnit(
+                    unit,
+                    arrayOfApplicantsToBePosted,
+                    setSuccessMessage,
+                    setPlacingError
+                  );
                 }}
               >
                 Place to {unit.toUpperCase()}
-              </button><br/>
-              {successMessage === undefined ? null : successMessage}<br/>
+              </button>
+              <br />
+              {successMessage === undefined ? null : successMessage}
+              <br />
               {placingError === undefined ? null : placingError}
-
             </>
           ) : (
             <>
@@ -134,7 +143,7 @@ const PlacementUnitView = () => {
           getApplicationsError
         )}
       </div>
-    </>
+    </div>
   );
 };
 

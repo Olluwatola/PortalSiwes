@@ -2,19 +2,6 @@ import { useEffect } from "react";
 import Departments from "./../../components/adminComponents/Departments";
 import PlacementApplicationContainer from "./../../components/adminComponents/PlacementApplicationsContainer";
 
-const containerStyles = {
-  height: "100vh",
-  // display: "flex",
-  // flexDirection: "row",
-};
-
-const scrollableDivStyles = {
-  flex: "1",
-  overflowY: "scroll",
-  border: "1px solid #ccc",
-  padding: "10px",
-};
-
 const PlacementPosting = () => {
   useEffect(() => {
     // Apply unscrollableBodyStyles to the body element
@@ -27,19 +14,26 @@ const PlacementPosting = () => {
   }, []);
 
   return (
-    <>
-      <h1>Placement Posting</h1>
+    <div className="flex flex-col gap-5">
+      <span className="text-3xl font-medium">Placement Posting</span>
+      <span className="text-neutral-500 text-sm tracking-widest">
+        DEPARTMENTS
+      </span>
 
-      <div style={containerStyles}>
-        <Departments />
-        <hr />
-        <h2>Place Applications to units</h2>
-        <p>***Approved applications that have not been placed to a unit***</p>
-        <div style={scrollableDivStyles}>
-          <PlacementApplicationContainer />
-        </div>
+      <Departments />
+      <div className="flex flex-col gap-1 mt-16 pt-10 border-t border-neutral-200">
+        {" "}
+        <span className="text-2xl font-medium">
+          Place Applications to units
+        </span>
+        <span className="text-neutral-500 text-sm tracking-widest">
+          Unplaced approved applications.
+        </span>
       </div>
-    </>
+      <div>
+        <PlacementApplicationContainer />
+      </div>
+    </div>
   );
 };
 

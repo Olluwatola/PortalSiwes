@@ -360,7 +360,7 @@ const ApplicationDetail = () => {
               className={
                 returnedDocument?.isAccepted
                   ? "bg-green-300 text-green-800 px-4 py-2 rounded-lg cursor-not-allowed"
-                  : "bg-green-400 text-green-800 px-4 py-2 rounded-lg hover:bg-white hover:border-green-500 border hover:text-green-500 transition-all duration-200 ease-in-out"
+                  : "bg-green-400 text-green-800 px-4 py-2 rounded-lg h`over:bg-white hover:border-green-500 border hover:text-black transition-all duration-200 ease-in-out"
               }
             >
               {returnedDocument?.isAccepted ? "Accepted" : "Accept"}
