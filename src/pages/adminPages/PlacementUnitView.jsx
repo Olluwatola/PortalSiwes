@@ -51,21 +51,21 @@ const PlacementUnitView = () => {
   return (
     <div className="flex flex-col gap-5">
       <span className="text-3xl font-medium">Placement Posting</span>
-      <div className="flex gap-2 items-center">
-        <span className="text-primary">
-          Interns at ITeMS, {unit?.toUpperCase()}
-        </span>{" "}
-        |
-        <button
-          className="text-neutral-400 text-sm"
-          onClick={() => {
-            handleGoBack();
-          }}
-        >
-          GO BACK
-        </button>
-      </div>
-      <div style={containerStyles}>
+      <div className="flex items-end pb-3 justify-between border-b border-neutral-200">
+        <div className="flex gap-2 items-center">
+          <span className="text-primary">
+            Interns at ITeMS, {unit?.toUpperCase()}
+          </span>{" "}
+          |
+          <button
+            className="text-neutral-400 text-sm"
+            onClick={() => {
+              handleGoBack();
+            }}
+          >
+            GO BACK
+          </button>
+        </div>
         <PlacementUnitViewTabs
           unit={unit}
           setArrayOfApplication={setArrayOfApplication}
@@ -75,7 +75,8 @@ const PlacementUnitView = () => {
           loadPlacedApplicants={loadPlacedApplicants}
           setLoadPlacedApplicants={setLoadPlacedApplicants}
         />
-        <br />
+      </div>
+      <div style={containerStyles}>
         {getApplicationsError === null ? (
           loadPlacedApplicants === false ? (
             <>
@@ -112,18 +113,26 @@ const PlacementUnitView = () => {
               {placingError === undefined ? null : placingError}
             </>
           ) : (
-            <>
-              placed here
+            <div className="w-full">
+              <div className="w-full mt-5 mb-4 flex items-center justify-between text-neutral-400 text-xs">
+                <span className="w-4"></span>
+                <span className="w-52">NAME</span>
+                <span className="w-64">EMAIL ADDRESS</span>
+                <span className="w-32">DURATION</span>
+                <span className="w-36">DEPARTMENT</span>
+                <span className="w-36">PHONE NUMBER</span>
+              </div>
               {arrayOfApplication?.map((item, index) => (
                 <ApplicationListItem
                   index={index}
+                  showNumberState={true}
                   application={item}
                   key={item.id}
                   arrayOfApplication={arrayOfApplication}
                   setArrayOfApplication={setArrayOfApplication}
                 />
               ))}
-            </>
+            </div>
           )
         ) : isLoading ? (
           "Loading..."

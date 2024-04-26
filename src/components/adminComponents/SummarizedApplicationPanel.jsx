@@ -109,7 +109,7 @@ const SummarizedAppicationPanel = () => {
               <span className="w-52">NAME</span>
               <span className="w-64">EMAIL ADDRESS</span>
               <span className="w-32">DURATION</span>
-              <span className="w-32">DEPARTMENT</span>
+              <span className="w-36">DEPARTMENT</span>
             </div>
             {arrayOfApplication?.map((item, index) => (
               <ApplicationListItem
