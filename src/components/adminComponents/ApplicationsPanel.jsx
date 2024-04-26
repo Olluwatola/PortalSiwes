@@ -111,16 +111,27 @@ const ApplicationsPanel = ({ category }) => {
         <Skeleton className="h-20 gap-1 rounded-lg" count={10} />
       ) : currentApplications && currentApplications.length > 0 ? (
         <>
-          {currentApplications.map((item, index) => (
-            <ApplicationListItem
-              key={item.id}
-              index={index + indexOfFirstApplication}
-              application={item}
-              arrayOfApplication={arrayOfApplication}
-              setArrayOfApplication={setArrayOfApplication}
-              showStatusState={true}
-            />
-          ))}
+          <div className="w-full">
+            <div className="w-full mt-3 mb-5 flex items-center justify-between text-neutral-400 text-xs">
+              <span className="w-4"></span>
+              <span className="w-52">NAME</span>
+              <span className="w-64">EMAIL ADDRESS</span>
+              <span className="w-32">DURATION</span>
+              <span className="w-36">DEPARTMENT</span>
+              <span className="w-36">PHONE NUMBER</span>
+              <span className="w-40">STATUS</span>
+            </div>
+            {currentApplications.map((item, index) => (
+              <ApplicationListItem
+                key={item.id}
+                index={index + indexOfFirstApplication}
+                application={item}
+                arrayOfApplication={arrayOfApplication}
+                setArrayOfApplication={setArrayOfApplication}
+                showStatusState={true}
+              />
+            ))}
+          </div>
           {/* Pagination */}
           <Pagination
             totalPages={totalPages}

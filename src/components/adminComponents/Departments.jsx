@@ -2,63 +2,38 @@ import ElementBox from "./ElementBox";
 
 const Departments = () => {
   return (
-    <>
-      <h3>Departments</h3>
+    <div className="grid grid-cols-4 gap-4">
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="MIS"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, MIS"}
         link={"/admin/placement/mis"}
       ></ElementBox>
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="TRD"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, TRD"}
         link={"/admin/placement/trd"}
       ></ElementBox>
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="SDU"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, SDU"}
         link={"/admin/placement/sdu"}
       ></ElementBox>
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="ITNH"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, ITNH"}
         link={"/admin/placement/itnh"}
       ></ElementBox>
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="UMC"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, UMC"}
         link={"/admin/placement/umc"}
       ></ElementBox>
       <ElementBox
-        // openUnit={openUnit}
-        // currentUnit={currentUnit}
-        // ownUnit="ITU"
-        // setCurrentUnit={setCurrentUnit}
-        // setOpenUnit={setOpenUnit}
+        placement={true}
         valueOfHeader={"ITEMS, ITU"}
         link={"/admin/placement/itu"}
       ></ElementBox>
-    </>
+    </div>
   );
 };
 

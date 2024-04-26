@@ -95,7 +95,7 @@ const StatisticPanel = () => {
           Number of Pending Applications
         </ElementBox>
         <div
-          className="cursor-pointer text-2xl bg-white shadow-lg border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3"
+          className="cursor-pointer text-2xl bg-white shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col items-center justify-center gap-3"
           onClick={() =>
             handleCalibrateStatistics(calibrationLoading, setCalibrationLoading)
           }
