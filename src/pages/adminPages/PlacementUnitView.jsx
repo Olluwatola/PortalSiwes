@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import PlacementUnitViewTabs from "./../../components/adminComponents/PlacementUnitViewTabs";
 import ApplicationSelect from "./../../components/adminComponents/ApplicationSelect";
 import ApplicationListItem from "./../../components/adminComponents/adminListItem/ApplicationListItem";
-import { getAllAwaitingPlacement } from "./../../controllers/fetchApplication";
+import { getAllPlacedToCertainUnit } from "./../../controllers/fetchApplication";
 import { placeToUnit } from "./../../controllers/placementControllers";
 
 const containerStyles = {
@@ -27,34 +27,22 @@ const PlacementUnitView = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [arrayOfApplicantsToBePosted, setArrayOfApplicantsToBePosted] =
     useState([]);
-  const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(false);
+  const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(true);
   const [successMessage, setSuccessMessage] = useState(undefined);
   const [placingError, setPlacingError] = useState(undefined);
 
   useEffect(() => {
-    // Apply unscrollableBodyStyles to the body element
-    document.body.style.overflow = "hidden";
-
-    // Clean up the style when the component unmounts
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
-  useEffect(() => {
     async function handleFetchApplication() {
-      await getAllAwaitingPlacement(
+      await getAllPlacedToCertainUnit(
         setArrayOfApplication,
         setIsLoading,
         returnedApplications,
-        setGetApplicationsError
+        setGetApplicationsError,
+        unit
       );
     }
 
     handleFetchApplication();
-
-    // return () => {
-    //   second;
-    // };
   }, []);
 
   function handleGoBack() {
@@ -64,9 +52,12 @@ const PlacementUnitView = () => {
     <div className="flex flex-col gap-5">
       <span className="text-3xl font-medium">Placement Posting</span>
       <div className="flex gap-2 items-center">
-       <span className="text-primary">Interns at ITeMS, {unit?.toUpperCase()}</span> |
+        <span className="text-primary">
+          Interns at ITeMS, {unit?.toUpperCase()}
+        </span>{" "}
+        |
         <button
-        className="text-neutral-400 text-sm"
+          className="text-neutral-400 text-sm"
           onClick={() => {
             handleGoBack();
           }}
@@ -74,7 +65,6 @@ const PlacementUnitView = () => {
           GO BACK
         </button>
       </div>
-      <br />
       <div style={containerStyles}>
         <PlacementUnitViewTabs
           unit={unit}
@@ -123,17 +113,15 @@ const PlacementUnitView = () => {
             </>
           ) : (
             <>
+              placed here
               {arrayOfApplication?.map((item, index) => (
-                <div style={scrollableDivStyles}>
-                  <ApplicationListItem
-                    index={index}
-                    application={item}
-                    key={item.id}
-                    arrayOfApplication={arrayOfApplication}
-                    setArrayOfApplication={setArrayOfApplication}
-                  />
-                  <br />
-                </div>
+                <ApplicationListItem
+                  index={index}
+                  application={item}
+                  key={item.id}
+                  arrayOfApplication={arrayOfApplication}
+                  setArrayOfApplication={setArrayOfApplication}
+                />
               ))}
             </>
           )
