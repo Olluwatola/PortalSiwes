@@ -4,20 +4,6 @@ import PlacementUnitViewTabs from "./../../components/adminComponents/PlacementU
 import ApplicationSelect from "./../../components/adminComponents/ApplicationSelect";
 import ApplicationListItem from "./../../components/adminComponents/adminListItem/ApplicationListItem";
 import { getAllPlacedToCertainUnit } from "./../../controllers/fetchApplication";
-import { placeToUnit } from "./../../controllers/placementControllers";
-
-const containerStyles = {
-  height: "100vh",
-  // display: "flex",
-  // flexDirection: "row",
-};
-
-const scrollableDivStyles = {
-  flex: "1",
-  overflowY: "scroll",
-  border: "1px solid #ccc",
-  padding: "10px",
-};
 
 const PlacementUnitView = () => {
   const { unit } = useParams();
@@ -28,9 +14,7 @@ const PlacementUnitView = () => {
   const [arrayOfApplicantsToBePosted, setArrayOfApplicantsToBePosted] =
     useState([]);
   const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(true);
-  const [successMessage, setSuccessMessage] = useState(undefined);
-  const [placingError, setPlacingError] = useState(undefined);
-
+  
   useEffect(() => {
     async function handleFetchApplication() {
       await getAllPlacedToCertainUnit(
@@ -76,41 +60,16 @@ const PlacementUnitView = () => {
           setLoadPlacedApplicants={setLoadPlacedApplicants}
         />
       </div>
-      <div style={containerStyles}>
+      <div>
         {getApplicationsError === null ? (
           loadPlacedApplicants === false ? (
             <>
-              <h6>
-                ***Select Applicants(s) you want to place to{" "}
-                {unit?.toUpperCase()}
-                ***
-              </h6>
-              <div style={scrollableDivStyles}>
-                <ApplicationSelect
-                  arrayOfApplicantsToBePosted={arrayOfApplicantsToBePosted}
-                  setArrayOfApplicantsToBePosted={
-                    setArrayOfApplicantsToBePosted
-                  }
-                  arrayOfApplication={arrayOfApplication}
-                  unit={unit}
-                />
-              </div>
-              <button
-                onClick={() => {
-                  placeToUnit(
-                    unit,
-                    arrayOfApplicantsToBePosted,
-                    setSuccessMessage,
-                    setPlacingError
-                  );
-                }}
-              >
-                Place to {unit.toUpperCase()}
-              </button>
-              <br />
-              {successMessage === undefined ? null : successMessage}
-              <br />
-              {placingError === undefined ? null : placingError}
+              <ApplicationSelect
+                arrayOfApplicantsToBePosted={arrayOfApplicantsToBePosted}
+                setArrayOfApplicantsToBePosted={setArrayOfApplicantsToBePosted}
+                arrayOfApplication={arrayOfApplication}
+                unit={unit}
+              />
             </>
           ) : (
             <div className="w-full">

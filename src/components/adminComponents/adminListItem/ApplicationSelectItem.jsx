@@ -16,9 +16,6 @@ const ApplicationSelectItem = ({
     }
 
     checkExisting(application);
-    // return () => {
-    //   second;
-    // };
   }, [application, arrayOfApplicantsToBePosted]);
 
   function handleAddOrRemoveItems(applicant) {
@@ -27,32 +24,38 @@ const ApplicationSelectItem = ({
         ...arrayOfApplicantsToBePosted,
         applicant,
       ]);
-      console.log(arrayOfApplicantsToBePosted);
     } else {
       setArrayOfApplicantsToBePosted((arrayOfApplicantsToBePosted) =>
         arrayOfApplicantsToBePosted.filter(
           (applicantObject) => applicantObject.id !== applicant.id
         )
       );
-      console.log(arrayOfApplicantsToBePosted);
     }
   }
+
   return (
-    <>
-      <input
-        type="checkbox"
-        checked={objectExistsInArray}
-        onChange={() => {
+    <div
+      className={`flex items-center gap-5 border-b border-neutral-200 pb-3 cursor-pointer ${
+        objectExistsInArray ? "text-black" : "text-neutral-500"
+      }`}
+      onClick={() => handleAddOrRemoveItems(application)}
+    >
+      <div
+        className={`w-5 h-5 flex items-center justify-center border rounded-full p-[0.21rem] cursor-pointer
+        ${objectExistsInArray ? "border-primary/40" : "border-neutral-300"}
+        `}
+        onClick={() => {
           handleAddOrRemoveItems(application);
         }}
-      />
+      >
+        {objectExistsInArray ? (
+          <div className="w-full h-full bg-primary rounded-full"></div>
+        ) : null}
+      </div>
       <span>
         {application.studentLastName} {application.studentOtherNames}
       </span>
-      <br />
-      <hr />
-      <br />
-    </>
+    </div>
   );
 };
 
