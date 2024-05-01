@@ -97,7 +97,7 @@ const SummarizedAppicationPanel = () => {
       >
         {getApplicationsError ? getApplicationsError : null}
       </span>
-      <div className="bg-white max-w-full h-[50vh] overflow-x-auto shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col items-center gap-3">
+      <div className="bg-white max-w-full h-full max-h-[50vh] overflow-x-auto shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col items-center gap-3">
         {isLoading ? (
           <div className="w-full">
             <Skeleton count={3} className="h-16" />

@@ -4,13 +4,14 @@ import ApplicantsNotInvited from "./../../components/adminComponents/ApplicantsN
 
 const ScreeningPage = () => {
   return (
-    <>
-      <h1>Screening</h1><br/>
-      <NotCompletedInvitationPanel /><br/>
-      <CompletedInvitationsPanel />
-      <ApplicantsNotInvited/>
-      
-    </>
+    <div className="flex flex-col gap-8">
+      <span className="text-3xl font-medium">Screening</span>
+      <div className="flex gap-10">
+        <NotCompletedInvitationPanel buttonShow={false} />
+        <CompletedInvitationsPanel />
+      </div>
+      <ApplicantsNotInvited />
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const InvitationListItem = ({ index, invite, lastIndex, date, time }) => {
+const InvitationListItem = ({ index, invite, lastIndex, date, time, color = "bg-primary" }) => {
   const [formattedDate, setDate] = useState("");
   const [formattedDateAlt, setDateAlt] = useState("");
 
@@ -43,7 +43,7 @@ const InvitationListItem = ({ index, invite, lastIndex, date, time }) => {
       to={`/admin/screening/${invite?.id}`}
     >
       <div className="flex gap-3 items-center">
-        <div className="bg-primary w-2 h-2 rounded-full"></div>
+        <div className={`w-2.5 h-2.5 rounded-full ${color}`}></div>
         <span className="font-semibold text-xl">{formattedDate}</span>
       </div>
       <span className="flex gap-1.5 text-neutral-500">
