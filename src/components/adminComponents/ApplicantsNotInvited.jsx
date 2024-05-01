@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { getAllNotInvitedApplications } from "./../../controllers/fetchApplication";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
 import InvitationModal from "./adminModals/CreateInvitationModal";
+import { MdOutlineRefresh } from "react-icons/md";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 
 const ApplicantsNotInvited = () => {
   let returnedApplications;
@@ -10,16 +13,6 @@ const ApplicantsNotInvited = () => {
   const [getApplicationsError, setGetApplicationsError] = useState(null);
   const [arrayOfApplication, setArrayOfApplication] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const containerFlex = {
-    display: "flex", // Set the display property to 'flex' to enable Flexbox layout
-    alignItems: "center", // Adjust the vertical alignment as needed
-  };
-
-  const itemmargin = {
-    marginRight: "10px",
-    marginBottom: "10px",
-  };
 
   useEffect(() => {
     getAllNotInvitedApplications(
@@ -45,36 +38,60 @@ const ApplicantsNotInvited = () => {
     setIsModalOpen(false);
   };
   return (
-    <>
-      <h2>YET TO BE SCREENED</h2>
+    <div className="flex flex-col gap-5">
+      <span className="text-neutral-500 text-xs tracking-widest flex justify-between">
+        YET TO BE SCREENED
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              getAllNotInvitedApplications(
+                setArrayOfApplication,
+                setIsLoading,
+                returnedApplications,
+                setGetApplicationsError
+              );
+            }}
+          >
+            <MdOutlineRefresh
+              className={`${isLoading ? "animate-spin" : null} text-lg`}
+            />
+          </button>
+        </div>
+      </span>
       {isLoading ? (
-        <h1>loading applications....</h1>
+        <Skeleton count={5} className="h-16 rounded-md" />
       ) : arrayOfApplication ? (
-        <>
+        <div className="bg-white shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 w-full">
+          <div className="w-full mb-3 flex items-center justify-between text-neutral-400 text-xs">
+            <div className="flex w-full justify-between items-center">
+              <span className="w-4"></span>
+              <span className="w-52">NAME</span>
+              <span className="w-64">EMAIL ADDRESS</span>
+              <span className="w-32">DURATION</span>
+              <span className="w-36">DEPARTMENT</span>
+            </div>
+            <span className="w-36">ACTION</span>
+          </div>
           {arrayOfApplication?.map((item, index) => (
-            <>
-              <div style={containerFlex}>
-                <ApplicationListItem
-                  index={index}
-                  application={item}
-                  key={item.id}
-                  arrayOfApplication={arrayOfApplication}
-                  setArrayOfApplication={setArrayOfApplication}
-                />
-                <button
-                  onClick={() => {
-                    handleInviteApplication(item);
-                  }}
-                  style={itemmargin}
-                >
-                  Invite for test
-                </button>
-
-                <br />
-              </div>
-            </>
+            <div className="flex justify-between items-center">
+              <ApplicationListItem
+                index={index}
+                application={item}
+                key={item.id}
+                arrayOfApplication={arrayOfApplication}
+                setArrayOfApplication={setArrayOfApplication}
+              />
+              <button
+                className="w-36 bg-primary rounded-md text-sm text-white h-8"
+                onClick={() => {
+                  handleInviteApplication(item);
+                }}
+              >
+                Schedule Now
+              </button>
+            </div>
           ))}
-        </>
+        </div>
       ) : arrayOfApplication?.length === 0 ? (
         "no applicaton fetched"
       ) : (
@@ -87,7 +104,7 @@ const ApplicantsNotInvited = () => {
         onClose={closeModal}
       />
       {getApplicationsError ? getApplicationsError : null}
-    </>
+    </div>
   );
 };
 
