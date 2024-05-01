@@ -84,11 +84,12 @@ const CompletedInvitationsPanel = () => {
               date={invite.date}
               time={invite.time}
               key={invite.id}
-            />
+              participants={arrayOfCompletedInvites.length}
+              />
           ))
         )}
         <button
-          className="w-fit border border-red-500 font-semibold text-red-500 rounded-md p-2 hover:bg-red-500 hover:text-white transition-all duration-300 ease-in-out"
+          className="text-red-500 w-fit text-sm underline cursor-pointer tracking-wider underline-offset-2"
           onClick={openIVTNHModal}
         >
           View Declined Invitations

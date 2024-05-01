@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { LuChevronRight } from "react-icons/lu";
 
-const InvitationListItem = ({ index, invite, lastIndex, date, time, color = "bg-primary" }) => {
+const InvitationListItem = ({
+  index,
+  invite,
+  lastIndex,
+  date,
+  time,
+  color = "bg-primary",
+  participants = 0,
+}) => {
   const [formattedDate, setDate] = useState("");
   const [formattedDateAlt, setDateAlt] = useState("");
 
@@ -48,6 +57,20 @@ const InvitationListItem = ({ index, invite, lastIndex, date, time, color = "bg-
       </div>
       <span className="flex gap-1.5 text-neutral-500">
         <span> {formattedDateAlt};</span> {time}
+      </span>
+      <span
+        className={
+          participants === 0 ? "hidden" : "flex gap-1.5 text-neutral-500"
+        }
+      >
+        <span>{participants}</span>
+        Participants
+      </span>
+      <span
+        className={participants === 0 ? "hidden" : "flex gap-2 items-center text-primary"}
+      >
+        View Details
+        <LuChevronRight className="text-lg" />
       </span>
     </Link>
   );

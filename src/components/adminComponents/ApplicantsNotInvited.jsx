@@ -73,7 +73,7 @@ const ApplicantsNotInvited = () => {
             <span className="w-36">ACTION</span>
           </div>
           {arrayOfApplication?.map((item, index) => (
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center" key={item.id}>
               <ApplicationListItem
                 index={index}
                 application={item}
