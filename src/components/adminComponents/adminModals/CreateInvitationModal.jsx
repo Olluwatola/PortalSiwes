@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Modal from "react-modal"; // Import the modal library
-import CreateInvitation from "./../adminModalContents/CreateInvitation"; // Your CreateInvitation component
+import React, { useState } from "react";
+import Modal from "./InteractiveModal";
+import CreateInvitation from "./../adminModalContents/CreateInvitation";
 
 function InvitationModal({ userObjectArray, isOpen, onClose }) {
   const [addParticipantToggle, setAddParticipantToggle] = useState(false);
@@ -11,7 +11,7 @@ function InvitationModal({ userObjectArray, isOpen, onClose }) {
   }
 
   return (
-    <Modal ariaHideApp={false}  isOpen={isOpen} onRequestClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <CreateInvitation
         userObjectArray={userObjectArray}
         isOpen={isOpen}

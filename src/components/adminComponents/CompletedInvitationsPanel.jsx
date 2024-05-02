@@ -3,6 +3,9 @@ import { fetchCompletedInvites } from "./../../controllers/ScreeningControllers"
 import InvitationListItem from "./adminListItem/InvitationListItem";
 import CompletedInvitationModal from "./adminModals/CompletedInvitationModal";
 import InvitationToNotHoldModal from "./adminModals/InvitationToNotHoldModal";
+import { MdOutlineRefresh } from "react-icons/md";
+import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
+import Skeleton from "react-loading-skeleton";
 
 const CompletedInvitationsPanel = () => {
   const [isCIVModalOpen, setIsCIVModalOpen] = useState(false);
@@ -41,38 +44,57 @@ const CompletedInvitationsPanel = () => {
   }, []);
 
   return (
-    <>
-      <h2>COMPLETED INVITATIONS</h2>
-      <button
-        onClick={() => {
-          fetchCompletedInvites(
-            setArrayOfCompletedInvites,
-            setInviteFetchLoading,
-            setFetchInviteError,
-            true
-          );
-        }}
-      >
-        refresh
-      </button>
-      <button onClick={openCIVModal}>view all</button>
-      {inviteFetchLoading
-        ? "loading...."
-        : fetchInviteError
-        ? { fetchInviteError }
-        : arrayOfCompletedInvites?.map((invite, index) => (
+    <div className="flex flex-col gap-5 w-[70%]">
+      <span className="text-neutral-500 text-xs tracking-widest flex justify-between">
+        COMPLETED INVITATIONS{" "}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              fetchCompletedInvites(
+                setArrayOfCompletedInvites,
+                setInviteFetchLoading,
+                setFetchInviteError,
+                true
+              );
+            }}
+          >
+            <MdOutlineRefresh
+              className={`${
+                inviteFetchLoading ? "animate-spin" : null
+              } text-lg`}
+            />
+          </button>
+          <button className="text-primary" onClick={openCIVModal}>
+            View all
+          </button>
+        </div>
+      </span>
+
+      <div className="bg-white h-[50vh] shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col justify-start gap-5">
+        {" "}
+        {inviteFetchLoading ? (
+          <Skeleton count={3} className="h-16 rounded-md" />
+        ) : fetchInviteError ? (
+          { fetchInviteError }
+        ) : (
+          arrayOfCompletedInvites?.map((invite, index) => (
             <InvitationListItem
               index={index}
               invite={invite}
               date={invite.date}
               time={invite.time}
               key={invite.id}
-            />
-          ))}
-      <br />
-      <button onClick={openIVTNHModal}>
-        View Invitations that have been marked to not hold
-      </button>
+              participants={arrayOfCompletedInvites.length}
+              />
+          ))
+        )}
+        <button
+          className="text-red-500 w-fit text-sm underline cursor-pointer tracking-wider underline-offset-2"
+          onClick={openIVTNHModal}
+        >
+          View Declined Invitations
+        </button>
+      </div>
       <InvitationToNotHoldModal
         isIVTNHModalOpen={isIVTNHModalOpen}
         onIVTNHClose={closeIVTNHModal}
@@ -81,7 +103,7 @@ const CompletedInvitationsPanel = () => {
         isCIVOpen={isCIVModalOpen}
         onCIVClose={closeCIVModal}
       />
-    </>
+    </div>
   );
 };
 

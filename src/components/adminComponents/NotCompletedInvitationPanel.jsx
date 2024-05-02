@@ -7,11 +7,9 @@ import { MdOutlineRefresh } from "react-icons/md";
 import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
 import Skeleton from "react-loading-skeleton";
 
-const InvitationPanel = () => {
+const InvitationPanel = ({ buttonShow = true }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCIVModalOpen, setIsCIVModalOpen] = useState(false);
-
-  const [lastIndex, setLastIndex] = useState(0);
 
   const [arrayOfInvites, setArrayOfInvites] = useState([]);
   const [fetchInviteError, setFetchInviteError] = useState(null);
@@ -24,11 +22,6 @@ const InvitationPanel = () => {
       true
     );
   }, []);
-
-  useEffect(() => {
-    const lastIndex = arrayOfInvites.length - 1;
-    setLastIndex(lastIndex);
-  }, [arrayOfInvites]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -62,7 +55,9 @@ const InvitationPanel = () => {
             }}
           >
             <MdOutlineRefresh
-              className={`${inviteFetchLoading ? "animate-spin" : null} text-lg`}
+              className={`${
+                inviteFetchLoading ? "animate-spin" : null
+              } text-lg`}
             />
           </button>
           <button className="text-primary" onClick={openCIVModal}>
@@ -71,10 +66,10 @@ const InvitationPanel = () => {
         </div>
       </span>
 
-      <div className="bg-white h-[50vh] shadow-md border border-neutral-100 rounded-xl p-5 flex flex-col justify-center gap-3">
+      <div className="bg-white max-h-[50vh] h-full shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col gap-3">
         {inviteFetchLoading ? (
           <div className="w-full">
-            <Skeleton count={3} className="h-16" />
+            <Skeleton count={3} className="h-16 rounded-md" />
           </div>
         ) : fetchInviteError ? (
           { fetchInviteError }
@@ -82,16 +77,18 @@ const InvitationPanel = () => {
           arrayOfInvites?.map((invite, index) => (
             <InvitationListItem
               index={index}
-              lastIndex={lastIndex}
               invite={invite}
               date={invite.date}
               time={invite.time}
               key={invite.id}
+              color="bg-amber-500"
             />
           ))
         )}
         <button
-          className="border mt-3 border-primary rounded-md py-2.5 transition-all hover:bg-white hover:text-primary text-center text-sm duration-300 ease-in-out bg-primary text-white"
+          className={`border mt-3 border-primary rounded-md py-2.5 transition-all hover:bg-white hover:text-primary text-center text-sm duration-300 ease-in-out bg-primary text-white
+            ${buttonShow ? "block" : "hidden"}
+          `}
           onClick={openModal}
         >
           Create Invitation
