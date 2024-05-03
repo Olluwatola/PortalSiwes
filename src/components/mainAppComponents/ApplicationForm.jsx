@@ -13,6 +13,7 @@ import //getDocs,
 //serverTimestamp,
 "firebase/firestore";
 
+import { Dropdown } from "./Dropdown";
 import { createApplication } from "./../../controllers/applicationControllers";
 import { AnimatePresence, motion } from "framer-motion";
 import MoonLoader from "react-spinners/MoonLoader";
@@ -315,109 +316,25 @@ export function ApplicationForm({
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Just completed level </label>
-          <div className="relative">
-            <button
-              type="button"
-              id="level"
-              className={`
-              ${
-                studentLevel === "Select your level"
-                  ? "text-neutral-400"
-                  : "text-black"
-              }
-              w-full md:text-sm text-xs border border-gray-300 whitespace-nowrap  justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none
-              `}
-              onClick={handleDropdownToggle}
-            >
-              {studentLevel}
-              <FiChevronDown
-                className={
-                  isDropdownOpen
-                    ? "transform rotate-180 transition-all duration-300 ease-in-out"
-                    : "transform rotate-0 transition-all duration-300 ease-in-out"
-                }
-              />
-            </button>
-            <AnimatePresence>
-              {isDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full"
-                >
-                  {level_options.map((option, index) => (
-                    <motion.div
-                      key={index}
-                      onClick={() => handlelevel_optionselect(option.name)}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
-                    >
-                      {option.name}
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <Dropdown
+            options={level_options}
+            onSelect={handlelevel_optionselect}
+            initialValue="Select your level"
+            id="level"
+            onClickOutside={handleClickOutside}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">
             Number of Months for IT
           </label>
-          <div className="relative">
-            <button
-              type="button"
-              id="duration"
-              className={`
-              ${
-                durationOfInternship === "Select duration"
-                  ? "text-neutral-400 whitespace-nowrap"
-                  : "text-black"
-              }
-              w-full md:text-sm text-xs overflow-ellipsis  border border-gray-300 justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none
-              `}
-              onClick={handleDurationDropdownToggle}
-            >
-              {durationOfInternship}
-              <FiChevronDown
-                className={
-                  isDurationDropdownOpen
-                    ? "transform rotate-180 transition-all duration-300 ease-in-out"
-                    : "transform rotate-0 transition-all duration-300 ease-in-out"
-                }
-              />
-            </button>
-            <AnimatePresence>
-              {isDurationDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-30 top-full left-0 mt-1 bg-white shadow-md border border-gray-300 rounded-lg w-full"
-                >
-                  {durationOptions.map((option, index) => (
-                    <motion.div
-                      key={index}
-                      onClick={() => handleDurationOptionSelect(option.name)}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="cursor-pointer px-4 py-3 hover:bg-gray-100 border-b-2 border-gray-300 border-opacity-30"
-                    >
-                      {option.name}
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <Dropdown
+            options={durationOptions}
+            onSelect={handleDurationOptionSelect}
+            initialValue="Select duration"
+            id="duration"
+            onClickOutside={handleClickOutside}
+          />
         </div>
         <div className="col-span-2 flex flex-col gap-1">
           <label className="text-xs text-gray-500">
