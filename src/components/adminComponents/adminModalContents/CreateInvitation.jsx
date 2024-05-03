@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-time-picker/dist/TimePicker.css";
+import DatePicker from "react-tailwindcss-datepicker";
+import { TimePicker } from "react-ios-time-picker";
 import { db } from "./../../../config/firebase";
 import { convertToTimestampAndFormatDate } from "./../../../utils/convertToTimestampAndFormatDate";
 import SelectInvitees from "./../SelectInvitee";
 import nameCropper from "./../../../utils/nameCropper";
 import idCropper from "./../../../utils/idCropper";
+
 import {
   //getDocs,
   collection,
@@ -27,8 +26,12 @@ function CreateInvitation({
 
   const [date, setDate] = useState("");
   // const [time, setTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState("12:00");
+  const [selectedDate, setSelectedDate] = useState({
+    startDate: null,
+    endDate: null,
+  });
+
+  const [selectedTime, setSelectedTime] = useState("10:00 AM");
   const [timestamp, setTimestamp] = useState(null);
   const [venue, setVenue] = useState("TRD Building");
   const [invitationError, setInvitationError] = useState(null);
@@ -48,45 +51,45 @@ function CreateInvitation({
     setSelectedTime(time);
   };
 
-  useEffect(() => {
-    // const convertToTimestampAndFormatDate = () => {
-    //   const date = selectedDate;
-    //   const time = selectedTime;
-    //   console.log(`what are we looking at ${date.toDateString()}`);
-    //   if (date !== null && time !== null) {
-    //     const datetimeString = `${date.toDateString()} ${time}`;
-    //     const timestampTemp = new Date(datetimeString)?.getTime();
-    //     setTimestamp(timestampTemp);
-    //     //console.log(Timestamp.fromDate(timestamp));
-    //     //console.log(new Timestamp(timestampTemp));
-    //     console.log(timestampTemp / 1000);
-    //     console.log(selectedDate);
-    //     console.log(selectedTime);
-    //   }
+  // useEffect(() => {
+  //   // const convertToTimestampAndFormatDate = () => {
+  //   //   const date = selectedDate;
+  //   //   const time = selectedTime;
+  //   //   console.log(`what are we looking at ${date.toDateString()}`);
+  //   //   if (date !== null && time !== null) {
+  //   //     const datetimeString = `${date.toDateString()} ${time}`;
+  //   //     const timestampTemp = new Date(datetimeString)?.getTime();
+  //   //     setTimestamp(timestampTemp);
+  //   //     //console.log(Timestamp.fromDate(timestamp));
+  //   //     //console.log(new Timestamp(timestampTemp));
+  //   //     console.log(timestampTemp / 1000);
+  //   //     console.log(selectedDate);
+  //   //     console.log(selectedTime);
+  //   //   }
 
-    //   const dateObject = new Date(selectedDate);
+  //   //   const dateObject = new Date(selectedDate);
 
-    //   // Extract year, month, and day
-    //   const year = dateObject.getFullYear();
-    //   const month = (dateObject.getMonth() + 1).toString().padStart(2, "0"); // Add 1 to month because it's zero-indexed
-    //   const day = dateObject.getDate().toString().padStart(2, "0");
+  //   //   // Extract year, month, and day
+  //   //   const year = dateObject.getFullYear();
+  //   //   const month = (dateObject.getMonth() + 1).toString().padStart(2, "0"); // Add 1 to month because it's zero-indexed
+  //   //   const day = dateObject.getDate().toString().padStart(2, "0");
 
-    //   const formattedDateString = `${year}-${month}-${day}`;
-    //   console.log(formattedDateString);
-    //   setDate(formattedDateString);
-    // };
+  //   //   const formattedDateString = `${year}-${month}-${day}`;
+  //   //   console.log(formattedDateString);
+  //   //   setDate(formattedDateString);
+  //   // };
 
-    convertToTimestampAndFormatDate(
-      selectedDate,
-      selectedTime,
-      setTimestamp,
-      setDate
-    );
+  //   convertToTimestampAndFormatDate(
+  //     selectedDate,
+  //     selectedTime,
+  //     setTimestamp,
+  //     setDate
+  //   );
 
-    // return () => {
-    //   second
-    // }
-  }, [selectedDate, selectedTime]);
+  //   // return () => {
+  //   //   second
+  //   // }
+  // }, [selectedDate, selectedTime]);
 
   useEffect(() => {
     setArrayOfInviteeNames(nameCropper(invitees));
@@ -130,7 +133,7 @@ function CreateInvitation({
         time: selectedTime,
         timestamp,
         venue,
-        hasResultUploaded:false,
+        hasResultUploaded: false,
         toNotHold: false,
         participantsIdArray: arrayOfIds,
         hasHeld: false,
@@ -161,17 +164,41 @@ function CreateInvitation({
           <button onClick={onRequestClose}>OK</button>
         </>
       ) : addParticipantToggle === false && invitationSuccessful === false ? (
-        <>
-          <h2>Create Invitation</h2>
-          <h3>Fill the fields below</h3>
-          <form onSubmit={handleSubmit}>
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              dateFormat="yyyy-MM-dd"
-            />
-
-            <TimePicker value={selectedTime} onChange={handleTimeChange} />
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col">
+            <span className="text-primary font-semibold text-2xl tracking-tighter">
+              Create Invitation
+            </span>
+            <span className="text-neutral-500 text-sm">
+              Fill the fields below
+            </span>
+          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-1">
+                <span className="text-sm text-neutral-400">Select date</span>
+                <DatePicker
+                  containerClassName="relative border border-neutral-400 rounded-md focus:outline-none w-fit"
+                  inputClassName="focus:outline-none p-2 rounded-md w-full"
+                  popoverDirection="down"
+                  placeholder={"dd-mm-yyyy"}
+                  displayFormat={"DD-MM-YYYY"}
+                  useRange={false}
+                  asSingle={true}
+                  readOnly={true}
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-sm text-neutral-400">Select time</span>
+                <TimePicker
+                  onChange={handleTimeChange}
+                  value={selectedTime}
+                  use12Hours
+                />
+              </div>
+            </div>
 
             <div>
               <label htmlFor="venue">Venue:</label>
@@ -201,7 +228,7 @@ function CreateInvitation({
             ? "invitation is being created , hold on...."
             : null}
           {invitationError ? invitationError : null}
-        </>
+        </div>
       ) : addParticipantToggle === true && invitationSuccessful === false ? (
         //<><button onClick={handleAddParticipantToggle}>go back</button></>
         <SelectInvitees

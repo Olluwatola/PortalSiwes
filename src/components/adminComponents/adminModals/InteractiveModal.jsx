@@ -1,44 +1,45 @@
 import React, { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const InteractiveModal = ({ isOpen, onClose, children }) => {
   const modalRef = useRef();
 
-  const handleOutsideClick = (e) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
-      onClose();
-    }
-  };
-
-  if (!isOpen) return null;
+  // seems unnecessary
+  // const handleOutsideClick = (e) => {
+  //   if (modalRef.current && !modalRef.current.contains(e.target)) {
+  //     onClose();
+  //   }
+  // };
 
   return (
-    <div
-      className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex"
-      onClick={handleOutsideClick}
-    >
-      <div
-        ref={modalRef}
-        className="relative p-8 bg-white w-full max-w-md m-auto rounded-lg shadow-lg"
-      >
-        <button
-          className="absolute top-0 right-0 m-3 text-gray-500 hover:text-gray-700 focus:outline-none"
-          onClick={onClose}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-30 backdrop-blur-sm items-center justify-center flex"
+          // onClick={handleOutsideClick}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <motion.div
+            ref={modalRef}
+            className="relative p-8 h-[90%] overflow-y-auto bg-white w-[30rem] rounded-xl shadow-lg"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.5, opacity: 0 }}
           >
-            <path d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-        <div className="mt-4">{children}</div>
-      </div>
-    </div>
+            <button
+              className="absolute top-5 right-5 focus:outline-none rounded-full flex items-center justify-center w-9 h-9 text-xl bg-red-100 text-red-600"
+              onClick={onClose}
+            >
+              <IoCloseCircleOutline />
+            </button>
+            <div className="mt-4">{children}</div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
