@@ -211,8 +211,8 @@ function CreateInvitation({
               </div>
             </div>
 
-            <div>
-              <label htmlFor="venue">Venue:</label>
+            <div className="flex flex-col gap-1">
+              <span className="text-sm text-neutral-400">Venue</span>
               <select
                 id="venue"
                 name="venue"
@@ -225,10 +225,11 @@ function CreateInvitation({
                   CBT centre Tech Road
                 </option>
               </select>
-              <button onClick={handleAddParticipantToggle}>
-                Add Participant
-              </button>
             </div>
+
+            <button onClick={handleAddParticipantToggle}>
+              Add Participant
+            </button>
 
             {arrayOfInviteeNames?.map((name, index) => (
               <li key={index}>{name}</li>
