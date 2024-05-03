@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import DatePicker from "react-tailwindcss-datepicker";
-import { TimePicker } from "react-ios-time-picker";
 import { db } from "./../../../config/firebase";
 import { convertToTimestampAndFormatDate } from "./../../../utils/convertToTimestampAndFormatDate";
 import SelectInvitees from "./../SelectInvitee";
 import nameCropper from "./../../../utils/nameCropper";
 import idCropper from "./../../../utils/idCropper";
+import { LuClock3 } from "react-icons/lu";
 
 import {
   //getDocs,
@@ -47,8 +47,9 @@ function CreateInvitation({
     setSelectedDate(date);
   };
 
-  const handleTimeChange = (time) => {
-    setSelectedTime(time);
+  const handleTimeChange = (e) => {
+    const { value } = e.target;
+    setSelectedTime(value);
   };
 
   // useEffect(() => {
@@ -178,8 +179,8 @@ function CreateInvitation({
               <div className="flex flex-col gap-1">
                 <span className="text-sm text-neutral-400">Select date</span>
                 <DatePicker
-                  containerClassName="relative border border-neutral-400 rounded-md focus:outline-none w-fit"
-                  inputClassName="focus:outline-none p-2 rounded-md w-full"
+                  containerClassName="relative border border-neutral-300 rounded-md focus:outline-none w-fit"
+                  inputClassName="focus:outline-none p-2 rounded-md w-full text-sm"
                   popoverDirection="down"
                   placeholder={"dd-mm-yyyy"}
                   displayFormat={"DD-MM-YYYY"}
@@ -192,11 +193,21 @@ function CreateInvitation({
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-sm text-neutral-400">Select time</span>
-                <TimePicker
-                  onChange={handleTimeChange}
-                  value={selectedTime}
-                  use12Hours
-                />
+                <div className="border overflow-hidden border-neutral-300 text-sm rounded-md  cursor-pointer focus:outline-none  w-full relative">
+                  <input
+                    type="time"
+                    id="time"
+                    value={selectedTime}
+                    onChange={handleTimeChange}
+                    className="leading-none text-sm rounded-md focus:outline-none p-2 w-full  cursor-pointer"
+                    min="07:00"
+                    max="18:00"
+                    required
+                  />
+                  <div className="absolute text-lg pr-2.5 text-neutral-400 bg-white h-full inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <LuClock3 />
+                  </div>
+                </div>
               </div>
             </div>
 
