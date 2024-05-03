@@ -6,6 +6,7 @@ import SelectInvitees from "./../SelectInvitee";
 import nameCropper from "./../../../utils/nameCropper";
 import idCropper from "./../../../utils/idCropper";
 import { LuClock3 } from "react-icons/lu";
+import { Dropdown } from "../../mainAppComponents/Dropdown";
 
 import {
   //getDocs,
@@ -193,7 +194,7 @@ function CreateInvitation({
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-sm text-neutral-400">Select time</span>
-                <div className="border overflow-hidden border-neutral-300 text-sm rounded-md  cursor-pointer focus:outline-none  w-full relative">
+                <div className="border overflow-hidden border-neutral-300 text-sm rounded-md h-full flex justify-between items-center  cursor-pointer focus:outline-none  w-full relative">
                   <input
                     type="time"
                     id="time"
@@ -213,18 +214,19 @@ function CreateInvitation({
 
             <div className="flex flex-col gap-1">
               <span className="text-sm text-neutral-400">Venue</span>
-              <select
+              <Dropdown
                 id="venue"
-                name="venue"
-                value={venue}
-                onChange={(e) => setVenue(e.target.value)}
-              >
-                <option value="TRD Building">TRD Building</option>
-                <option value="Sha sha DLC">Shasha DLC</option>
-                <option value="CBT centre Tech Road">
-                  CBT centre Tech Road
-                </option>
-              </select>
+                initialValue={venue}
+                options={[
+                  { name: "TRD Building", value: "TRD Building" },
+                  { name: "Sha sha DLC", value: "Sha sha DLC" },
+                  {
+                    name: "CBT centre Tech Road",
+                    value: "CBT centre Tech Road",
+                  },
+                ]}
+                onSelect={(value) => setVenue(value)}
+              />
             </div>
 
             <button onClick={handleAddParticipantToggle}>
