@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CheckboxItem from "./CheckboxItem";
 
 const ApplicationSelectItem = ({
   application,
@@ -34,28 +35,11 @@ const ApplicationSelectItem = ({
   }
 
   return (
-    <div
-      className={`flex items-center gap-5 border-b border-neutral-200 pb-3 cursor-pointer ${
-        objectExistsInArray ? "text-black" : "text-neutral-500"
-      }`}
-      onClick={() => handleAddOrRemoveItems(application)}
-    >
-      <div
-        className={`w-5 h-5 flex items-center justify-center border rounded-full p-[0.21rem] cursor-pointer
-        ${objectExistsInArray ? "border-primary/40" : "border-neutral-300"}
-        `}
-        onClick={() => {
-          handleAddOrRemoveItems(application);
-        }}
-      >
-        {objectExistsInArray ? (
-          <div className="w-full h-full bg-primary rounded-full"></div>
-        ) : null}
-      </div>
-      <span>
-        {application.studentLastName} {application.studentOtherNames}
-      </span>
-    </div>
+    <CheckboxItem
+      label={`${application.studentLastName} ${application.studentOtherNames}`}
+      checked={objectExistsInArray}
+      onChange={() => handleAddOrRemoveItems(application)}
+    />
   );
 };
 

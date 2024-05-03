@@ -65,7 +65,7 @@ export async function getAllNotInvitedApplications(
       id: doc.id,
     }));
     setArrayOfApplication(returnedApplications);
-    console.log(returnedApplications);
+    // console.log(returnedApplications);
     setIsLoading(false);
     //.filter((doc) => !doc.isRejected && !doc.isAccepted);
   } catch (err) {

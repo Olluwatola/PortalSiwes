@@ -99,7 +99,7 @@ const SelectInvitees = ({
           <h1>Add Participants</h1>
           <h2>Select participant(s) you want to add</h2>
           {arrayOfApplication.length !== 0 ? (
-            <>
+            <div className="flex flex-col gap-5 text-sm">
               {arrayOfApplication.map((application, index) => (
                 <InviteeItem
                   index={index}
@@ -112,7 +112,7 @@ const SelectInvitees = ({
               <button onClick={handleAddParticipantsToForm}>
                 Add Participants
               </button>
-            </>
+            </div>
           ) : (
             "there are no uninvited partcipants, go back"
           )}

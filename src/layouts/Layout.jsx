@@ -11,7 +11,7 @@ const Layout = ({ children, userProfile, applyModal, setapplyModal }) => {
     userProfile?.role === "admin" || userProfile?.role === "superAdmin";
 
   if (isProtectedRoute && isAdmin) {
-    console.log(userProfile.role);
+    // console.log(userProfile.role);
     return (
       <div className="flex w-screen h-screen overflow-hidden pl-10 ">
         <div>

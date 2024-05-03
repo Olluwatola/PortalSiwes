@@ -7,6 +7,7 @@ import nameCropper from "./../../../utils/nameCropper";
 import idCropper from "./../../../utils/idCropper";
 import { LuClock3 } from "react-icons/lu";
 import { Dropdown } from "../../mainAppComponents/Dropdown";
+import { GoPlus } from "react-icons/go";
 
 import {
   //getDocs,
@@ -32,9 +33,11 @@ function CreateInvitation({
     endDate: null,
   });
 
-  const [selectedTime, setSelectedTime] = useState("10:00 AM");
+  const [selectedTime, setSelectedTime] = useState("");
   const [timestamp, setTimestamp] = useState(null);
-  const [venue, setVenue] = useState("TRD Building");
+  const [venue, setVenue] = useState(
+    "e.g. Training and Research Development Building"
+  );
   const [invitationError, setInvitationError] = useState(null);
   const [creatingInvitationLoading, setCreatingInvitationLoading] =
     useState(false);
@@ -175,13 +178,13 @@ function CreateInvitation({
               Fill the fields below
             </span>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-1">
                 <span className="text-sm text-neutral-400">Select date</span>
                 <DatePicker
-                  containerClassName="relative border border-neutral-300 rounded-md focus:outline-none w-fit"
-                  inputClassName="focus:outline-none p-2 rounded-md w-full text-sm"
+                  containerClassName="relative border border-neutral-300 rounded-lg focus:outline-none w-fit"
+                  inputClassName="focus:outline-none p-2 rounded-lg w-full text-sm"
                   popoverDirection="down"
                   placeholder={"dd-mm-yyyy"}
                   displayFormat={"DD-MM-YYYY"}
@@ -194,13 +197,13 @@ function CreateInvitation({
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-sm text-neutral-400">Select time</span>
-                <div className="border overflow-hidden border-neutral-300 text-sm rounded-md h-full flex justify-between items-center  cursor-pointer focus:outline-none  w-full relative">
+                <div className="border overflow-hidden border-neutral-300 text-sm rounded-lg h-full flex justify-between items-center  cursor-pointer focus:outline-none  w-full relative">
                   <input
                     type="time"
                     id="time"
                     value={selectedTime}
                     onChange={handleTimeChange}
-                    className="leading-none text-sm rounded-md focus:outline-none p-2 w-full  cursor-pointer"
+                    className="leading-none text-sm rounded-lg focus:outline-none p-2 w-full  cursor-pointer"
                     min="07:00"
                     max="18:00"
                     required
@@ -229,14 +232,23 @@ function CreateInvitation({
               />
             </div>
 
-            <button onClick={handleAddParticipantToggle}>
+            <button
+              className="text-xs flex gap-2 items-center text-primary w-fit"
+              onClick={handleAddParticipantToggle}
+            >
+              <GoPlus className="text-2xl" />
               Add Participant
             </button>
 
             {arrayOfInviteeNames?.map((name, index) => (
               <li key={index}>{name}</li>
             ))}
-            <button type="submit">Create invitation</button>
+            <button
+              className="bg-primary text-white rounded-lg h-11 flex justify-center items-center w-full text-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/15 transition-all duration-200 ease-in-out"
+              type="submit"
+            >
+              Create invitation
+            </button>
           </form>
           {creatingInvitationLoading
             ? "invitation is being created , hold on...."

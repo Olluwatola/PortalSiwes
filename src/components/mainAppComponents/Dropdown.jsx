@@ -16,7 +16,7 @@ export function Dropdown({ options, onSelect, initialValue, id, onClickOutside }
   const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setIsOpen(false);
-      onClickOutside();
+      if (onClickOutside) onClickOutside(); // Check if onClickOutside is provided before calling it
     }
   };
 

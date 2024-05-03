@@ -62,9 +62,13 @@ const ApplicationSelect = ({
         </button>
       )}
       <br />
-      {successMessage && <p>{successMessage}</p>}
+      {successMessage && <span
+      className="text-green-500 text-sm"
+      >{successMessage}</span>}
       <br />
-      {placingError && <p>{placingError}</p>}
+      {placingError && <span
+      className="text-red-500 text-sm"
+      >{placingError}</span>}
     </div>
   );
 };

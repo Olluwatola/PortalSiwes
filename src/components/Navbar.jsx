@@ -15,7 +15,7 @@ const Navbar = ({ userProfile, applyModal, setapplyModal }) => {
     return null;
   } else if (isProtectedRoute) {
     if (userProfile?.role === "admin" || userProfile?.role === "superAdmin") {
-      console.log(userProfile.role);
+      // console.log(userProfile.role);
       return <AdminNavbar />;
     } else {
       return null;
