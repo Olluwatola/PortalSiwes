@@ -233,6 +233,7 @@ function CreateInvitation({
             </div>
 
             <button
+              type="button"
               className="text-xs flex gap-2 items-center text-primary w-fit"
               onClick={handleAddParticipantToggle}
             >
