@@ -224,6 +224,7 @@ export function ApplicationForm({
           setConditionGood("error");
           setStatusBarMessage("An error occurred. Please try again.");
         } else {
+          
           // Clear form fields and do other necessary actions on success
           setStudentLastName("");
           setStudentOtherNames("");
@@ -233,6 +234,7 @@ export function ApplicationForm({
           setAboutStudent("");
           setIDFile(null);
           setSiwesFile(null);
+
 
           console.log(auth?.currentUser);
           console.log("done");

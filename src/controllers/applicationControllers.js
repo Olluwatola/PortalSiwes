@@ -18,14 +18,15 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
+import { mailerExports } from "../services/mailer";
 
 const storageRef = ref(storage);
 //const applicationCollectionRef = collection(db, "studentApplication");
 //const applicationDocumentRef = doc(db, "studentApplication", id);
 
 async function isImage(file) {
-   const imageValidateResult= await validateImage(file); 
-   return(imageValidateResult)
+  const imageValidateResult = await validateImage(file);
+  return imageValidateResult;
 }
 
 async function uploadFile(file, filetype, generatedID) {
@@ -103,7 +104,10 @@ export async function createApplication(
   aboutStudent,
   durationOfInternship
 ) {
-  if (await isImage(IDFile.file) !== true || await isImage(siwesFile.file) !== true) {
+  if (
+    (await isImage(IDFile.file)) !== true ||
+    (await isImage(siwesFile.file)) !== true
+  ) {
     throw Error("Ensure your files are image files!");
   }
   setConditionGood("loading");
@@ -142,6 +146,12 @@ export async function createApplication(
       applicationTestScore: 0,
       createdAt: serverTimestamp(),
     }).then((feedback) => {
+      // mailerExports.mailingSystem().sendSuccessfullyCreatedApplication(
+      //   auth?.currentUser?.email,
+      //   studentLastName,
+      //   durationOfInternship,
+      //   generatedID
+      // );
       setStatusBarMessage(null);
       setConditionGood("good");
       console.log(feedback);
