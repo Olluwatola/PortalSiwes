@@ -11,9 +11,11 @@ const ApplicationListItem = ({
   arrayOfApplication,
   setArrayOfApplication,
   showStatusState,
+  showNumberState,
 }) => {
   const [putUnderReviewIsLoading, setPutUnderReviewIsLoading] = useState(false);
   const [showStatus, setShowStatus] = useState(showStatusState);
+  const [showNumber, setShowNumber] = useState(showNumberState);
 
   function removeObjectById(arr, idToRemove) {
     // Use the filter method to create a new array with objects that do not have the specified ID.
@@ -95,19 +97,23 @@ const ApplicationListItem = ({
   return (
     <Link
       className={`${index === lastIndex ? "" : "border-b border-neutral-200"}
-       text-neutral-800 text-sm w-full items-center flex gap-2 justify-between py-5`}
+       text-neutral-800 text-sm w-full items-center flex justify-between py-5`}
       to={`/admin/applications/${application.id}`}
     >
       <span className="w-4 text-neutral-500">{index + 1}.</span>
-      <span className="w-60">
+      <span className="w-52">
         {application.studentLastName} {application.studentOtherNames}
       </span>{" "}
-      <span className="w-60">{application.studentEmail}</span>
-      <span className="w-32">
-        {application.durationOfInternship} Months
-      </span>{" "}
-      <span className="w-32">{application.studentCourse}</span>
-      <span className="w-36">{application.studentPhoneNumber}</span>
+      <span className="w-64">{application.studentEmail}</span>
+      <span className="w-32">{application.durationOfInternship}</span>{" "}
+      <span className="w-36">{application.studentCourse}</span>
+      <span
+        className={`      ${
+          showStatus || showNumber ? "block" : "hidden"
+        } w-36`}
+      >
+        {application.studentPhoneNumber}
+      </span>
       <div
         className={`
       ${showStatus ? "block" : "hidden"}

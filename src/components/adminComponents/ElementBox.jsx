@@ -9,6 +9,7 @@ const ElementBox = ({
   setOpenUnit,
   currentUnit,
   setCurrentUnit,
+  placement,
 }) => {
   function handleSetOpenUnit(
     ownUnit,
@@ -24,9 +25,17 @@ const ElementBox = ({
     console.log(`switching unit`);
   }
   return (
-    <div className="bg-white shadow-lg border border-neutral-100 rounded-xl p-5 flex flex-col  justify-between gap-5">
-      <span className="text-sm">{children}</span>
-      <span className="text-3xl font-medium">{valueOfHeader}</span>
+    <div
+      className={`bg-white shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-4 flex flex-col justify-between ${
+        placement ? "gap-10" : "gap-5"
+      }`}
+    >
+      {placement ? "" : <span className="text-sm">{children}</span>}
+      <span
+        className={placement ? "text-2xl font-medium" : "text-4xl font-medium"}
+      >
+        {valueOfHeader}
+      </span>
       {link ? (
         <Link
           className="border border-primary rounded-md py-2.5 transition-all hover:bg-white hover:text-primary text-center text-sm duration-300 ease-in-out bg-primary text-white"

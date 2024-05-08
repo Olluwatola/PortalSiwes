@@ -406,7 +406,7 @@ export function ApplicationForm({
                   {durationOptions.map((option, index) => (
                     <motion.div
                       key={index}
-                      onClick={() => handleDurationOptionSelect(option.value)}
+                      onClick={() => handleDurationOptionSelect(option.name)}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -520,7 +520,7 @@ export function ApplicationForm({
             >
               {IDFile && IDFile.uploading ? (
                 <motion.div
-                  initial={{ opacity: 0 }}  
+                  initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}

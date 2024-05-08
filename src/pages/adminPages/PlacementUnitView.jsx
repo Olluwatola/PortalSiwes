@@ -3,21 +3,7 @@ import { useParams } from "react-router-dom";
 import PlacementUnitViewTabs from "./../../components/adminComponents/PlacementUnitViewTabs";
 import ApplicationSelect from "./../../components/adminComponents/ApplicationSelect";
 import ApplicationListItem from "./../../components/adminComponents/adminListItem/ApplicationListItem";
-import { getAllAwaitingPlacement } from "./../../controllers/fetchApplication";
-import { placeToUnit } from "./../../controllers/placementControllers";
-
-const containerStyles = {
-  height: "100vh",
-  // display: "flex",
-  // flexDirection: "row",
-};
-
-const scrollableDivStyles = {
-  flex: "1",
-  overflowY: "scroll",
-  border: "1px solid #ccc",
-  padding: "10px",
-};
+import { getAllPlacedToCertainUnit } from "./../../controllers/fetchApplication";
 
 const PlacementUnitView = () => {
   const { unit } = useParams();
@@ -27,52 +13,43 @@ const PlacementUnitView = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [arrayOfApplicantsToBePosted, setArrayOfApplicantsToBePosted] =
     useState([]);
-  const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(undefined);
-  const [placingError, setPlacingError] = useState(undefined)
-
-  useEffect(() => {
-    // Apply unscrollableBodyStyles to the body element
-    document.body.style.overflow = "hidden";
-
-    // Clean up the style when the component unmounts
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  const [loadPlacedApplicants, setLoadPlacedApplicants] = useState(true);
+  
   useEffect(() => {
     async function handleFetchApplication() {
-      await getAllAwaitingPlacement(
+      await getAllPlacedToCertainUnit(
         setArrayOfApplication,
         setIsLoading,
         returnedApplications,
-        setGetApplicationsError
+        setGetApplicationsError,
+        unit
       );
     }
 
     handleFetchApplication();
-
-    // return () => {
-    //   second;
-    // };
   }, []);
 
   function handleGoBack() {
     window.history.back();
   }
   return (
-    <>
-      <h1>Placement Posting</h1>
-      ITeMS, {unit?.toUpperCase()} |
-      <button
-        onClick={() => {
-          handleGoBack();
-        }}
-      >
-        Go back
-      </button>
-      <br />
-      <div style={containerStyles}>
+    <div className="flex flex-col gap-5">
+      <span className="text-3xl font-medium">Placement Posting</span>
+      <div className="flex items-end pb-3 justify-between border-b border-neutral-200">
+        <div className="flex gap-2 items-center">
+          <span className="text-primary">
+            Interns at ITeMS, {unit?.toUpperCase()}
+          </span>{" "}
+          |
+          <button
+            className="text-neutral-400 text-sm"
+            onClick={() => {
+              handleGoBack();
+            }}
+          >
+            GO BACK
+          </button>
+        </div>
         <PlacementUnitViewTabs
           unit={unit}
           setArrayOfApplication={setArrayOfApplication}
@@ -82,51 +59,39 @@ const PlacementUnitView = () => {
           loadPlacedApplicants={loadPlacedApplicants}
           setLoadPlacedApplicants={setLoadPlacedApplicants}
         />
-        <br />
+      </div>
+      <div>
         {getApplicationsError === null ? (
           loadPlacedApplicants === false ? (
             <>
-              <h6>
-                ***Select Applicants(s) you want to place to{" "}
-                {unit?.toUpperCase()}
-                ***
-              </h6>
-              <div style={scrollableDivStyles}>
-                <ApplicationSelect
-                  arrayOfApplicantsToBePosted={arrayOfApplicantsToBePosted}
-                  setArrayOfApplicantsToBePosted={
-                    setArrayOfApplicantsToBePosted
-                  }
-                  arrayOfApplication={arrayOfApplication}
-                  unit={unit}
-                />
-              </div>
-              <button
-                onClick={() => {
-                  placeToUnit(unit, arrayOfApplicantsToBePosted,setSuccessMessage,setPlacingError);
-                }}
-              >
-                Place to {unit.toUpperCase()}
-              </button><br/>
-              {successMessage === undefined ? null : successMessage}<br/>
-              {placingError === undefined ? null : placingError}
-
+              <ApplicationSelect
+                arrayOfApplicantsToBePosted={arrayOfApplicantsToBePosted}
+                setArrayOfApplicantsToBePosted={setArrayOfApplicantsToBePosted}
+                arrayOfApplication={arrayOfApplication}
+                unit={unit}
+              />
             </>
           ) : (
-            <>
+            <div className="w-full">
+              <div className="w-full mt-5 mb-4 flex items-center justify-between text-neutral-400 text-xs">
+                <span className="w-4"></span>
+                <span className="w-52">NAME</span>
+                <span className="w-64">EMAIL ADDRESS</span>
+                <span className="w-32">DURATION</span>
+                <span className="w-36">DEPARTMENT</span>
+                <span className="w-36">PHONE NUMBER</span>
+              </div>
               {arrayOfApplication?.map((item, index) => (
-                <div style={scrollableDivStyles}>
-                  <ApplicationListItem
-                    index={index}
-                    application={item}
-                    key={item.id}
-                    arrayOfApplication={arrayOfApplication}
-                    setArrayOfApplication={setArrayOfApplication}
-                  />
-                  <br />
-                </div>
+                <ApplicationListItem
+                  index={index}
+                  showNumberState={true}
+                  application={item}
+                  key={item.id}
+                  arrayOfApplication={arrayOfApplication}
+                  setArrayOfApplication={setArrayOfApplication}
+                />
               ))}
-            </>
+            </div>
           )
         ) : isLoading ? (
           "Loading..."
@@ -134,7 +99,7 @@ const PlacementUnitView = () => {
           getApplicationsError
         )}
       </div>
-    </>
+    </div>
   );
 };
 

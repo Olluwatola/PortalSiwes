@@ -1,10 +1,10 @@
-import Modal from "react-modal"; 
+import Modal from "./InteractiveModal";
 import CompletedInvitationModalContent from "./../adminModalContents/CompletedInvitationModalContent";
 
 
 const CompletedInvitationModal = ({isCIVOpen,onCIVClose}) => {
   return (
-    <Modal isOpen={isCIVOpen} onRequestClose={onCIVClose}>
+    <Modal isOpen={isCIVOpen} onClose={onCIVClose}>
       <CompletedInvitationModalContent />
     </Modal>
   );
