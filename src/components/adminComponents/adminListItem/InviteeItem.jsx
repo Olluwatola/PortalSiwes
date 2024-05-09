@@ -5,12 +5,12 @@ function InviteeItem({ application,invitees,setInvitees }) {
 
     useEffect(() => {
       function checkExisting(invitee) {
-        console.log(`checking check`)
-        console.log(invitees)
-        console.log(invitee)
+        // console.log(`checking check`)
+        // console.log(invitees)
+        // console.log(invitee)
         const existingObject = invitees.find((obj) => obj.id === invitee.id);
-        console.log(existingObject)
-        console.log(existingObject !== undefined)
+        // console.log(existingObject)
+        // console.log(existingObject !== undefined)
         setObjectExistsInArray(existingObject !== undefined);
       }
       checkExisting(application);
