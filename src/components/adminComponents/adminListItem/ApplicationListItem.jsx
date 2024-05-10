@@ -84,7 +84,7 @@ const ApplicationListItem = ({
     } else if (isRejected) {
       return "Declined";
     } else if (isReviewed) {
-      return "Reviewed";
+      return "Under Review";
     } else if (hasWrittenApplicationTest && placedTo === "yetToBePlaced") {
       return "Pending";
     } else if (!isReviewed) {

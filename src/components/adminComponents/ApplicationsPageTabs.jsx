@@ -26,8 +26,8 @@ const ApplicationsPageTabs = ({
     if (active === "Pending") {
       setActive("Pending");
     }
-    if (active === "Review") {
-      setActive("Review");
+    if (active === "Under Review") {
+      setActive("Under Review");
     }
     if (active === "Approved") {
       setActive("Approved");
@@ -83,9 +83,9 @@ const ApplicationsPageTabs = ({
       />
       <FilterTabs
         active={active}
-        name={"Reviewed"}
+        name={"Under Review"}
         onClickFunction={() => {
-          setActive("Reviewed");
+          setActive("Under Review");
           getAllUnderReviewedApplications(
             setArrayOfApplication,
             setIsLoading,
