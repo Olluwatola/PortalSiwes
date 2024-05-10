@@ -1,31 +1,22 @@
-import { useEffect, useState } from "react";
-import { getAllNotInvitedApplications } from "./../../controllers/fetchApplication";
+import { useState } from "react";
+import { getAllNotInvitedApplications } from "../../controllers/fetchApplication";
 import ApplicationListItem from "./adminListItem/ApplicationListItem";
 import InvitationModal from "./adminModals/CreateInvitationModal";
 import { MdOutlineRefresh } from "react-icons/md";
 import "react-loading-skeleton/dist/skeleton.css"; //Don't forget to import the styles
 import Skeleton from "react-loading-skeleton";
 
-const ApplicantsNotInvited = () => {
-  let returnedApplications;
-  const [isLoading, setIsLoading] = useState(false);
+const ApplicantsNotInvited = ({
+  arrayOfApplication,
+  isLoading,
+  getApplicationsError,
+  setArrayOfApplication,
+  setIsLoading,
+  returnedApplications,
+  setGetApplicationsError,
+}) => {
   const [returnedDocument, setReturnedDocument] = useState(null);
-  const [getApplicationsError, setGetApplicationsError] = useState(null);
-  const [arrayOfApplication, setArrayOfApplication] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    getAllNotInvitedApplications(
-      setArrayOfApplication,
-      setIsLoading,
-      returnedApplications,
-      setGetApplicationsError
-    );
-
-    //   return () => {
-    //     second
-    //   }
-  }, []);
 
   function handleInviteApplication(item) {
     setReturnedDocument(item);

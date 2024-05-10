@@ -1,11 +1,29 @@
+import { getAllNotInvitedApplications } from "./../../controllers/fetchApplication";
 import NotCompletedInvitationPanel from "./../../components/adminComponents/NotCompletedInvitationPanel";
 import CompletedInvitationsPanel from "./../../components/adminComponents/CompletedInvitationsPanel";
 import ApplicantsNotInvited from "./../../components/adminComponents/ApplicantsNotInvited";
 import InvitationModal from "./../../components/adminComponents/adminModals/CreateInvitationModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ScreeningPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [arrayOfApplication, setArrayOfApplication] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [getApplicationsError, setGetApplicationsError] = useState(null);
+  let returnedApplications;
+
+  useEffect(() => {
+    getAllNotInvitedApplications(
+      setArrayOfApplication,
+      setIsLoading,
+      returnedApplications,
+      setGetApplicationsError
+    );
+
+    //   return () => {
+    //     second
+    //   }
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,8 +49,26 @@ const ScreeningPage = () => {
         <NotCompletedInvitationPanel buttonShow={false} />
         <CompletedInvitationsPanel />
       </div>
-      <ApplicantsNotInvited />
-      <InvitationModal isOpen={isModalOpen} onClose={closeModal} />
+      <ApplicantsNotInvited
+        arrayOfApplication={arrayOfApplication}
+        isLoading={isLoading}
+        getApplicationsError={getApplicationsError}
+        setArrayOfApplication={setArrayOfApplication}
+        setIsLoading={setIsLoading}
+        returnedApplications={returnedApplications}
+        setGetApplicationsError={setGetApplicationsError}
+      />
+      <InvitationModal
+        arrayOfApplication={arrayOfApplication}
+        isLoading={isLoading}
+        getApplicationsError={getApplicationsError}
+        setArrayOfApplication={setArrayOfApplication}
+        setIsLoading={setIsLoading}
+        returnedApplications={returnedApplications}
+        setGetApplicationsError={setGetApplicationsError}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 };
