@@ -24,7 +24,7 @@ const InteractiveModal = ({ isOpen, onClose, children }) => {
         >
           <motion.div
             ref={modalRef}
-            className="relative p-8 max-h-[90%] overflow-y-auto bg-white w-[30rem] rounded-xl shadow-lg"
+            className="relative p-8 max-h-[90%] overflow-y-auto bg-white w-[35rem] rounded-xl shadow-lg"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
