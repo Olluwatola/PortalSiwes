@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DatePicker from "react-tailwindcss-datepicker";
 import { db } from "./../../../config/firebase";
-import { convertToTimestampAndFormatDate } from "./../../../utils/convertToTimestampAndFormatDate";
+//import { convertToTimestampAndFormatDate } from "./../../../utils/convertToTimestampAndFormatDate";
 import SelectInvitees from "./../SelectInvitee";
 import nameCropper from "./../../../utils/nameCropper";
 import idCropper from "./../../../utils/idCropper";
@@ -19,6 +19,14 @@ import {
 } from "firebase/firestore";
 
 function CreateInvitation({
+  arrayOfApplication,
+  isLoading,
+  getApplicationsError,
+  setArrayOfApplication,
+  setIsLoading,
+  returnedApplications,
+  setGetApplicationsError,
+
   userObjectArray,
   onRequestClose,
   addParticipantToggle,
@@ -55,46 +63,6 @@ function CreateInvitation({
     const { value } = e.target;
     setSelectedTime(value);
   };
-
-  // useEffect(() => {
-  //   // const convertToTimestampAndFormatDate = () => {
-  //   //   const date = selectedDate;
-  //   //   const time = selectedTime;
-  //   //   console.log(`what are we looking at ${date.toDateString()}`);
-  //   //   if (date !== null && time !== null) {
-  //   //     const datetimeString = `${date.toDateString()} ${time}`;
-  //   //     const timestampTemp = new Date(datetimeString)?.getTime();
-  //   //     setTimestamp(timestampTemp);
-  //   //     //console.log(Timestamp.fromDate(timestamp));
-  //   //     //console.log(new Timestamp(timestampTemp));
-  //   //     console.log(timestampTemp / 1000);
-  //   //     console.log(selectedDate);
-  //   //     console.log(selectedTime);
-  //   //   }
-
-  //   //   const dateObject = new Date(selectedDate);
-
-  //   //   // Extract year, month, and day
-  //   //   const year = dateObject.getFullYear();
-  //   //   const month = (dateObject.getMonth() + 1).toString().padStart(2, "0"); // Add 1 to month because it's zero-indexed
-  //   //   const day = dateObject.getDate().toString().padStart(2, "0");
-
-  //   //   const formattedDateString = `${year}-${month}-${day}`;
-  //   //   console.log(formattedDateString);
-  //   //   setDate(formattedDateString);
-  //   // };
-
-  //   convertToTimestampAndFormatDate(
-  //     selectedDate,
-  //     selectedTime,
-  //     setTimestamp,
-  //     setDate
-  //   );
-
-  //   // return () => {
-  //   //   second
-  //   // }
-  // }, [selectedDate, selectedTime]);
 
   useEffect(() => {
     setArrayOfInviteeNames(nameCropper(invitees));
@@ -264,6 +232,13 @@ function CreateInvitation({
           key={null}
           handleAddParticipantToggle={handleAddParticipantToggle}
           setFormInvitees={setFormInvitees}
+          arrayOfApplication={arrayOfApplication}
+          isLoading={isLoading}
+          getApplicationsError={getApplicationsError}
+          setArrayOfApplication={setArrayOfApplication}
+          setIsLoading={setIsLoading}
+          returnedApplications={returnedApplications}
+          setGetApplicationsError={setGetApplicationsError}
         />
       ) : (
         "error"

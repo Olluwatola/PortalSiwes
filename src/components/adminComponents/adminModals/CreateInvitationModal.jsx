@@ -2,7 +2,18 @@ import React, { useState } from "react";
 import Modal from "./InteractiveModal";
 import CreateInvitation from "./../adminModalContents/CreateInvitation";
 
-function InvitationModal({ userObjectArray, isOpen, onClose }) {
+function InvitationModal({
+  arrayOfApplication,
+  isLoading,
+  getApplicationsError,
+  setArrayOfApplication,
+  setIsLoading,
+  returnedApplications,
+  setGetApplicationsError,
+  userObjectArray,
+  isOpen,
+  onClose,
+}) {
   const [addParticipantToggle, setAddParticipantToggle] = useState(false);
 
   function handleAddParticipantToggle() {
@@ -18,6 +29,13 @@ function InvitationModal({ userObjectArray, isOpen, onClose }) {
         onRequestClose={onClose}
         handleAddParticipantToggle={handleAddParticipantToggle}
         addParticipantToggle={addParticipantToggle}
+        arrayOfApplication={arrayOfApplication}
+        isLoading={isLoading}
+        getApplicationsError={getApplicationsError}
+        setArrayOfApplication={setArrayOfApplication}
+        setIsLoading={setIsLoading}
+        returnedApplications={returnedApplications}
+        setGetApplicationsError={setGetApplicationsError}
       />
     </Modal>
   );

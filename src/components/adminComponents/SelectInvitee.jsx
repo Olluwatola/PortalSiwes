@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
 import { db } from "./../../config/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
-import InviteeItem from "./adminListItem/InviteeItem";
+import {fetchApplications} from "./../../controllers/fetchApplication"
+import InviteeItem from "./adminListItem/InviteeItem"
 
 const SelectInvitees = ({
+  arrayOfApplication,
+  isLoading,
+  getApplicationsError,
+  // setArrayOfApplication,
+  // setIsLoading,
+  // //returnedApplications,
+  // setGetApplicationsError,
   invitees,
   setInvitees,
   setFormInvitees,
@@ -14,30 +22,75 @@ const SelectInvitees = ({
   const [isLoading, setIsLoading] = useState(false);
   const applicationCollectionRef = collection(db, "studentApplication");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const q = query(
-          applicationCollectionRef,
-          where("hasBeenInvitedForTest", "==", false)
-        );
-        const data = await getDocs(q);
-        const returnedApplications = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setArrayOfApplication(returnedApplications);
-        setGetApplicationsError(null);
-      } catch (err) {
-        console.error(err);
-        setGetApplicationsError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // function InviteeItem({ application }) {
+  //   const [objectExistsInArray, setObjectExistsInArray] = useState(false);
 
-    fetchData();
+  //   useEffect(() => {
+  //     function checkExisting(invitee) {
+  //       console.log(`checking check`)
+  //       console.log(invitees)
+  //       console.log(invitee)
+  //       const existingObject = invitees.find((obj) => obj.id === invitee.id);
+  //       console.log(existingObject)
+  //       console.log(existingObject !== undefined)
+  //       setObjectExistsInArray(existingObject !== undefined);
+  //     }
+  //     checkExisting(application);
+  //   }, [application, invitees]);
+
+  //   function handleAddOrRemoveItems(invitee) {
+  //     if (!objectExistsInArray) {
+  //       setInvitees((invitees) => [...invitees, invitee]);
+  //     } else {
+  //       setInvitees((invitees) =>
+  //         invitees.filter((inviteeObject) => inviteeObject.id !== invitee.id)
+  //       );
+  //     }
+  //   }
+
+  //   return (
+  //     <>
+  //       <input
+  //         type="checkbox"
+  //         checked={objectExistsInArray}
+  //         onChange={() => {
+  //           handleAddOrRemoveItems(application);
+  //         }}
+  //       />
+  //       <span>
+  //         {application.studentLastName} {application.studentOtherNames}
+  //       </span>
+  //       <br />
+  //       <hr />
+  //       <br />
+  //     </>
+  //   );
+  // }
+
+  useEffect(() => {
+    // async function fetchApplications() {
+    //   setIsLoading(true);
+    //   try {
+    //     const q = query(
+    //       applicationCollectionRef,
+    //       where("hasBeenInvitedForTest", "==", false)
+    //     );
+
+    //     const data = await getDocs(q);
+    //     const returnedApplications = data.docs?.map((doc) => ({
+    //       ...doc.data(),
+    //       id: doc.id,
+    //     }));
+    //     setArrayOfApplication(returnedApplications);
+    //   } catch (err) {
+    //     console.error(err);
+    //     setGetApplicationsError(err.message);
+    //   } finally {
+    //     setIsLoading(false);
+    //   }
+    // }
+
+    fetchApplications(applicationCollectionRef,setIsLoading,setArrayOfApplication,setGetApplicationsError);
   }, [applicationCollectionRef]);
 
   function handleAddParticipantsToForm() {
