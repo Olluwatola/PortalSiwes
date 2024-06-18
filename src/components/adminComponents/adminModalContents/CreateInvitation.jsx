@@ -8,6 +8,9 @@ import idCropper from "./../../../utils/idCropper";
 import { LuClock3 } from "react-icons/lu";
 import { Dropdown } from "../../mainAppComponents/Dropdown";
 import { GoPlus } from "react-icons/go";
+import { motion } from "framer-motion";
+import ConfettiExplosion from "react-confetti-explosion";
+import success from "../../../assets/success.svg";
 
 import {
   //getDocs,
@@ -69,6 +72,15 @@ function CreateInvitation({
   }, [invitees]);
 
   useEffect(() => {
+    if (invitationError) {
+      const timer = setTimeout(() => {
+        setInvitationError(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [invitationError]);
+
+  useEffect(() => {
     if (userObjectArray) {
       setInvitees(userObjectArray);
       setFormInvitees(userObjectArray);
@@ -102,7 +114,7 @@ function CreateInvitation({
           });
       });
       await addDoc(invitationsRef, {
-        date: date,
+        date: selectedDate.startDate,
         time: selectedTime,
         timestamp,
         venue,
@@ -132,10 +144,36 @@ function CreateInvitation({
   return (
     <>
       {invitationSuccessful === true ? (
-        <>
-          You have succcessfully invited {arrayOfIds.length} particpants!
-          <button onClick={onRequestClose}>OK</button>
-        </>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="gap-2 w-full h-fit flex flex-col justify-center items-center relative z-50"
+        >
+          <div className="w-full h-[80%] flex justify-center">
+            <ConfettiExplosion
+              force={0.7}
+              duration={4000}
+              particleCount={300}
+              width={900}
+              height={1000}
+              colors={["#0071BC", "#DBE5FF", "#8A8A8A"]}
+              zIndex={50}
+            />
+          </div>
+          <img src={success} alt="success" className="w-44 z-50" />
+          <span className="text-2xl font-medium mt-5 z-50">Successful!</span>
+          <span className="text-sm text-center z-50">
+            You have successfully invited {arrayOfIds.length} participants!
+          </span>
+          <button
+            onClick={onRequestClose || closeApplyModal}
+            className="mt-5 w-full py-2 bg-primary text-white rounded-lg z-50"
+          >
+            OK
+          </button>
+        </motion.div>
       ) : addParticipantToggle === false && invitationSuccessful === false ? (
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
@@ -187,7 +225,7 @@ function CreateInvitation({
               <span className="text-sm text-neutral-400">Venue</span>
               <Dropdown
                 id="venue"
-                initialValue="e.g. Training and Research Development Building"
+                initialValue = {venue}
                 options={[
                   { name: "TRD Building", value: "TRD Building" },
                   { name: "Sha sha DLC", value: "Sha sha DLC" },
@@ -210,7 +248,11 @@ function CreateInvitation({
             </button>
 
             <div className="flex flex-col gap-2">
-              <span className="text-sm text-neutral-400">Participants</span>
+              {arrayOfInviteeNames > 0 ? (
+                <span className="text-sm text-neutral-400">Participants</span>
+              ) : (
+                ""
+              )}
               <div className="flex flex-wrap gap-3">
                 {arrayOfInviteeNames?.map((name, index) => (
                   <div
@@ -223,16 +265,23 @@ function CreateInvitation({
               </div>
             </div>
             <button
-              className="bg-primary text-white rounded-lg h-11 flex justify-center items-center w-full text-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/15 transition-all duration-200 ease-in-out"
+              className={`bg-primary text-white rounded-lg h-11 flex justify-center items-center w-full text-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/15 transition-all duration-200 ease-in-out
+                ${creatingInvitationLoading ? "cursor-not-allowed" : ""}
+                `}
               type="submit"
+              disabled={creatingInvitationLoading}
             >
               Create invitation
             </button>
           </form>
-          {creatingInvitationLoading
-            ? "invitation is being created , hold on...."
-            : null}
-          {invitationError ? invitationError : null}
+          {creatingInvitationLoading ? (
+            <span className="text-neutral-400 italic text-sm animate-pulse">
+              Invitation is being created , hold on....
+            </span>
+          ) : null}
+          {invitationError ? (
+            <span className="text-red-500 text-sm ">{invitationError}</span>
+          ) : null}
         </div>
       ) : addParticipantToggle === true && invitationSuccessful === false ? (
         //<><button onClick={handleAddParticipantToggle}>go back</button></>
@@ -251,7 +300,7 @@ function CreateInvitation({
           setGetApplicationsError={setGetApplicationsError}
         />
       ) : (
-        "error"
+        <span className="text-red-500 text-sm">Error</span>
       )}
     </>
   );

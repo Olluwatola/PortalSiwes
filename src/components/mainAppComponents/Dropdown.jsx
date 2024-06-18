@@ -2,7 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
 
-export function Dropdown({ options, onSelect, initialValue, id, onClickOutside }) {
+export function Dropdown({
+  options,
+  onSelect,
+  initialValue,
+  id,
+  onClickOutside,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const dropdownRef = useRef(null);
@@ -16,7 +22,7 @@ export function Dropdown({ options, onSelect, initialValue, id, onClickOutside }
   const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setIsOpen(false);
-      if (onClickOutside) onClickOutside(); // Check if onClickOutside is provided before calling it
+      if (onClickOutside) onClickOutside();
     }
   };
 
@@ -33,7 +39,12 @@ export function Dropdown({ options, onSelect, initialValue, id, onClickOutside }
         type="button"
         id={id}
         className={`${
-          selectedOption === initialValue ? "text-neutral-400" : "text-black"
+          selectedOption ===
+            "e.g. Training and Research Development Building" ||
+          selectedOption === "Select your level" ||
+          selectedOption === "Select duration"
+            ? "text-neutral-400"
+            : "text-black"
         } w-full md:text-sm text-xs border border-gray-300 whitespace-nowrap justify-between md:px-4 px-2 py-3 rounded-lg flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none`}
         onClick={() => setIsOpen(!isOpen)}
       >

@@ -66,7 +66,7 @@ const InvitationPanel = ({ buttonShow = true }) => {
         </div>
       </span>
 
-      <div className="bg-white max-h-[50vh] h-full shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col gap-3">
+      <div className="bg-white max-h-[50vh] overflow-hidden h-full shadow-lg shadow-slate-100 border border-neutral-100 rounded-xl p-5 flex flex-col gap-3">
         {inviteFetchLoading ? (
           <div className="w-full">
             <Skeleton count={3} className="h-16 rounded-md" />
