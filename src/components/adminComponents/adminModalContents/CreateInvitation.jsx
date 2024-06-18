@@ -187,7 +187,7 @@ function CreateInvitation({
               <span className="text-sm text-neutral-400">Venue</span>
               <Dropdown
                 id="venue"
-                initialValue={venue}
+                initialValue="e.g. Training and Research Development Building"
                 options={[
                   { name: "TRD Building", value: "TRD Building" },
                   { name: "Sha sha DLC", value: "Sha sha DLC" },
@@ -209,9 +209,19 @@ function CreateInvitation({
               Add Participant
             </button>
 
-            {arrayOfInviteeNames?.map((name, index) => (
-              <li key={index}>{name}</li>
-            ))}
+            <div className="flex flex-col gap-2">
+              <span className="text-sm text-neutral-400">Participants</span>
+              <div className="flex flex-wrap gap-3">
+                {arrayOfInviteeNames?.map((name, index) => (
+                  <div
+                    className="border-neutral-300 text-sm rounded-md text-neutral-700 border h-9 px-4 w-fit flex justify-center items-center"
+                    key={index}
+                  >
+                    {name}
+                  </div>
+                ))}
+              </div>
+            </div>
             <button
               className="bg-primary text-white rounded-lg h-11 flex justify-center items-center w-full text-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/15 transition-all duration-200 ease-in-out"
               type="submit"
