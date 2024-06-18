@@ -1,9 +1,9 @@
-import Modal from "react-modal";
+import Modal from "./InteractiveModal";
 import InvitationToNotHoldModalContent from "./../adminModalContents/InvitationToNotHoldModalContent";
 
 const InvitationToNotHoldModal = ({isIVTNHModalOpen,onIVTNHClose}) => {
   return (
-    <Modal isOpen={isIVTNHModalOpen} onRequestClose={onIVTNHClose}>
+    <Modal isOpen={isIVTNHModalOpen} onClose={onIVTNHClose}>
       <InvitationToNotHoldModalContent />
     </Modal>
   )

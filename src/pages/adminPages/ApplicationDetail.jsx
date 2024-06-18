@@ -203,7 +203,7 @@ const ApplicationDetail = () => {
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-24 gap-y-10 w-full">
+        <div className="flex flex-wrap items-start gap-x-24 gap-y-10 w-full">
           <div className="flex flex-col gap-2">
             <span className="text-neutral-400 text-sm">FIRST NAME</span>
             <span>
