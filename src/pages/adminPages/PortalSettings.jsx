@@ -11,12 +11,13 @@ const PortalSettings = () => {
   const [conditionGood, setConditionGood] = useState(null);
   const [statusBarMessage, setStatusBarMessage] = useState(null);
   return (
-    <>
+    <div className="flex flex-col gap-8 w-2/3">
       <StatusBar
         conditionGood={conditionGood}
+        setStatusBarMessage={setStatusBarMessage}
         statusBarMessage={statusBarMessage}
       />
-      <h1>Portal Settings</h1>
+      <span className="text-3xl font-medium">Portal Settings</span>
       <UpdateMainUiForm
         setConditionGood={setConditionGood}
         setStatusBarMessage={setStatusBarMessage}
@@ -32,11 +33,14 @@ const PortalSettings = () => {
         setStatusBarMessage={setStatusBarMessage}
       />
       <hr />
-      <ChangePassword />
-      {auth.currentFirestoreProfile.role === "superAdmin" ? (
-        <GrantAdminAccess />
-      ) : null}
-    </>
+      <div className="flex flex-col gap-2">
+        {" "}
+        <ChangePassword />
+        {auth.currentFirestoreProfile.role === "superAdmin" ? (
+          <GrantAdminAccess />
+        ) : null}
+      </div>
+    </div>
   );
 };
 

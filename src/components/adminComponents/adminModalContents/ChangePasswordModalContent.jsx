@@ -31,33 +31,43 @@ const ChangePasswordModalContent = () => {
       <AdminStatusBar
         conditionGood={conditionGood}
         statusBarMessage={statusBarMessage}
+        setStatusBarMessage={setStatusBarMessage}
       />
-      <form onSubmit={handleChangePassword}>
+      <form className="flex flex-col gap-2" onSubmit={handleChangePassword}>
         <input
-          placeholder="confirm your login email"
+          className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+          placeholder="Confirm your login email"
           value={loginEmail}
           onChange={(e) => setLoginEmail(e.target.value)}
         />
-        <br />
+
         <input
-          placeholder="current password"
+          className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+          placeholder="Current password"
           value={loginPassword}
           onChange={(e) => setLoginPassword(e.target.value)}
         />
-        <br />
+
         <input
-          placeholder="new password"
+          className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+          placeholder="New password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <br />
+
         <input
-          placeholder="confirm new password"
+          className="border border-gray-300 md:px-4 px-2 py-3 rounded-lg md:text-sm text-xs flex items-center gap-3 transition-all duration-300 ease-in-out active:outline-none focus:outline-none focus:ring-1 focus:ring-primary outline-none"
+          placeholder="Confirm new password"
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
         />
-        <br />
-        <button type="submit">Change password</button>
+
+        <button
+          className="bg-primary  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary w-full py-3 rounded-lg text-sm transition-all duration-300 ease-in-out mt-5"
+          type="submit"
+        >
+          Change password
+        </button>
       </form>
     </>
   );

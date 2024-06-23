@@ -13,7 +13,7 @@ const ChangePassword = () => {
 
   return (
     <>
-      <button onClick={openModal}>Change Password</button>
+      <button className="w-full bg-black text-white py-2 rounded-lg" onClick={openModal}>Change Password</button>
       <ChangePasswordModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );

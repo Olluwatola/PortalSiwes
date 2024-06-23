@@ -1,15 +1,27 @@
 import { useState } from "react";
 import { createNewFAQ } from "./../../controllers/UIUpdateControllers";
 
-const CreateFAQ = ({ faqArray,setFaqArray,setConditionGood, setStatusBarMessage }) => {
+const CreateFAQ = ({
+  faqArray,
+  setFaqArray,
+  setConditionGood,
+  setStatusBarMessage,
+}) => {
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
 
   async function handleCreateNewFAQ(e) {
     e.preventDefault();
-    await createNewFAQ(newQuestion, newAnswer, setConditionGood, setStatusBarMessage,faqArray,setFaqArray);
-    setNewQuestion("")
-    setNewAnswer("")
+    await createNewFAQ(
+      newQuestion,
+      newAnswer,
+      setConditionGood,
+      setStatusBarMessage,
+      faqArray,
+      setFaqArray
+    );
+    setNewQuestion("");
+    setNewAnswer("");
   }
 
   return (
@@ -27,7 +39,12 @@ const CreateFAQ = ({ faqArray,setFaqArray,setConditionGood, setStatusBarMessage 
             setNewAnswer(e.target.value);
           }}
         />
-        <button type="submit">create new FAQ</button>
+        <button
+          className="bg-primary w-fit  text-white  hover:bg-white hover:text-primary hover:border-primary border border-primary px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-in-out mt-5"
+          type="submit"
+        >
+          Create new FAQ
+        </button>
       </form>
     </>
   );

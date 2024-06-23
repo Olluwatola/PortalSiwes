@@ -1,7 +1,6 @@
 import { useState } from "react";
 import GrantAdminAccessModal from "./adminModals/GrantAdminAccessModal";
 
-
 const GrantAdminAccess = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,7 +13,12 @@ const GrantAdminAccess = () => {
   };
   return (
     <>
-      <button onClick={openModal}>Grant admin access</button>
+      <button
+        className="border border-black py-2 rounded-lg"
+        onClick={openModal}
+      >
+        Grant admin access
+      </button>
       <GrantAdminAccessModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );

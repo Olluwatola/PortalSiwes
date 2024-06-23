@@ -1,10 +1,10 @@
-import Modal from "react-modal";
+import Modal from "./InteractiveModal";
 import GrantAdminAccessModalContent from "./../adminModalContents/GrantAdminAccessModalContent";
 
 const GrantAdminAccessModal = ({ isOpen, onClose }) => {
   return (
     <>
-      <Modal ariaHideApp={false} isOpen={isOpen} onRequestClose={onClose}>
+      <Modal ariaHideApp={false} isOpen={isOpen} onClose={onClose}>
         <GrantAdminAccessModalContent />
       </Modal>
     </>

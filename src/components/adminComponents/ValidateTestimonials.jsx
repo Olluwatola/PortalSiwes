@@ -32,7 +32,6 @@ const ValidateTestimonials = ({ setConditionGood, setStatusBarMessage }) => {
                 setConditionGood={setConditionGood}
                 setStatusBarMessage={setStatusBarMessage}
               />
-              <br />
             </>
           ))}
         </>

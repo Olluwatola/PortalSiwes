@@ -24,7 +24,6 @@ const UpdateFAQ = ({ setConditionGood, setStatusBarMessage }) => {
             faqArray={faqArray}
             setFaqArray={setFaqArray}
           />
-          <br />
         </>
       ))}
       <CreateFAQ
